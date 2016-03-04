@@ -10,7 +10,6 @@ var opts = {}
 opts.secretOrKey = "taufiqsAwesome";
 opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-	console.log("payload: " + jwt_payload);
   User.findOne({_id: jwt_payload}, function(err, user) {
     if (err) {
       return done(err, false);
@@ -53,7 +52,7 @@ router.post('/login', function(req, res) {
       user.checkPassword(req.body.password, function(err, isMatch) {
         if (isMatch && !err) {
           var token = jwt.encode(user._id, "taufiqsAwesome");
-          res.json({success: true, token: 'JWT ' + token});
+          res.json({success: true, msg: 'JWT ' + token});
         } else {
           res.send({success: false, msg: 'Authentication failed. Wrong password.'});
         }
