@@ -12,3 +12,7 @@ Our virtual travel companion fixes these key pains by
 * Allowing itinerary changes on the go and dynamically adjusting accordingly
 
 We are building a Mobile Web App and a native Android app using NEM as our backend, with Yelp, OpenWeatherMap, OpenStreetMap as our data source APIs.
+
+
+
+Hosting info: 173.236.255.240
