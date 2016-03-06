@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class ViewTripsActivity extends AppCompatActivity {
 
@@ -13,10 +14,9 @@ public class ViewTripsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_trips);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.trapp_toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Manage Trips");
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        if (title != null) {
+            title.setText("Manage Trips");
         }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
