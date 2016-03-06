@@ -15,8 +15,7 @@
         android:supportsRtl="true"
         android:theme = "@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name">
+            android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,8 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewTripsActivity"
-            android:label="@string/title_activity_view_trips">
+            android:name=".ViewTripsActivity">
 
 
         </activity>

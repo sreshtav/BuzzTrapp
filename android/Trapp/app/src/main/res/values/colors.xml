@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--
     <color name="colorPrimary">#2185C5</color>
     <color name="colorPrimaryDark">#798794</color>
     <color name="colorAccent">#FF7F66</color>
+-->
+
+
+    <!-- Colors for standard views-->
     <color name="colorToolbar">#2185C5</color>
     <color name="colorTitle">#FFFFFF</color>
+
+    <!-- Trapp Color Scheme-->
+    <color name="trappRed">#FF7F66</color>
+    <color name="trappBlue">#78C0F9</color>
+    <color name="trappGray">#2185C5</color>
+
+    <!-- Misc Frequent Colors-->
+    <color name="bittersweet">#FF7F66</color>
+    <color name="malibu">#78C0F9</color>
+    <color name="curiousBlue">#2185C5</color>
+    <color name="slateGray">#798794</color>
+    <color name="silverSand">#BDC3C7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

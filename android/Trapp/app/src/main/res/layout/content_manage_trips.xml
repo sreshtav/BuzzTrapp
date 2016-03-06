@@ -7,6 +7,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_view_trips" tools:context="buzztrapp.trapp.ViewTripsActivity">
+    tools:showIn="@layout/activity_manage_trips" tools:context="buzztrapp.trapp.ViewTripsActivity">
 
 </RelativeLayout>
