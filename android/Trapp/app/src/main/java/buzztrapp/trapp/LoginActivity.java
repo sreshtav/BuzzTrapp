@@ -3,6 +3,7 @@ package buzztrapp.trapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -90,6 +91,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button tempNextButton = (Button) findViewById(R.id.temp_next_button);
+        tempNextButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tempNext();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -136,6 +145,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
+
+
+    private void tempNext(){
+        Intent tempIntent = new Intent(this, ViewTripsActivity.class);
+        startActivity(tempIntent);
+    }
+
 
 
     /**
