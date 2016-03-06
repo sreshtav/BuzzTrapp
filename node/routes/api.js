@@ -18,11 +18,12 @@ router.post('/createInterestPoint', basicAuth, function (req, res, next) {
 	var object = new InterestPoint();
 	console.log(req.body);
 	object.name = req.body.name;
-	object.location = req.body.location;
+	object.address = req.body.address;
 	object.description = req.body.description;
 	// object.photos = req.body.photos;
 	object.averageTime = req.body.averageTime;
 	object.interest = req.body.interest;
+	object.city = req.body.city;
 	object.save(function (err) {
 		if (err) {
 			res.send(err);
