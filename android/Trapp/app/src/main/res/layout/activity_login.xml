@@ -43,7 +43,14 @@
             <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:id="@+id/temp_next_button"
+                android:layout_gravity="center_horizontal" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -60,9 +67,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>
