@@ -2,12 +2,17 @@ package buzztrapp.trapp;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -50,8 +55,39 @@ public class ManageTripsRVAdapter extends RecyclerView.Adapter<ManageTripsRVAdap
 
     @Override
     public void onBindViewHolder(TripViewHolder tripViewHolder, int i) {
-        tripViewHolder.desc.setText(trips.get(i).name);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy");
+
+        GregorianCalendar startDate = trips.get(i).startDate;
+        GregorianCalendar endDate = trips.get(i).endDate;
+/*
+        String startDateString = dateFormat.format(startDate.getTime()).toString();
+        String endDateString = dateFormat.format(endDate.getTime()).toString();*/
+
+        String startMth = getMonthForInt(startDate.get(Calendar.MONTH)).substring(0,3);
+        String endMth = getMonthForInt(endDate.get(Calendar.MONTH)).substring(0,3);
+
+        int startDay = startDate.get(Calendar.DAY_OF_MONTH);
+        int endDay = endDate.get(Calendar.DAY_OF_MONTH);
+
+        int startYear = startDate.get(Calendar.YEAR);
+        int endYear = endDate.get(Calendar.YEAR);
+
+        String startDateString = startMth +" " + startDay + ", " + startYear;
+        String endDateString = endMth +" " + endDay + ", " + endYear;
+
+        tripViewHolder.desc.setText(trips.get(i).name + " | " + startDateString + " - " + endDateString);
         tripViewHolder.image.setImageResource(trips.get(i).imageId);
+    }
+
+    String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
     }
 
     @Override

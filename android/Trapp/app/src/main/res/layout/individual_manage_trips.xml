@@ -29,7 +29,7 @@
             android:background="@color/blackTint"
             android:textColor="@color/white"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="15sp"
             />
     </RelativeLayout>
 
