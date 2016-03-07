@@ -41,6 +41,10 @@ public class ManageTripsRVAdapter extends RecyclerView.Adapter<ManageTripsRVAdap
         this.trips = trips;
     }
 
+    public void editTrips(List<Trip> trips){
+        this.trips = trips;
+    }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -60,9 +64,6 @@ public class ManageTripsRVAdapter extends RecyclerView.Adapter<ManageTripsRVAdap
 
         GregorianCalendar startDate = trips.get(i).startDate;
         GregorianCalendar endDate = trips.get(i).endDate;
-/*
-        String startDateString = dateFormat.format(startDate.getTime()).toString();
-        String endDateString = dateFormat.format(endDate.getTime()).toString();*/
 
         String startMth = getMonthForInt(startDate.get(Calendar.MONTH)).substring(0,3);
         String endMth = getMonthForInt(endDate.get(Calendar.MONTH)).substring(0,3);

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +19,9 @@ public class ManageTripsActivity extends AppCompatActivity {
 
     private RecyclerView rv;
     private List<Trip> trips;
+    private List<Trip> fullTripsList;
     private ManageTripsRVAdapter adapter;
+    private int noOfTrips = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +40,43 @@ public class ManageTripsActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
-        rv.setHasFixedSize(true);
+        if(noOfTrips > 0)
+        {
+            noOfTrips++;
+            View noTrippImage= findViewById(R.id.noTripsImage);
+            ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
+            View noTrippText = findViewById(R.id.noTripsText);
+            ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rv.setLayoutManager(llm);
+
+            RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+            rv.setHasFixedSize(true);
+
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            rv.setLayoutManager(llm);
 
 
-        initialiseData();
-        initialiseAdapter();
+            initialiseData();
+            initialiseAdapter();
 
-        adapter = new ManageTripsRVAdapter(trips);
-        rv.setAdapter(adapter);
+            adapter = new ManageTripsRVAdapter(trips);
+            rv.setAdapter(adapter);
+        }
+
     }
 
 
     private void initialiseData(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         trips = new ArrayList<>();
-        trips.add(new Trip("New York", new GregorianCalendar(2015,12,03), new GregorianCalendar(2015,12,15), R.drawable.newyork));
-        trips.add(new Trip("Singapore", new GregorianCalendar(2016,01,10), new GregorianCalendar(2016,02,03), R.drawable.singapore));
-        trips.add(new Trip("Atlanta", new GregorianCalendar(2016,12,03), new GregorianCalendar(2016,12,15), R.drawable.atlanta));
+        fullTripsList = new ArrayList<>();
+        fullTripsList.add(new Trip("New York", new GregorianCalendar(2015,12,03), new GregorianCalendar(2015,12,15), R.drawable.newyork));
+        fullTripsList.add(new Trip("Singapore", new GregorianCalendar(2016,01,10), new GregorianCalendar(2016,02,03), R.drawable.singapore));
+        fullTripsList.add(new Trip("Atlanta", new GregorianCalendar(2016,12,03), new GregorianCalendar(2016,12,15), R.drawable.atlanta));
+        fullTripsList.add(new Trip("San Francisco", new GregorianCalendar(2016,8,04), new GregorianCalendar(2016,8,26), R.drawable.sanfrancisco));
+
+        trips = fullTripsList.subList(0,noOfTrips-1);
     }
 
     private void initialiseAdapter(){
