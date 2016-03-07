@@ -87,17 +87,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+//                attemptLogin();
             }
         });
 
-        Button tempNextButton = (Button) findViewById(R.id.temp_next_button);
-        tempNextButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tempNext();
-            }
-        });
+//        Button tempNextButton = (Button) findViewById(R.id.temp_next_button);
+//        tempNextButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                tempNext();
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+//                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
                         }
                     });
         } else {

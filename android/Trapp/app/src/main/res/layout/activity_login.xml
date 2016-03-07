@@ -54,8 +54,8 @@
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" android:text="@string/action_sign_in"
                 android:textStyle="bold"
-                android:background="#2185c5"
-                android:textColor="#ffffff" />
+                android:background="@color/curiousBlue"
+                android:textColor="@color/white" />
 
             <!--<Button-->
                 <!--android:layout_width="wrap_content"-->
@@ -115,7 +115,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Don’t have an account? Sign up here."
                 android:id="@+id/textView4"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="bottom"
                 android:textColor="#ffffff"
                 android:paddingTop="50dp" />
 
