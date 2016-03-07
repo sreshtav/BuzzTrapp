@@ -24,4 +24,5 @@
     <color name="silverSand">#BDC3C7</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="blackTint">#33000000</color>
 </resources>

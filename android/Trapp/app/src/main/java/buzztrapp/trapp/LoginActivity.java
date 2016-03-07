@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     private void tempNext(){
-        Intent tempIntent = new Intent(this, ViewTripsActivity.class);
+        Intent tempIntent = new Intent(this, ManageTripsActivity.class);
         startActivity(tempIntent);
     }
 
