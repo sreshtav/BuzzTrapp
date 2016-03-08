@@ -47,14 +47,14 @@ router.post('/login', function(req, res) {
   }, function(err, user) {
     if (err) throw err;
     if (!user) {
-      res.send({success: false, msg: 'Authentication failed. User not found.'});
+      res.send({success: false, msg: 'userNotFound'});
     } else {
       user.checkPassword(req.body.password, function(err, isMatch) {
         if (isMatch && !err) {
           var token = jwt.encode(user._id, "taufiqsAwesome");
           res.json({success: true, msg: 'JWT ' + token});
         } else {
-          res.send({success: false, msg: 'Authentication failed. Wrong password.'});
+          res.send({success: false, msg: 'passwordError'});
         }
       });
     }
