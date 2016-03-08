@@ -6,6 +6,11 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Log In</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="action_forgot_password">Forgot password?</string>
+    <string name="prompt_or">OR</string>
+    <string name="action_fb_login">Log in with Facebook</string>
+    <string name="action_signup">Don\'t have an account? Sign up here.</string>
+
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>

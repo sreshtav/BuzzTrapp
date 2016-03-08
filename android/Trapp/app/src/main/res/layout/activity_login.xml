@@ -5,7 +5,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" tools:context=".LoginActivity"
-    android:background="#ff7f66">
+    android:background="@color/trappRed">
 
     <!-- Login progress -->
     <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
@@ -19,7 +19,8 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/trapp_icon_2"
         android:contentDescription="Trap Icon"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_marginBottom="20dp" />
 
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,34 +29,42 @@
             android:layout_height="wrap_content" android:orientation="vertical"
             android:weightSum="1">
 
-            <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/login_email"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/transparentWhite"
+                android:hint="Email"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textColorHint="@color/white"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp" />
 
-                <AutoCompleteTextView android:id="@+id/email" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress" android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText android:id="@+id/password" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:hint="@string/prompt_password"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified" android:inputType="textPassword"
-                    android:maxLines="1" android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/login_password"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/transparentWhite"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:hint="Password"
+                android:textColorHint="@color/white"/>
 
             <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" android:text="@string/action_sign_in"
+                android:layout_marginTop="18dp" android:text="@string/action_sign_in"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:background="@color/curiousBlue"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"/>
 
             <!--<Button-->
                 <!--android:layout_width="wrap_content"-->
@@ -68,21 +77,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Forgot password?"
+                android:text="@string/action_forgot_password"
                 android:id="@+id/textView"
+                android:textSize="14sp"
                 android:layout_gravity="center_horizontal"
-                android:textColor="#ffffff"
-                android:paddingTop="10dp" />
+                android:textColor="@color/white"
+                android:paddingTop="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="OR"
+                android:text="@string/prompt_or"
                 android:id="@+id/textView2"
+                android:textSize="14sp"
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="10dp"
-                android:textColor="#ffffff" />
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -96,15 +107,16 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton"
                     android:src="@drawable/facebook_icon_2"
-                    android:background="#ffffff" />
+                    android:background="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Log in with Facebook"
+                    android:text="@string/action_fb_login"
                     android:id="@+id/textView3"
-                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
                     android:paddingLeft="5dp" />
 
             </LinearLayout>
@@ -113,10 +125,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Don’t have an account? Sign up here."
+                android:text="@string/action_signup"
+                android:textSize="14sp"
                 android:id="@+id/textView4"
-                android:layout_gravity="bottom"
-                android:textColor="#ffffff"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"
                 android:paddingTop="50dp" />
 
         </LinearLayout>
