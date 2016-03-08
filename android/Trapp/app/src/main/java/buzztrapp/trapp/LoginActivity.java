@@ -32,6 +32,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -130,6 +131,10 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            //force hide keyboard
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
@@ -199,8 +204,6 @@ public class LoginActivity extends AppCompatActivity {
      * Takes in the strings inside the email and pw and runs them agains the RESTapi
      * if properly authenticated, saves token in Shared Prefs
      * if not, then displays the proper error
-     * @param email
-     * @param password
      */
     private void loginRequest(String email, String password) {
         // fragment manager for the dialogue box
@@ -224,19 +227,24 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("token", resObj.getMsg());
                     editor.commit();
+
+                    //Switches to ManageTrip Activity
                     showProgress(false);
+                    startActivity(new Intent(LoginActivity.this, ManageTripsActivity.class));
+                    finish();
 
                 } else {
+                    // Display correct error based on what the RESTapi returned
                     switch (resObj.getMsg()) {
                         case "passwordError":
                             mPasswordView.setError("Incorrect Password");
                             mPasswordView.requestFocus();
+                            break;
                         case "userNotFound":
                             mEmailView.setError("User email not found");
                             mEmailView.requestFocus();
+                            break;
                     }
-                    mPasswordView.setError(resObj.getMsg());
-                    mPasswordView.requestFocus();
                 }
                 showProgress(false);
 
@@ -262,11 +270,13 @@ public class LoginActivity extends AppCompatActivity {
             this.success = success;
             this.msg = msg;
         }
+
         //
-        public boolean getSucess(){
+        public boolean getSucess() {
             return this.success;
         }
-        public String getMsg(){
+
+        public String getMsg() {
             return this.msg;
         }
     }
@@ -275,7 +285,8 @@ public class LoginActivity extends AppCompatActivity {
     class MyDialogFragment extends DialogFragment {
         private String msg;
         private String title;
-        public MyDialogFragment (String msg, String title) {
+
+        public MyDialogFragment(String msg, String title) {
             this.msg = msg;
             this.title = title;
         }
