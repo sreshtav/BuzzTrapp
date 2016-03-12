@@ -7,12 +7,13 @@ var passport	  = require('passport');
 
 var basicAuth = passport.authenticate('jwt', { session: false});
 
-router.get('/allInterestPoints', basicAuth, function(req, res, next) {
+router.get('/allInterestPoints', basicAuth, function (req, res, next) {
   InterestPoint.find({}, function (err, data){
   	if (err) res.send(err);
   	else res.send(data);
   });
 });
+
 
 router.post('/createInterestPoint', basicAuth, function (req, res, next) {
 	var object = new InterestPoint();
@@ -55,10 +56,5 @@ router.post('/addTrip', basicAuth, function (req, res){
 	  }
 	});
 });
-
-router.get('/testAuth', basicAuth, function(req, res) {
-        res.send(req.user);
-    }
-);
 
 module.exports = router;
