@@ -10,7 +10,7 @@ app.config([
 		$urlRouterProvider.otherwise('/');
 		$stateProvider.state('home', {
 			url: '/',
-		  template: '<h1>My Contacts</h1>'
+		  template: "<h1>My Contacts</h1><a href='#/about'>click here</a>"
 		})
 		.state('about', {
 			url: '/about',
