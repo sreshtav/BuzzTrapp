@@ -9,20 +9,28 @@ app.config([
 	function ($urlRouterProvider, $stateProvider) {
 		$urlRouterProvider.otherwise('/');
 		$stateProvider.state('home', {
-			url: '/',
-		  template: "<h1>My Contacts</h1><a href='#/about'>click here</a>"
-		})
-		.state('account', {
-		  url: '/account',
-		  templateUrl: '/partials/about.html',
-		  controller: 'oneCtrl'
+		  url: '/',
+		  templateUrl: "/partials/home.html",
+		  controller: 'homeCtrl'
+          
+        })
+        .state('history', {
+          url: '/history',
+          templateUrl: '/partials/history.html',
+        })
+        .state('setting', {
+          url: '/setting',
+          templateUrl: '/partials/setting.html',
+        })
+        .state('help', {
+          url: '/help',
+          templateUrl: '/partials/help.html',
 		})
 	}]);
 
 
 
-controllers.oneCtrl = function ($scope) {
-    $scope.cookies = "balooga whales";
+controllers.homeCtrl = function ($scope) {
 }
 
 controllers.UserCtrl = function ($scope, $http, $window) {
@@ -99,40 +107,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
 app.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
