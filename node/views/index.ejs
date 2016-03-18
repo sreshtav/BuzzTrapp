@@ -5,20 +5,22 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#">
-	        <img alt="Brand" src="...">
-	      </a>
-	      <div class='nav-right'>
-		      <a href="">USER_NAME</a>
-	      </div>
-	    </div>
-	  </div>
-	</nav>
-	<h1><%=title%></h1>
-	<p>Welcome to BuzzTrap</p>
+	<script type="text/javascript">
+		function login() {
+			$.ajax({
+		  url: "http://fiddle.jshell.net/favicon.png",
+		  beforeSend: function( xhr ) {
+		    xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+		  }
+		})
+		  .done(function( data ) {
+		    if ( console && console.log ) {
+		      console.log( "Sample of data:", data.slice( 0, 100 ) );
+		    }
+		  });
+		}
+	</script>
+
 </body>
 </html>
 

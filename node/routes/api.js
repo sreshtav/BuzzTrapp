@@ -6,6 +6,11 @@ var Trip = mongoose.model('Trip');
 var passport	  = require('passport');
 
 var basicAuth = passport.authenticate('jwt', { session: false});
+function printAuth (req, res, next) {
+	console.log(req.headers);
+	next();
+}
+
 
 router.get('/allInterestPoints', basicAuth, function (req, res, next) {
   InterestPoint.find({}, function (err, data){
@@ -34,7 +39,7 @@ router.post('/createInterestPoint', basicAuth, function (req, res, next) {
 	});
 });
 
-router.get('/myTrips', basicAuth, function (req, res){
+router.get('/myTrips',printAuth, basicAuth, function (req, res){
 	Trip.find({'userId' : req.user._id}, function (err, data){
 		if (err) res.send("Sorry, error"); //TODO: Make a real error catch
 		res.send(data);

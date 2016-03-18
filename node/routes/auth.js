@@ -42,11 +42,12 @@ router.post('/signup', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
+  console.log(req.body);
   User.findOne({
     email: req.body.email
   }, function(err, user) {
-    if (err) throw err;
-    if (!user) {
+    if (err) res.send(500);
+    else if (!user) {
       res.send({success: false, msg: 'userNotFound'});
     } else {
       user.checkPassword(req.body.password, function(err, isMatch) {
