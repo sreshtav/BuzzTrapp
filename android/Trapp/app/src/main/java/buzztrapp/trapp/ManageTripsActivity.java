@@ -5,16 +5,15 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ManageTripsActivity extends AppCompatActivity implements Communicator{
@@ -29,6 +28,12 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
     FragmentManager manager;
     FragmentTransaction transaction;
 
+    private DrawerLayout drawerLayout;
+    private ListView drawerlistView;
+
+    private ActionBarDrawerToggle drawerListener;
+    private android.support.v7.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +46,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         contentFragment = new MTContentFragment();
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.mt_content_layout, contentFragment, "MTContentFragment");
+        transaction.add(R.id.mt_body_layout, contentFragment, "MTContentFragment");
         transaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -58,10 +63,35 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
             }
         });
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.mt_layout);
+        drawerlistView = (ListView) findViewById(R.id.drawer_listview);
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.mt_toolbar);
+
+        drawerListener = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                Toast.makeText(ManageTripsActivity.this, "Drawer Closed",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Toast.makeText(ManageTripsActivity.this, "Drawer Closed",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+
+        };
+        drawerLayout.setDrawerListener(drawerListener);
 
 
     }
-
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState){
+        super.onPostCreate(savedInstanceState);
+        drawerListener.syncState();
+    }
 
 
 
