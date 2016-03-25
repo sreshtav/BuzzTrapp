@@ -45,20 +45,10 @@ public class MTContentFragment extends Fragment{
 
     public void addTrip(int noOfTrips)
     {
-        if(noOfTrips == 0)
-        {
-            ((ViewGroup) noTrippImage.getParent()).addView(noTrippImage);
-            ((ViewGroup) noTrippText.getParent()).addView(noTrippText);
-        }
         if(noOfTrips == 1)
         {
             ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
             ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
-        }
-
-        if(noOfTrips > 0)
-        {
-
 
 
             rv.setHasFixedSize(true);
@@ -66,8 +56,10 @@ public class MTContentFragment extends Fragment{
             LinearLayoutManager llm = new LinearLayoutManager(getActivity());
             llm.setOrientation(LinearLayoutManager.VERTICAL);
             rv.setLayoutManager(llm);
+        }
 
-
+        if(noOfTrips > 0)
+        {
             initialiseData(noOfTrips);
             initialiseAdapter();
 
@@ -77,6 +69,7 @@ public class MTContentFragment extends Fragment{
     }
 
     private void initialiseData(int noOfTrips){
+        int no = noOfTrips+1;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         trips = new ArrayList<>();
         fullTripsList = new ArrayList<>();
@@ -85,7 +78,7 @@ public class MTContentFragment extends Fragment{
         fullTripsList.add(new Trip("Atlanta", new GregorianCalendar(2016,12,03), new GregorianCalendar(2016,12,15), R.drawable.atlanta));
         fullTripsList.add(new Trip("San Francisco", new GregorianCalendar(2016,8,04), new GregorianCalendar(2016,8,26), R.drawable.sanfrancisco));
 
-        trips = fullTripsList.subList(0,noOfTrips-1);
+        trips = fullTripsList.subList(0,no);
     }
 
     private void initialiseAdapter(){
