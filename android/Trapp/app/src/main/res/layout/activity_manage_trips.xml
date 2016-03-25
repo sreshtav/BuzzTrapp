@@ -15,37 +15,14 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:id="@+id/mt_content_layout"
         xmlns:card_view="http://schemas.android.com/apk/res-auto" >
 
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/rv"
-        />
 
-    <LinearLayout
-        android:id="@+id/noTripsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ImageView
-            android:id = "@+id/noTripsImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/trapp_icon_1"/>
-        <TextView
-            android:id = "@+id/noTripsText"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="You have no Trips currently.\n Add one Now!"/>
 
-    </LinearLayout>
 
 
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"

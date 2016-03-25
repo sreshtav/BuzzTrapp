@@ -1,5 +1,7 @@
 package buzztrapp.trapp;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,13 +17,17 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class ManageTripsActivity extends AppCompatActivity {
+public class ManageTripsActivity extends AppCompatActivity implements Communicator{
 
     private RecyclerView rv;
     private List<Trip> trips;
     private List<Trip> fullTripsList;
     private ManageTripsRVAdapter adapter;
     private int noOfTrips = 0;
+
+    MTContentFragment contentFragment;
+    FragmentManager manager;
+    FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,54 +37,35 @@ public class ManageTripsActivity extends AppCompatActivity {
         if (title != null) {
             title.setText("Manage Trips");
         }
+
+        contentFragment = new MTContentFragment();
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(R.id.mt_content_layout, contentFragment, "MTContentFragment");
+        transaction.commit();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+
+                noOfTrips++;
+                noOfTrips = noOfTrips%4;
+                Snackbar.make(view, "no of Trips = "+noOfTrips, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                contentFragment.addTrip(noOfTrips);
             }
         });
 
-        if(noOfTrips > 0)
-        {
-            noOfTrips++;
-            View noTrippImage= findViewById(R.id.noTripsImage);
-            ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
-            View noTrippText = findViewById(R.id.noTripsText);
-            ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
 
-
-            RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
-            rv.setHasFixedSize(true);
-
-            LinearLayoutManager llm = new LinearLayoutManager(this);
-            llm.setOrientation(LinearLayoutManager.VERTICAL);
-            rv.setLayoutManager(llm);
-
-
-            initialiseData();
-            initialiseAdapter();
-
-            adapter = new ManageTripsRVAdapter(trips);
-            rv.setAdapter(adapter);
-        }
 
     }
 
 
-    private void initialiseData(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
-        trips = new ArrayList<>();
-        fullTripsList = new ArrayList<>();
-        fullTripsList.add(new Trip("New York", new GregorianCalendar(2015,12,03), new GregorianCalendar(2015,12,15), R.drawable.newyork));
-        fullTripsList.add(new Trip("Singapore", new GregorianCalendar(2016,01,10), new GregorianCalendar(2016,02,03), R.drawable.singapore));
-        fullTripsList.add(new Trip("Atlanta", new GregorianCalendar(2016,12,03), new GregorianCalendar(2016,12,15), R.drawable.atlanta));
-        fullTripsList.add(new Trip("San Francisco", new GregorianCalendar(2016,8,04), new GregorianCalendar(2016,8,26), R.drawable.sanfrancisco));
 
-        trips = fullTripsList.subList(0,noOfTrips-1);
-    }
 
-    private void initialiseAdapter(){
+    @Override
+    public void respond(String data) {
     }
 }
