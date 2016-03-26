@@ -2,7 +2,6 @@ package buzztrapp.trapp;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,7 @@ public class ManageTripsRVAdapter extends RecyclerView.Adapter<ManageTripsRVAdap
 
     @Override
     public TripViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.individual_manage_trips, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.manage_trips_individual, viewGroup, false);
         TripViewHolder pvh = new TripViewHolder(v);
         return pvh;
     }

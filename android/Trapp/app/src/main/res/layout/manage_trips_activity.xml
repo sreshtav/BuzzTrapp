@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>-->
 
+    <!-- Drawer-->
     <ListView
         android:id="@+id/drawer_listview"
         android:layout_width="240dp"

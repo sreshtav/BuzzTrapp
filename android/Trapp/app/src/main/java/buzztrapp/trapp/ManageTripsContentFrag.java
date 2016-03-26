@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Aaron on 3/24/2016.
  */
-public class MTContentFragment extends Fragment{
+public class ManageTripsContentFrag extends Fragment{
 
 
     View noTrippImage;
@@ -31,7 +31,7 @@ public class MTContentFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.mt_content_fragment_layout, container, false);
+        return inflater.inflate(R.layout.manage_trips_content_frag, container, false);
     }
 
     @Override

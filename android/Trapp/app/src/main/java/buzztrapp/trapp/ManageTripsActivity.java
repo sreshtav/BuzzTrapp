@@ -23,7 +23,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
     private ManageTripsRVAdapter adapter;
     private int noOfTrips = 0;
 
-    MTContentFragment contentFragment;
+    ManageTripsContentFrag contentFragment;
     FragmentManager manager;
     FragmentTransaction transaction;
 
@@ -36,7 +36,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_trips);
+        setContentView(R.layout.manage_trips_activity);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.mt_toolbar);
         setSupportActionBar(toolbar);
@@ -44,10 +44,10 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         getSupportActionBar().setTitle("Manage Trips");
 
 
-        contentFragment = new MTContentFragment();
+        contentFragment = new ManageTripsContentFrag();
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.mt_body_layout, contentFragment, "MTContentFragment");
+        transaction.add(R.id.mt_body_layout, contentFragment, "ManageTripsContentFrag");
         transaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
