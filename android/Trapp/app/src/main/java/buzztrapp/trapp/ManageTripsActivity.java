@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -38,10 +37,12 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_trips);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        if (title != null) {
-            title.setText("Manage Trips");
-        }
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.mt_toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Manage Trips");
+
 
         contentFragment = new MTContentFragment();
         manager = getFragmentManager();
@@ -66,7 +67,6 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         drawerLayout = (DrawerLayout) findViewById(R.id.mt_layout);
         drawerlistView = (ListView) findViewById(R.id.drawer_listview);
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.mt_toolbar);
 
         drawerListener = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
             @Override

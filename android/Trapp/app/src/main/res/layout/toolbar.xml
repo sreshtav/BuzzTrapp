@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorToolbar"
-    app:popupTheme="@style/AppTheme.PopupOverlay"
+    android:elevation="4dp"
+    app:theme="@style/AppBarOverlay"
+    app:popupTheme="@style/PopupOverlay"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -14,12 +16,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_dehaze_white" />-->
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar_title"
         android:textColor="@color/colorTitle"
         android:textSize="20sp"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginLeft="30dp"/>-->
 
 </android.support.v7.widget.Toolbar>
