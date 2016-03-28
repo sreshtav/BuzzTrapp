@@ -19,10 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ManageTripsActivity">
-
-        </activity>
-        <activity android:name=".CreateTripActivity"></activity>
+        <activity android:name=".ManageTripsActivity"></activity>
+        <activity android:name=".CreateTripActivity" />
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>
