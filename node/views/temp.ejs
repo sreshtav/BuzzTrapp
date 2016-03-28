@@ -1,7 +1,25 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>Temp</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BuzzTrapp</title>
+
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Material Design Lite">
+	<link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+  <link rel="shortcut icon" href="images/favicon.png">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.2/material.cyan-light_blue.min.css">
+
 	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.min.css">
@@ -16,27 +34,57 @@
   <script src="/scripts/ang/ang.js"></script>
 </head>
 <body ng-app="MainApp">
-	<div class="container" ng-controller="UserCtrl">
-		<form class="form-signin" ng-show="!isAuthenticated" ng-submit="submit()">
-		  <h2 class="form-signin-heading">Please sign in</h2>
-		  <label for="inputEmail" class="sr-only">Email address</label>
-		  <input ng-model="user.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-		  <label for="inputPassword" class="sr-only">Password</label>
-		  <input ng-model="user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-		  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		</form>
-		<div>{{error}}</div>
+	<div ng-controller="UserCtrl">
+		<div class="container" ng-show="!isAuthenticated">
+			<form class="form-signin"  ng-submit="submit()">
+			  <h2 class="form-signin-heading">Please sign in</h2>
+			  <label for="inputEmail" class="sr-only">Email address</label>
+			  <input ng-model="user.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+			  <label for="inputPassword" class="sr-only">Password</label>
+			  <input ng-model="user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+			  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			</form>
+			<div>{{error}}</div>
+		</div>
 		<div ng-show="isAuthenticated">
-
-		  <a href='#/'>Account</a>
-		  <a href="#/history">History</a>
-		  <a href="#/setting">Setting</a>
-		  <a href="#/help">Help</a>
-		  <a ng-click="logout()" href="">Logout</a>
-			<div ui-view></div>
+			<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+			  <header class="demo-header mdl-layout__header">
+			    <div class="mdl-layout__header-row mdl-color--trapp-red">
+			      <div class="mdl-layout-spacer"></div>
+			      <span class="mdl-layout-title"><img class="trapp_icon" src="images/Trapp-icon-on-white-06.png"/>Trapp</span>
+			      <div class="mdl-layout-spacer"></div>
+			    </div>
+			  </header>
+			  <div class="demo-drawer mdl-layout__drawer">
+			    <header class="demo-drawer-header mdl-color--trapp-blue">
+			      <img src="images/user.png" class="demo-avatar">
+			      <div class="demo-avatar-dropdown">
+			        <span>hello@example.com</span>
+			        <div class="mdl-layout-spacer"></div>
+			        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+			          <i class="material-icons" role="presentation">arrow_drop_down</i>
+			          <span class="visuallyhidden">Accounts</span>
+			        </button>
+			        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+			          <li class="mdl-menu__item">hello@example.com</li>
+			          <li class="mdl-menu__item">info@example.com</li>
+			          <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
+			        </ul>
+			      </div>
+			    </header>
+			    <nav class="demo-navigation mdl-navigation mdl-color--trapp-blue">
+			      <a class="mdl-navigation__link mdl-color-text--white" href="#/"><i class="mdl-color-text--white material-icons" role="presentation">account_circle</i>Profile</a>
+			      <a class="mdl-navigation__link" href="#/history"><i class="mdl-color-text--white material-icons" role="presentation">history</i>History</a>
+			      <a class="mdl-navigation__link" href="#/setting"><i class="mdl-color-text--white material-icons" role="presentation">settings</i>Settings</a>
+			      <a class="mdl-navigation__link" href="#/help"><i class="mdl-color-text--white material-icons" role="presentation">help</i>Help</a>
+			      <a class="mdl-navigation__link" ng-click="logout()" href=""><i class="mdl-color-text--white material-icons" role="presentation">exit_to_app</i>Log Out</a>
+			    </nav>
+			  </div>
+			  <main class="mdl-layout__content">
+					<div ui-view></div>
+			  </main>
+			</div>
 		</div>
 	</div>
-
 </body>
-
 </html>

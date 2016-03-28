@@ -63,10 +63,13 @@ controllers.UserCtrl = function ($scope, $http, $window) {
   };
 
   $scope.logout = function () {
-    $scope.welcome = '';
-    $scope.message = '';
-    $scope.isAuthenticated = false;
-    delete $window.localStorage.token;
+    if (confirm("Are you sure you want to log out?")) {
+      $scope.welcome = '';
+      $scope.message = '';
+      $scope.isAuthenticated = false;
+      delete $window.localStorage.token;
+    } else {
+    }
   };
 
   $scope.callRestricted = function () {
@@ -79,12 +82,6 @@ controllers.UserCtrl = function ($scope, $http, $window) {
     });
   };
 }
-
-
-
-
-
-
 
 app.factory('authInterceptor', function ($rootScope, $q, $window) {
   return {

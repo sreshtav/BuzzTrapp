@@ -1,13 +1,46 @@
-<calendar selected="day"></calendar>
 
- <div id="mapid"></div>
 
- <script type="text/javascript">
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'dhanani94',
-    accessToken: 'pk.eyJ1IjoiZGhhbmFuaTk0IiwiYSI6ImNpbHh2eDdiYTA4NDl2Z2tzZ3Rsemw5bGgifQ.73Vj_xaGomgnX0LRDzqM8w'
-}).addTo(mymap);
-</script>
+<div class="mdl-grid demo-content">
+  <a href="#">
+    <div class="upcoming-trips mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" id="upcoming_trip">
+      <h4>Your upcoming trip to <b>San Francisco</b> is in <b>3</b> days!</h4>
+      <p>San Francisco, San Jose, Santa Barbara, Long Beach, Yosemite… | March 12 - March 17</p>
+    </div>
+  </a>
+
+  <div class="future-trips mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+    <h4 class="mdl-card__title-text">Future Trips</h4>
+    <br>
+    <a href="#">
+      <div class="mdl-card__title mdl-card--expand future-trips-item" id="san-francisco">
+        <h6 class="mdl-card__item-text mdl-color-text--white">San Francisco | March 12 - March 17</h6>
+      </div>
+    </a>
+    <a href="#">
+      <div class="mdl-card__title mdl-card--expand future-trips-item" id="london">
+        <h6 class="mdl-card__item-text mdl-color-text--white">London | March 18 - March 23</h6>
+      </div>
+    </a>
+    <a href="#">
+      <div class="mdl-card__title mdl-card--expand future-trips-item" id="washington-dc">
+        <h6 class="mdl-card__item-text mdl-color-text--white">Washington, D.C. | April 12 - April 17</h6>
+      </div>
+    </a>
+    <a href="#">
+      <div class="mdl-card__title mdl-card--expand future-trips-item" id="hawaii">
+        <h6 class="mdl-card__item-text mdl-color-text--white">Hawaii | April 19 - April 23</h6>
+      </div>
+    </a>
+    <button class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right">
+      <i class="material-icons">add</i>
+    </button>       
+  </div>
+  <div class="demo-cards mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-grid mdl-grid--no-spacing">
+    <div class="future-trips mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+      <h4 class="mdl-card__title-text">Calendar</h4>
+			<calendar selected="day"></calendar>
+    </div>
+    <div class="demo-separator mdl-cell--1-col"></div>
+    <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" id="map"></div>
+  </div>
+</div>
