@@ -1,6 +1,7 @@
 var app = angular.module('MainApp', ['ui.router']);
 var controllers = {};
 var factories = {};
+var monthNum = ['January', 'Feburary', 'March','April', 'May', 'June','July', 'August', 'September','October', 'November', 'December',];
 app.controller(controllers);
 app.factory(factories);
 app.config([
@@ -29,11 +30,17 @@ app.config([
 	}]);
 
 
-controllers.historyCtrl = function (infoFact, $scope) {
-  infoFact.getTrips.success(function (data){
+controllers.historyCtrl = function (infoFact, $scope, $http) {
+  infoFact.getTrips().success(function (data){
+    for (d in data) {
+      var date = new Date(data[d].startDate);
+      data[d].strStartDate = monthNum[date.getMonth()] + ' ' + date.getDate();      
+      date = new Date(data[d].endDate);
+      data[d].strEndDate = monthNum[date.getMonth()] + ' ' + date.getDate();
+    }
     $scope.myTrips = data;
-    $scope.apply();
   });
+
 }
 
 controllers.homeCtrl = function ($scope) {
@@ -93,8 +100,12 @@ factories.infoFact = function ($http){
   var services = {};
 
   services.getTrips = function () {
-    return $http({url: '/api/myTrips', method: 'GET'});
+    return $http.get('/api/myTrips');
   };
+
+  services.temp = function () {
+    return "yo";
+  }
 
   return services;
 

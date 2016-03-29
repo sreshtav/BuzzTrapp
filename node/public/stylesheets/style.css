@@ -60,6 +60,14 @@ a {
   background: url('../images/SF_BG.png') center / cover;
 }
 
+.Miami{
+  background: url('../images/miami.png') center / cover;
+}
+.Hawaii {
+  background: url('../images/hawaii.png') center / cover;
+}
+
+
 .future-trips {
   padding:16px;
 }

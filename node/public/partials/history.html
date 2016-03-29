@@ -1,11 +1,5 @@
-<div class="mdl-grid demo-content">
-  <a href="#">
-    <div class="upcoming-trips mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" id="upcoming_trip">
-      <h4>Your upcoming trip to <b>San Francisco</b> is in <b>3</b> days!</h4>
-      <p>San Francisco, San Jose, Santa Barbara, Long Beach, Yosemite… | March 12 - March 17</p>
-    </div>
-  </a>
-</div>
-
-
-{{myTrips}}
+<a href="" >
+	<div ng-repeat="trip in myTrips" class="upcoming-trips mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid {{trip.location}}">
+	  <h4 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h4>
+	</div>
+</a>
