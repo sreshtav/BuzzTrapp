@@ -12,7 +12,6 @@ app.config([
 		  url: '/',
 		  templateUrl: "/partials/home.html",
 		  controller: 'homeCtrl'
-          
         })
         .state('history', {
           url: '/history',
@@ -21,6 +20,10 @@ app.config([
         .state('setting', {
           url: '/setting',
           templateUrl: '/partials/setting.html',
+        })
+        .state('taufiq', {
+          url:'/taufiq',
+          template: '<h1>Taufiq is awesome</h1>'
         })
         .state('help', {
           url: '/help',
