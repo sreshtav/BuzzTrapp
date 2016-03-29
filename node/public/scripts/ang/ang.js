@@ -11,19 +11,16 @@ app.config([
 		$stateProvider.state('home', {
 		  url: '/',
 		  templateUrl: "/partials/home.html",
-		  controller: 'homeCtrl'
+      controller: 'homeCtrl'
         })
         .state('history', {
           url: '/history',
           templateUrl: '/partials/history.html',
+    		  controller: 'historyCtrl'
         })
         .state('setting', {
           url: '/setting',
           templateUrl: '/partials/setting.html',
-        })
-        .state('taufiq', {
-          url:'/taufiq',
-          template: '<h1>Taufiq is awesome</h1>'
         })
         .state('help', {
           url: '/help',
@@ -32,6 +29,12 @@ app.config([
 	}]);
 
 
+controllers.historyCtrl = function (infoFact, $scope) {
+  infoFact.getTrips.success(function (data){
+    $scope.myTrips = data;
+    $scope.apply();
+  });
+}
 
 controllers.homeCtrl = function ($scope) {
 }
@@ -75,15 +78,26 @@ controllers.UserCtrl = function ($scope, $http, $window) {
     }
   };
 
-  $scope.callRestricted = function () {
-    $http({url: '/api/myTrips', method: 'GET'})
-    .success(function (data, status, headers, config) {
-      $scope.message = data; // Should log 'foo'
-    })
-    .error(function (data, status, headers, config) {
-      alert(data);
-    });
+  // $scope.callRestricted = function () {
+  //   $http({url: '/api/myTrips', method: 'GET'})
+  //   .success(function (data, status, headers, config) {
+  //     $scope.message = data; // Should log 'foo'
+  //   })
+  //   .error(function (data, status, headers, config) {
+  //     alert(data);
+  //   });
+  // };
+}
+
+factories.infoFact = function ($http){
+  var services = {};
+
+  services.getTrips = function () {
+    return $http({url: '/api/myTrips', method: 'GET'});
   };
+
+  return services;
+
 }
 
 app.factory('authInterceptor', function ($rootScope, $q, $window) {
