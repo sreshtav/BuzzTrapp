@@ -47,7 +47,7 @@ public class ManageTripsContentFrag extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getTrips();
+        getTrips(fullTripsList);
         noTrippImage = getActivity().findViewById(R.id.noTripsImage);
         noTrippText = getActivity().findViewById(R.id.noTripsText);
         rv = (RecyclerView)getActivity().findViewById(R.id.rv);
@@ -95,7 +95,7 @@ public class ManageTripsContentFrag extends Fragment{
     private void initialiseAdapter(){
     }
 
-    private void getTrips() {
+    private void getTrips(final List<Trip> fullTripsList) {
         Log.d("ManageTrip", "Inside getTrips");
         SharedPreferences preferences = this.getActivity().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
         AsyncHttpClient client = new AsyncHttpClient();
