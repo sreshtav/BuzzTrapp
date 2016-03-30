@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,6 +44,8 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("Manage Trips");
+        Log.d("Aaron", "Main: onCreate and about to add contentFragment");
+
 
 
         contentFragment = new ManageTripsContentFrag();
@@ -55,13 +58,13 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+/*
                 noOfTrips++;
                 noOfTrips = noOfTrips%4;
                 Snackbar.make(view, "no of Trips = "+noOfTrips, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                contentFragment.addTrip(noOfTrips);
+                contentFragment.addTrip(noOfTrips);*/
 
                 Intent intent = new Intent(view.getContext(), CreateTripActivity.class);
                 view.getContext().startActivity(intent);

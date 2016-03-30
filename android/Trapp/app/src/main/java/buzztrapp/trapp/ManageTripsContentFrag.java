@@ -41,16 +41,20 @@ public class ManageTripsContentFrag extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Log.d("Aaron", "Fragment: onCreateView()");
         return inflater.inflate(R.layout.manage_trips_content_frag, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getTrips(fullTripsList);
-        noTrippImage = getActivity().findViewById(R.id.noTripsImage);
-        noTrippText = getActivity().findViewById(R.id.noTripsText);
-        rv = (RecyclerView)getActivity().findViewById(R.id.rv);
+        getTrips();
+
+        Log.d("Aaron", "Fragment: onActivityCreated()");
+        Log.d("Aaron", "full trip list size() = "+ fullTripsList.size());
+
+
 
     }
 
@@ -58,9 +62,9 @@ public class ManageTripsContentFrag extends Fragment{
     {
         if(noOfTrips == 1)
         {
+
             ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
             ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
-
 
             rv.setHasFixedSize(true);
 
@@ -95,7 +99,7 @@ public class ManageTripsContentFrag extends Fragment{
     private void initialiseAdapter(){
     }
 
-    private void getTrips(final List<Trip> fullTripsList) {
+    private void getTrips() {
         Log.d("ManageTrip", "Inside getTrips");
         SharedPreferences preferences = this.getActivity().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -118,8 +122,27 @@ public class ManageTripsContentFrag extends Fragment{
                         GregorianCalendar endDate = new GregorianCalendar();
                         endDate.setTime(sdf.parse(jsonObject.getString("endDate")));
                         Trip trip = new Trip(jsonObject.getString("location"), startDate, endDate, R.drawable.newyork);
-                        Log.d("ManageTrip", "Adding to list - " + trip.name + " " + trip.startDate + " " + trip.endDate);
+                        Log.d("ManageTrip", "Adding to list - " + trip.location + " " + trip.startDate + " " + trip.endDate);
                         fullTripsList.add(trip);
+
+
+                        if (fullTripsList.size() != 0) {
+                            Log.d("ManageTrip", "fulltriplist.size() = "+fullTripsList.size());
+                            noTrippImage = getActivity().findViewById(R.id.noTripsImage);
+                            noTrippText = getActivity().findViewById(R.id.noTripsText);
+                            ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
+                            ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
+
+                            rv = (RecyclerView) getActivity().findViewById(R.id.rv);
+                            rv.setHasFixedSize(true);
+
+                            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+                            llm.setOrientation(LinearLayoutManager.VERTICAL);
+                            rv.setLayoutManager(llm);
+
+                            adapter = new ManageTripsRVAdapter(fullTripsList);
+                            rv.setAdapter(adapter);
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -132,5 +155,7 @@ public class ManageTripsContentFrag extends Fragment{
             }
         });
     }
+    
+
 
 }

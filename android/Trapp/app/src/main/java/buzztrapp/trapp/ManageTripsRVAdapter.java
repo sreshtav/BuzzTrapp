@@ -76,7 +76,7 @@ public class ManageTripsRVAdapter extends RecyclerView.Adapter<ManageTripsRVAdap
         String startDateString = startMth +" " + startDay + ", " + startYear;
         String endDateString = endMth +" " + endDay + ", " + endYear;
 
-        tripViewHolder.desc.setText(trips.get(i).name + " | " + startDateString + " - " + endDateString);
+        tripViewHolder.desc.setText(trips.get(i).location + " | " + startDateString + " - " + endDateString);
         tripViewHolder.image.setImageResource(trips.get(i).imageId);
     }
 
