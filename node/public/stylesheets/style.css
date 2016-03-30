@@ -93,12 +93,6 @@ a {
   background: url('../images/SF_BG.png') center / cover;
 }
 
-.Miami{
-  background: url('../images/miami.png') center / cover;
-}
-.Hawaii {
-  background: url('../images/hawaii.png') center / cover;
-}
 
 
 .future-trips {
@@ -144,6 +138,10 @@ a {
 .right {
   margin-left:auto;
   margin-right:0;
+}
+
+.miami{
+  background: url('../images/miami.png') center / cover;
 }
 
 .san-francisco {

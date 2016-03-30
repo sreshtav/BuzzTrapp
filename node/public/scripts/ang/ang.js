@@ -43,13 +43,7 @@ controllers.newTripCtrl = function ($scope, $location) {
 
 
 controllers.historyCtrl = function (infoFact, $scope, $http) {
-  infoFact.getTrips().success(function (data){
-    for (d in data) {
-      var date = new Date(data[d].startDate);
-      data[d].strStartDate = monthNum[date.getMonth()] + ' ' + date.getDate();      
-      date = new Date(data[d].endDate);
-      data[d].strEndDate = monthNum[date.getMonth()] + ' ' + date.getDate();
-    }
+  infoFact.getTrips().then(function (data){
     $scope.myTrips = data;
   });
 
@@ -108,10 +102,37 @@ controllers.UserCtrl = function ($scope, $http, $window) {
   // };
 }
 
-factories.infoFact = function ($http){
+factories.infoFact = function ($http, $q){
+
+  var cityClassName = {
+    "Miami" : "miami",
+    "San Francisco" : "san-francisco",
+    "Hawaii" : "hawaii",
+    "London" : "london",
+    "Washington DC" : "washington-dc",
+    "Hong Kong" : "hong-kong"
+  }
+
   var services = {};
 
   services.getTrips = function () {
+    return $q(function(resolve, reject) {
+      $http.get('/api/myTrips').then(function (data) {
+        data = data['data'];
+        for (d in data) {
+          var date = new Date(data[d].startDate);
+          data[d].strStartDate = monthNum[date.getMonth()] + ' ' + date.getDate();      
+          date = new Date(data[d].endDate);
+          data[d].strEndDate = monthNum[date.getMonth()] + ' ' + date.getDate();
+          data[d].cityClass = cityClassName[data[d].location];
+        }
+        resolve(data);
+      }, function (d, data) {reject(data)});
+    });
+  }
+
+
+  services.getTrips2 = function () {
     return $http.get('/api/myTrips');
   };
 
