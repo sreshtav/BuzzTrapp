@@ -121,11 +121,18 @@ public class ManageTripsContentFrag extends Fragment{
                         startDate.setTime(sdf.parse(jsonObject.getString("startDate")));
                         GregorianCalendar endDate = new GregorianCalendar();
                         endDate.setTime(sdf.parse(jsonObject.getString("endDate")));
-                        Trip trip = new Trip(jsonObject.getString("location"), startDate, endDate, R.drawable.newyork);
+
+                        String image_name = jsonObject.getString("location");
+                        image_name = image_name.replaceAll("[^A-Za-z]+", "").toLowerCase();
+                        image_name = "@drawable/"+image_name;
+
+                        int image_resrc = getResources().getIdentifier(image_name, null, getActivity().getPackageName());
+                        Log.d("ManageTrip", "image_resource = "+image_resrc+ ", image_name = "+image_name);
+                        Trip trip = new Trip(jsonObject.getString("location"), startDate, endDate, image_resrc);
                         Log.d("ManageTrip", "Adding to list - " + trip.location + " " + trip.startDate + " " + trip.endDate);
                         fullTripsList.add(trip);
 
-
+                        Log.d("ManageTrip"," ");
                     }
 
                     if (fullTripsList.size() != 0) {
