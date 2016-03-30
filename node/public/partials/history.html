@@ -1,1 +1,5 @@
-<h1>History</h1>
+<a href="" >
+	<div ng-repeat="trip in myTrips" class="upcoming-trips mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid {{trip.location}}">
+	  <h4 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h4>
+	</div>
+</a>

@@ -1,4 +1,71 @@
-<<<<<<< Updated upstream
+/*body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+}*/
+
+.loginScreen {
+  background-color:#FF7F66;
+  width: 100%;
+  height: 100%;
+  text-align:center;
+}
+
+.loginImage {
+  margin: 20px;
+  padding-top: 10vh;
+}
+
+.loginScreen .container {
+	margin-top:0; 
+}
+
+.demo-header {
+	margin-left:240px;
+	width:calc(100% - 240px); 
+}
+
+a:hover{
+	text-decoration:none;
+}
+
+.loginScreen input {
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  outline:none;
+  color:white;
+      -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+::-webkit-input-placeholder {
+   color: white;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: white;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;  
+}
+
+:-ms-input-placeholder {  
+   color: white;  
+}
+
+input[type="submit"] {
+  background-color: #2185C5;
+}
+
+.loginContent {
+  margin-top:20vh;
+}
+
+form input {
+	width: 60vw;
+}
+
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
@@ -7,10 +74,7 @@ a {
   text-decoration: none;
 }
 
-
-
-
-#view-source {
+/*#view-source {
   position: fixed;
   display: block;
   right: 0;
@@ -18,7 +82,7 @@ a {
   margin-right: 40px;
   margin-bottom: 40px;
   z-index: 900;
-}
+}*/
 
 .trapp_icon {
   width:45px;
@@ -28,6 +92,14 @@ a {
 #upcoming_trip {
   background: url('../images/SF_BG.png') center / cover;
 }
+
+.Miami{
+  background: url('../images/miami.png') center / cover;
+}
+.Hawaii {
+  background: url('../images/hawaii.png') center / cover;
+}
+
 
 .future-trips {
   padding:16px;
@@ -43,6 +115,12 @@ a {
   background-color: #78C0F9;
   color:white;
 }
+
+.mdl-button {
+	margin-top:0;
+	margin-bottom:0;
+}
+
 
 .mdl-color--trapp-red {
   background-color: #FF7F66;
@@ -68,20 +146,20 @@ a {
   margin-right:0;
 }
 
-#san-francisco {
+.san-francisco {
   background: url('../images/SF_BG.png') center / cover;
 }
 
-#london {
+.london {
   background: url('../images/london.png') center / cover;
 }
-#washington-dc {
+.washington-dc {
   background: url('../images/dc.png') center / cover;
 }
-#hawaii {
+.hawaii {
   background: url('../images/hawaii.png') center / cover;
 }
-#hong-kong {
+.hong-kong {
   background: url('../images/hong-kong.png') center / cover;
 }    
 
@@ -95,8 +173,6 @@ a {
   margin:12px 0 0 0;
 }
 
-
-
 .mdl-button--floating {
   z-index:1000;
   position:absolute;
@@ -106,14 +182,13 @@ a {
 #map {
     margin: 0;
     padding: 0;
-    height: 100%;
+/*    height: 100%;*/
   }
 
 .mdl-layout__drawer-button {
   background-color:rgba(120,192,249,0.8);
   color:white;
 }
-
 
 .demo-avatar {
   width: 48px;
@@ -218,10 +293,11 @@ a {
   -ms-grid-row-align: center;
   align-items: center;
   color:white;
-  padding:20px 40px;
+  padding:20px 80px;
+  min-height:20vh;
 }
 
-.demo-chart:nth-child(1) {
+/*.demo-chart:nth-child(1) {
   color: #ACEC00;
 }
 .demo-chart:nth-child(2) {
@@ -232,7 +308,7 @@ a {
 }
 .demo-chart:nth-child(4) {
   color: #EF3C79;
-}
+}*/
 .future-trips {
   padding: 16px 32px;
   display: -webkit-flex;
@@ -273,11 +349,11 @@ _:-ms-input-placeholder, :root .demo-graph {
           align-content: flex-start;
 }
 .demo-cards .demo-separator {
-  height: 32px;
+  height: 16px;
 }
 .demo-cards .mdl-card__title.mdl-card__title {
   color: white;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 400;
 }
 .demo-cards ul {
@@ -322,13 +398,13 @@ _:-ms-input-placeholder, :root .demo-graph {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-=======
-body {
+        }
+/*body {
   /*padding: 50px;*/
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color:#FF7F66;
-  text-align: center;
-}
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+  /*background-color:#FF7F66;*/
+  /*text-align: center;
+}*/
 
 .image {
 	margin: 20px;
@@ -351,7 +427,6 @@ input[type="submit"] {
 
 .container {
 	margin-top:20vh;
->>>>>>> Stashed changes
 }
 
 
@@ -362,6 +437,7 @@ input[type="submit"] {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
+
 calendar {
   float: left;
   font-family: 'Roboto', sans-serif;
@@ -467,3 +543,7 @@ calendar > div.week.names > span {
   color: #2875C7;
   font-weight: bold;
 }
+
+
+
+
