@@ -3,10 +3,10 @@ buzztrapp_mas_vm.pem
 
 /android/Trapp/.gradle
 /android/Trapp/local.properties
-/android/Trapp/.idea/workspace.xml
-/android/Trapp/.idea/libraries
+/android/Trapp/.idea/**
 .DS_Store
 /android/Trapp/build
+/android/Trapp/Trapp.iml
 
 
 *.apk
