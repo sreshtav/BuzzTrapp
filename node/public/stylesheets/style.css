@@ -146,20 +146,20 @@ a {
   margin-right:0;
 }
 
-#san-francisco {
+.san-francisco {
   background: url('../images/SF_BG.png') center / cover;
 }
 
-#london {
+.london {
   background: url('../images/london.png') center / cover;
 }
-#washington-dc {
+.washington-dc {
   background: url('../images/dc.png') center / cover;
 }
-#hawaii {
+.hawaii {
   background: url('../images/hawaii.png') center / cover;
 }
-#hong-kong {
+.hong-kong {
   background: url('../images/hong-kong.png') center / cover;
 }    
 
