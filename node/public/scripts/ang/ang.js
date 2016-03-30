@@ -17,17 +17,29 @@ app.config([
         .state('history', {
           url: '/history',
           templateUrl: '/partials/history.html',
-    		  controller: 'historyCtrl'
+          controller: 'historyCtrl'
         })
         .state('setting', {
           url: '/setting',
           templateUrl: '/partials/setting.html',
+        })
+        .state('newTrip', {
+          url: '/newTrip',
+          templateUrl: '/partials/newTrip.html',
+    		  controller: 'newTripCtrl'
         })
         .state('help', {
           url: '/help',
           templateUrl: '/partials/help.html',
 		})
 	}]);
+
+controllers.newTripCtrl = function ($scope, $location) {
+  $scope.cancel = function () {
+    $location.path('/');
+  }
+
+}
 
 
 controllers.historyCtrl = function (infoFact, $scope, $http) {
