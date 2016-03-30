@@ -126,23 +126,24 @@ public class ManageTripsContentFrag extends Fragment{
                         fullTripsList.add(trip);
 
 
-                        if (fullTripsList.size() != 0) {
-                            Log.d("ManageTrip", "fulltriplist.size() = "+fullTripsList.size());
-                            noTrippImage = getActivity().findViewById(R.id.noTripsImage);
-                            noTrippText = getActivity().findViewById(R.id.noTripsText);
-                            ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
-                            ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
+                    }
 
-                            rv = (RecyclerView) getActivity().findViewById(R.id.rv);
-                            rv.setHasFixedSize(true);
+                    if (fullTripsList.size() != 0) {
+                        Log.d("ManageTrip", "fulltriplist.size() = "+fullTripsList.size());
+                        noTrippImage = getActivity().findViewById(R.id.noTripsImage);
+                        noTrippText = getActivity().findViewById(R.id.noTripsText);
+                        ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
+                        ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
 
-                            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-                            llm.setOrientation(LinearLayoutManager.VERTICAL);
-                            rv.setLayoutManager(llm);
+                        rv = (RecyclerView) getActivity().findViewById(R.id.rv);
+                        rv.setHasFixedSize(true);
 
-                            adapter = new ManageTripsRVAdapter(fullTripsList);
-                            rv.setAdapter(adapter);
-                        }
+                        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+                        llm.setOrientation(LinearLayoutManager.VERTICAL);
+                        rv.setLayoutManager(llm);
+
+                        adapter = new ManageTripsRVAdapter(fullTripsList);
+                        rv.setAdapter(adapter);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
