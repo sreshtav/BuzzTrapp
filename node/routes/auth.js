@@ -24,7 +24,7 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 
 router.post('/signup', function(req, res) {
   if (!req.body.email || !req.body.password || !req.body.name) {
-    res.json({succes: false, msg: 'Please pass name, email, and password.'});
+    res.json({success: false, msg: 'Please pass name, email, and password.'});
   } else {
     var newUser = new User({
       name: req.body.name,
@@ -33,9 +33,9 @@ router.post('/signup', function(req, res) {
     });
     newUser.save(function(err) {
       if (err) {
-        res.json({success: false, msg: 'Coukd not create user.'});
+        res.json({success: false, msg: 'Could not create user.'});
       } else {
-        res.json({success: true, msg: 'Successful created user!'});
+        res.json({success: true, msg: 'Successfully created user!'});
       }
     });
   }

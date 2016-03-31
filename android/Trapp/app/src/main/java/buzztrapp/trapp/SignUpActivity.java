@@ -185,8 +185,8 @@ public class SignUpActivity extends AppCompatActivity {
         private boolean success;
         private String msg;
 
-        public SignupResponseObj(boolean succes, String msg) {
-            this.success = succes;
+        public SignupResponseObj(boolean success, String msg) {
+            this.success = success;
             this.msg = msg;
         }
 
