@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +24,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
     private ManageTripsRVAdapter adapter;
     private int noOfTrips = 0;
 
-    ManageTripsContentFrag contentFragment;
+    ManageTripsFragment contentFragment;
     FragmentManager manager;
     FragmentTransaction transaction;
 
@@ -48,10 +47,10 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
 
 
 
-        contentFragment = new ManageTripsContentFrag();
+        contentFragment = new ManageTripsFragment();
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.mt_body_layout, contentFragment, "ManageTripsContentFrag");
+        transaction.add(R.id.mt_body_layout, contentFragment, "ManageTripsFragment");
         transaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

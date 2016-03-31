@@ -27,7 +27,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Aaron on 3/24/2016.
  */
-public class ManageTripsContentFrag extends Fragment{
+public class ManageTripsFragment extends Fragment{
 
 
     View noTrippImage;
