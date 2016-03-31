@@ -33,9 +33,9 @@ router.post('/signup', function(req, res) {
     });
     newUser.save(function(err) {
       if (err) {
-        res.json({succes: false, msg: err});
+        res.json({success: false, msg: 'Coukd not create user.'});
       } else {
-        res.json({succes: true, msg: 'Successful created user!'});
+        res.json({success: true, msg: 'Successful created user!'});
       }
     });
   }

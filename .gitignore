@@ -7,7 +7,7 @@ buzztrapp_mas_vm.pem
 .DS_Store
 /android/Trapp/build
 /android/Trapp/Trapp.iml
-
+/android/.idea/
 
 *.apk
 *.ap_
