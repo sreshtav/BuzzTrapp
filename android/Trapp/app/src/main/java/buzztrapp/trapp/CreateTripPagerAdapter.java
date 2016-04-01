@@ -37,12 +37,6 @@ public class CreateTripPagerAdapter extends FragmentPagerAdapter{
         }
 
         return fragment;
-       /* Fragment fragment = new CreateTripDestinationFragment();
-        Bundle args = new Bundle();
-        // Our object is just an integer :-P
-        args.putInt(CreateTripDestinationFragment.ARG_OBJECT, position + 1);
-        fragment.setArguments(args);
-        return fragment;*/
     }
 
 

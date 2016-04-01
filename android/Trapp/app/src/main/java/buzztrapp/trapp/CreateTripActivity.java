@@ -45,9 +45,13 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
         mViewPager = (ViewPager) findViewById(R.id.ct_viewpager);
         mViewPager.setAdapter(ctPageAdapter);
 
+
+
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.ct_slidingTabLayout);
+        mSlidingTabLayout.setDistributeEvenly(true);
+
         mSlidingTabLayout.setViewPager(mViewPager);
-        mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.trappBlue));
+//        mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.trappBlue));
 
     }
 

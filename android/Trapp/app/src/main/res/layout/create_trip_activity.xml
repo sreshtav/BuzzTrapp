@@ -24,7 +24,8 @@ android:id="@+id/mt_layout">
         <buzztrapp.trapp.SlidingTabLayout
             android:id="@+id/ct_slidingTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
         </buzztrapp.trapp.SlidingTabLayout>
 
