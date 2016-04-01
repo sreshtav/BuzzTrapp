@@ -1,16 +1,23 @@
 package buzztrapp.trapp;
 
 import android.app.Fragment;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+
 public class CreateTripFragment extends Fragment {
+
+//    DemoCollectionPagerAdapter demoCollectionPagerAdapter;
+    ViewPager viewPager;
+
 
     @Nullable
     @Override
@@ -20,3 +27,31 @@ public class CreateTripFragment extends Fragment {
         return inflater.inflate(R.layout.create_trip_fragment_activity, container, false);
     }
 }
+//
+//
+//public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter{
+//    public DemoCollectionPagerAdapter(android.support.v4.app.FragmentManager fm){
+//        super(fm);
+//    }
+//
+//    @Override
+//    public android.support.v4.app.Fragment getItem(int position) {
+//        Fragment fragment = new CreateTripDestinationFragment();
+//        Bundle args = new Bundle();
+//        // Our object is just an integer :-P
+////        args.putInt(CreateTripDestinationFragment.ARG_OBJECT, position + 1);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+//
+//    @Override
+//    public int getCount() {
+//        return 100;
+//    }
+//
+//    @Override
+//    public CharSequence getPageTitle(int position){
+//        return "OBJECT " + (position + 1);
+//    }
+//}
+//

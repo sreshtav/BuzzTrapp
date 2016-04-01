@@ -22,11 +22,13 @@
         </activity>
         <activity android:name=".ManageTripsActivity"></activity>
         <activity android:name=".CreateTripActivity">
+
+
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".CreateTripDestinationActivity" />
-        <activity android:name=".CreateTripDurationActivity" />
-        <activity android:name=".CreateTripFragment"></activity>
+<!--        <activity android:name=".CreateTripDestinationFragment" />
+        <activity android:name=".CreateTripDurationFragment" />-->
+        <!--<activity android:name=".CreateTripFragment"></activity>-->
     </application>
 
 </manifest>
