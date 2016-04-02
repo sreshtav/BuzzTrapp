@@ -21,9 +21,6 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
     private ActionBarDrawerToggle drawerListener;
     private android.support.v7.widget.Toolbar toolbar;
 
-    CreateTripFragment contentFragment;
-    FragmentManager manager;
-    FragmentTransaction transaction;
 
     CreateTripPagerAdapter ctPageAdapter;
     ViewPager mViewPager;
@@ -49,8 +46,9 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
 
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.ct_slidingTabLayout);
         mSlidingTabLayout.setDistributeEvenly(true);
-
+//        mSlidingTabLayout.setSelectedIndicatorColors(R.color.bittersweet);
         mSlidingTabLayout.setViewPager(mViewPager);
+//        mSlidingTabLayout.bringToFront();
 //        mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.trappBlue));
 
     }
