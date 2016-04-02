@@ -51,8 +51,8 @@ public class ManageTripsFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         getTrips();
 
-        Log.d("Aaron", "Fragment: onActivityCreated()");
-        Log.d("Aaron", "full trip list size() = "+ fullTripsList.size());
+        Log.d("ManageTrip", "Fragment: onActivityCreated()");
+        Log.d("ManageTrip", "full trip list size() = "+ fullTripsList.size());
 
 
 
