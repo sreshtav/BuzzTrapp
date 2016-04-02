@@ -37,4 +37,5 @@
 
     <!-- Create Trip Text-->
     <string name="ct_dest_question">Where do you want to explore in this trip?</string>
+    <string name="ct_texthint">Cities or Countries</string>
 </resources>

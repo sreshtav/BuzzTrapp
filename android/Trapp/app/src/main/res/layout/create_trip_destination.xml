@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CreateTripDestinationFragment">
 
     <LinearLayout
@@ -11,7 +12,10 @@
         android:layout_marginTop="107dp"
         android:background="@color/white"
         android:gravity="center_horizontal"
-        android:padding="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:orientation="vertical"
         >
 
@@ -27,13 +31,33 @@
             android:textAlignment="center"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
             <ImageView
+                android:id="@+id/ct_place_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_place_black_24dp"
                 />
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:padding="0dp"
+                android:textSize="14sp"
+                android:id="@+id/dest_et"
+                android:hint="@string/ct_texthint"/>
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/ct_rv"
+            />
+
 
     </LinearLayout>
 </RelativeLayout>

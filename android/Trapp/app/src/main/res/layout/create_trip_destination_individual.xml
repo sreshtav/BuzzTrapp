@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A CardView that contains a TextView -->
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/destView"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_gravity="top|fill_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="54dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/destImage"
+            android:src="@drawable/newyork"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/destDesc"
+            android:layout_alignBottom="@+id/tripImage"
+            android:textColor="@color/white"
+            android:gravity="bottom"
+            android:textSize="14sp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
