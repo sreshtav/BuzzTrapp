@@ -34,7 +34,6 @@ public class ManageTripsFragment extends Fragment{
     View noTrippText;
     RecyclerView rv;
 
-    private List<Trip> trips;
     private List<Trip> fullTripsList = new ArrayList<Trip>();
     private ManageTripsRVAdapter adapter;
 
@@ -56,47 +55,6 @@ public class ManageTripsFragment extends Fragment{
 
 
 
-    }
-
-    public void addTrip(int noOfTrips)
-    {
-        if(noOfTrips == 1)
-        {
-
-            ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);
-            ((ViewGroup) noTrippText.getParent()).removeView(noTrippText);
-
-            rv.setHasFixedSize(true);
-
-            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-            llm.setOrientation(LinearLayoutManager.VERTICAL);
-            rv.setLayoutManager(llm);
-        }
-
-        if(noOfTrips > 0)
-        {
-            initialiseData(noOfTrips);
-            initialiseAdapter();
-
-            adapter = new ManageTripsRVAdapter(trips);
-            rv.setAdapter(adapter);
-        }
-    }
-
-    private void initialiseData(int noOfTrips){
-        int no = noOfTrips+1;
-        trips = new ArrayList<>();
-        fullTripsList = new ArrayList<>();
-
-        fullTripsList.add(new Trip("New York", new GregorianCalendar(2015,12,03), new GregorianCalendar(2015,12,15), R.drawable.newyork));
-        fullTripsList.add(new Trip("Singapore", new GregorianCalendar(2016, 01, 10), new GregorianCalendar(2016, 02, 03), R.drawable.singapore));
-        fullTripsList.add(new Trip("Atlanta", new GregorianCalendar(2016,12,03), new GregorianCalendar(2016,12,15), R.drawable.atlanta));
-        fullTripsList.add(new Trip("San Francisco", new GregorianCalendar(2016,8,04), new GregorianCalendar(2016,8,26), R.drawable.sanfrancisco));
-
-        trips = fullTripsList.subList(0,no);
-    }
-
-    private void initialiseAdapter(){
     }
 
     private void getTrips() {
