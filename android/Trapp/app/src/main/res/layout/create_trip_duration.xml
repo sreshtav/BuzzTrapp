@@ -13,15 +13,11 @@
         android:background="@color/white"
         android:gravity="center_horizontal"
         >
+    <com.squareup.timessquare.CalendarPickerView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Duration"
-            android:id="@+id/textView5"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
     </LinearLayout>
 </RelativeLayout>
