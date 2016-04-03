@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true"
-tools:context=".CreateTripActivity"
+tools:context=".create_trip.CreateTripActivity"
 android:id="@+id/mt_layout">
 
     <LinearLayout
@@ -21,13 +21,13 @@ android:id="@+id/mt_layout">
             />
 
 
-        <buzztrapp.trapp.SlidingTabLayout
+        <buzztrapp.trapp.create_trip.SlidingTabLayout
             android:id="@+id/ct_slidingTabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-        </buzztrapp.trapp.SlidingTabLayout>
+        </buzztrapp.trapp.create_trip.SlidingTabLayout>
 
         <!--<LinearLayout
             android:layout_width="match_parent"

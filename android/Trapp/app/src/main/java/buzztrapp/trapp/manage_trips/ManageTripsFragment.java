@@ -1,6 +1,5 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.manage_trips;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,9 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import buzztrapp.trapp.R;
 import cz.msebera.android.httpclient.Header;
 
 /**

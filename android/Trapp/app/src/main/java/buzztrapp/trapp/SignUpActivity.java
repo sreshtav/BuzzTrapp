@@ -22,6 +22,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import buzztrapp.trapp.manage_trips.ManageTripsActivity;
 import cz.msebera.android.httpclient.Header;
 
 public class SignUpActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.create_trip;
 
 import java.util.GregorianCalendar;
 

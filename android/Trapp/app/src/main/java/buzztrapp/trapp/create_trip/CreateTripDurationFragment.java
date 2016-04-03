@@ -1,18 +1,16 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.create_trip;
 
-import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.util.Calendar;
 import java.util.Date;
+
+import buzztrapp.trapp.R;
 
 public class CreateTripDurationFragment extends android.support.v4.app.Fragment {
 

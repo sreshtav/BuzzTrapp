@@ -1,19 +1,28 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.create_trip;
 
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
+
+import buzztrapp.trapp.R;
+import buzztrapp.trapp.create_trip.helper.ItemTouchHelperAdapter;
+import buzztrapp.trapp.create_trip.helper.OnStartDragListener;
 
 /**
  * Created by Aaron on 4/2/2016.
  */
-public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdapter.DestViewHolder>{
+public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdapter.DestViewHolder> implements ItemTouchHelperAdapter{
+
+    private final OnStartDragListener mDragStartListener;
 
     public static class DestViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,8 +40,9 @@ public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdap
 
     List<Destination> destinations;
 
-    CreateTripsRVAdapter(List<Destination> destinations){
+    CreateTripsRVAdapter(List<Destination> destinations, OnStartDragListener dragStartListener){
         this.destinations = destinations;
+        mDragStartListener = dragStartListener;
     }
 
     public void editTrips(List<Destination> destinations){
@@ -40,7 +50,8 @@ public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdap
     }
 
 
-//    Called by RecyclerView when it starts observing this Adapter
+
+    //    Called by RecyclerView when it starts observing this Adapter
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -57,12 +68,36 @@ public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdap
 
 //    Called by RecyclerView to display the data at the specified position.
     @Override
-    public void onBindViewHolder(DestViewHolder destViewHolder, int i) {
+    public void onBindViewHolder(final DestViewHolder destViewHolder, int i) {
 
         destViewHolder.desc.setText(destinations.get(i).location);
         destViewHolder.image.setImageResource(destinations.get(i).imageId);
+
+        destViewHolder.image.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(destViewHolder);
+                }
+                return false;
+            }
+        });
     }
 
+
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(destinations, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        destinations.remove(position);
+        notifyItemRemoved(position);
+    }
 //    Returns the total number of items in the data set hold by the adapter.
     @Override
     public int getItemCount() {

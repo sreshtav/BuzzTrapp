@@ -1,4 +1,4 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.create_trip;
 import android.R;
 import android.content.Context;
 import android.graphics.Canvas;

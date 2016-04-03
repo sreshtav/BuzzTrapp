@@ -1,4 +1,4 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.manage_trips;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -16,7 +16,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class ManageTripsActivity extends AppCompatActivity implements Communicator{
+import buzztrapp.trapp.Communicator;
+import buzztrapp.trapp.R;
+import buzztrapp.trapp.create_trip.CreateTripActivity;
+
+public class ManageTripsActivity extends AppCompatActivity implements Communicator {
 
     private RecyclerView rv;
     private List<Trip> trips;

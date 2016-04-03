@@ -1,4 +1,4 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.manage_trips;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import buzztrapp.trapp.R;
 
 /**
  * Created by Aaron on 3/6/2016.

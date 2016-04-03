@@ -20,8 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ManageTripsActivity"></activity>
-        <activity android:name=".CreateTripActivity">
+        <activity android:name=".manage_trips.ManageTripsActivity"></activity>
+        <activity android:name=".create_trip.CreateTripActivity">
 
 
         </activity>

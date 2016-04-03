@@ -1,7 +1,6 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.create_trip;
 
 import android.app.ActionBar;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +14,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import buzztrapp.trapp.R;
 
 public class CreateTripActivity extends AppCompatActivity implements ActionBar.TabListener{
 
