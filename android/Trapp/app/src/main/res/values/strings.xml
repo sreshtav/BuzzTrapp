@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Trapp</string>
 
+    <!-- Misc-->
+    <string name="done">DONE</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -38,4 +40,5 @@
     <!-- Create Trip Text-->
     <string name="ct_dest_question">Where do you want to explore in this trip?</string>
     <string name="ct_texthint">Cities or Countries</string>
+
 </resources>

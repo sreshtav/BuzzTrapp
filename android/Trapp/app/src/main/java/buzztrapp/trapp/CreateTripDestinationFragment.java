@@ -69,6 +69,8 @@ public class CreateTripDestinationFragment extends android.support.v4.app.Fragme
                     return;
                 adapter.notifyDataSetChanged();
 
+                ((CreateTripActivity)getActivity()).setDestinations(destinations);
+
                 dest_tv.setText("");
             }
         });

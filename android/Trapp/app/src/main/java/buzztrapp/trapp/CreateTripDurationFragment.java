@@ -18,6 +18,9 @@ public class CreateTripDurationFragment extends android.support.v4.app.Fragment 
 
     public static final String ARG_OBJECT = "object";
     CalendarPickerView calendar;
+
+    CalendarPickerView.OnDateSelectedListener dateSelectedListener;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,5 +39,20 @@ public class CreateTripDurationFragment extends android.support.v4.app.Fragment 
         calendar = (CalendarPickerView) getActivity().findViewById(R.id.calendar_view);
         Date today = new Date();
         calendar.init(today, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.RANGE);
+
+        dateSelectedListener = new CalendarPickerView.OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(Date date) {
+                ((CreateTripActivity)getActivity()).setDates(calendar.getSelectedDates());
+            }
+
+            @Override
+            public void onDateUnselected(Date date) {
+                ((CreateTripActivity)getActivity()).setDates(calendar.getSelectedDates());
+            }
+        };
+
+        calendar.setOnDateSelectedListener(dateSelectedListener);
+
     }
 }

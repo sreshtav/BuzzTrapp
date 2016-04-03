@@ -12,6 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class CreateTripActivity extends AppCompatActivity implements ActionBar.TabListener{
 
 
@@ -20,6 +24,11 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
     private ListView drawerlistView;
     private ActionBarDrawerToggle drawerListener;
     private android.support.v7.widget.Toolbar toolbar;
+
+    private Menu menu;
+
+    private List<Date> dates;
+    private List<Destination> destinations;
 
 
     CreateTripPagerAdapter ctPageAdapter;
@@ -43,6 +52,9 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
         mViewPager.setAdapter(ctPageAdapter);
 
 
+        destinations = new ArrayList<Destination>();
+        dates = new ArrayList<Date>();
+
 
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.ct_slidingTabLayout);
         mSlidingTabLayout.setDistributeEvenly(true);
@@ -53,13 +65,37 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
 
     }
 
-    @Override
+    public void setDates(List<Date> dates){
+        this.dates = dates;
+        ct_ready();
+    }
 
+    public void setDestinations(List<Destination>destinations){
+        this.destinations = destinations;
+        ct_ready();
+    }
+
+    public void ct_ready(){
+        if(!dates.isEmpty() && !destinations.isEmpty())
+        {
+            menu.findItem(R.id.action_done).setEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.action_done).setEnabled(false);
+
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
     // Inflate the menu; this adds items to the action bar if it is present.
-
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        this.menu = menu;
+        getMenuInflater().inflate(R.menu.create_trip_menu, menu);
 
         return true;
 
@@ -79,7 +115,7 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
 
 //noinspection SimplifiableIfStatement
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_done) {
 
             return true;
 
