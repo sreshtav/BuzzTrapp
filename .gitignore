@@ -1,13 +1,9 @@
 node/node_modules
 buzztrapp_mas_vm.pem
 
-/android/Trapp/.gradle
-/android/Trapp/local.properties
-/android/Trapp/.idea/**
 .DS_Store
 /android/Trapp/build
 /android/Trapp/Trapp.iml
-/android/.idea/
 
 *.apk
 *.ap_
