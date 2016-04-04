@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +50,7 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ct_toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Manage Trips");
+        getSupportActionBar().setTitle("Create a Trip");
 
         ctPageAdapter = new CreateTripPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.ct_viewpager);
@@ -65,6 +67,27 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
         mSlidingTabLayout.setViewPager(mViewPager);
 //        mSlidingTabLayout.bringToFront();
 //        mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.trappBlue));
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.ct_layout);
+        drawerlistView = (ListView) findViewById(R.id.ct_drawer_listview);
+
+
+        drawerListener = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                Toast.makeText(CreateTripActivity.this, "Drawer Closed",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Toast.makeText(CreateTripActivity.this, "Drawer Closed",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+
+        };
+        drawerLayout.setDrawerListener(drawerListener);
 
     }
 
@@ -87,7 +110,12 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
             menu.findItem(R.id.action_done).setEnabled(false);
         }
     }
-
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerListener.syncState();
+    }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);

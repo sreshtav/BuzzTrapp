@@ -6,7 +6,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true"
 tools:context=".create_trip.CreateTripActivity"
-android:id="@+id/mt_layout">
+android:id="@+id/ct_layout">
 
     <LinearLayout
         android:id="@+id/ct_body_layout"
@@ -89,7 +89,7 @@ android:id="@+id/mt_layout">
 
     <!-- Drawer-->
     <ListView
-        android:id="@+id/drawer_listview"
+        android:id="@+id/ct_drawer_listview"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:entries="@array/drawer_menu"
