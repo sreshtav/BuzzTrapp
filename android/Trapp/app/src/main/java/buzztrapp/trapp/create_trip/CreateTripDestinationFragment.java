@@ -6,12 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,13 +93,17 @@ public class CreateTripDestinationFragment extends android.support.v4.app.Fragme
             }
         });
 
-        adapter = new CreateTripsRVAdapter(destinations, this);
-        rv.setAdapter(adapter);
+        adapter = new CreateTripsRVAdapter(getContext(), destinations, this);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(rv);
+
+
+        rv.setAdapter(adapter);
+
     }
+
 
     private static final String[] DESTINATIONS = new String[]{
             "Hawaii", "Miami", "New York", "Singapore", "Atlanta", "San Francisco"

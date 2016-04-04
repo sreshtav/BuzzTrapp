@@ -81,6 +81,9 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
         {
             menu.findItem(R.id.action_done).setEnabled(true);
         }
+        else{
+            menu.findItem(R.id.action_done).setEnabled(false);
+        }
     }
 
     @Override

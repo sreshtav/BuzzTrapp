@@ -1,5 +1,6 @@
 package buzztrapp.trapp.create_trip;
 
+import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import buzztrapp.trapp.create_trip.helper.OnStartDragListener;
 public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdapter.DestViewHolder> implements ItemTouchHelperAdapter{
 
     private final OnStartDragListener mDragStartListener;
+    Context context;
 
     public static class DestViewHolder extends RecyclerView.ViewHolder {
 
@@ -40,9 +42,10 @@ public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdap
 
     List<Destination> destinations;
 
-    CreateTripsRVAdapter(List<Destination> destinations, OnStartDragListener dragStartListener){
+    CreateTripsRVAdapter(Context context, List<Destination> destinations, OnStartDragListener dragStartListener){
         this.destinations = destinations;
         mDragStartListener = dragStartListener;
+        this.context = context;
     }
 
     public void editTrips(List<Destination> destinations){
@@ -73,12 +76,11 @@ public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdap
         destViewHolder.desc.setText(destinations.get(i).location);
         destViewHolder.image.setImageResource(destinations.get(i).imageId);
 
-        destViewHolder.image.setOnTouchListener(new View.OnTouchListener() {
+        destViewHolder.image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                    mDragStartListener.onStartDrag(destViewHolder);
-                }
+            public boolean onLongClick(View v) {
+                mDragStartListener.onStartDrag(destViewHolder);
+
                 return false;
             }
         });
@@ -88,7 +90,15 @@ public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdap
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(destinations, fromPosition, toPosition);
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(destinations, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(destinations, i, i - 1);
+            }
+        }
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
@@ -97,11 +107,18 @@ public class CreateTripsRVAdapter extends RecyclerView.Adapter<CreateTripsRVAdap
     public void onItemDismiss(int position) {
         destinations.remove(position);
         notifyItemRemoved(position);
+        if (context instanceof CreateTripActivity){
+            ((CreateTripActivity)context).setDestinations(destinations);
+        }
     }
 //    Returns the total number of items in the data set hold by the adapter.
     @Override
     public int getItemCount() {
         return destinations.size();
+    }
+
+    public List<Destination> getDestinations(){
+        return destinations;
     }
 
 }
