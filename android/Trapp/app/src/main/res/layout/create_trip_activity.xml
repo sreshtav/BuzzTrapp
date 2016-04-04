@@ -24,7 +24,7 @@ android:id="@+id/mt_layout">
         <buzztrapp.trapp.create_trip.SlidingTabLayout
             android:id="@+id/ct_slidingTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             >
 
         </buzztrapp.trapp.create_trip.SlidingTabLayout>
@@ -70,15 +70,15 @@ android:id="@+id/mt_layout">
         </LinearLayout>-->
 
 
+        <android.support.v4.view.ViewPager
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/ct_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/ct_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
 
 
 

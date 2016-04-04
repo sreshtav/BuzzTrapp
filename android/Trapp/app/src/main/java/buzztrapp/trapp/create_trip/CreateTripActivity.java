@@ -2,6 +2,7 @@ package buzztrapp.trapp.create_trip;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import buzztrapp.trapp.R;
+import buzztrapp.trapp.manage_trips.ManageTripsActivity;
 
 public class CreateTripActivity extends AppCompatActivity implements ActionBar.TabListener{
 
@@ -120,7 +122,8 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
 //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_done) {
-
+            Intent intent = new Intent(this, ManageTripsActivity.class);
+            this.startActivity(intent);
             return true;
 
         }
