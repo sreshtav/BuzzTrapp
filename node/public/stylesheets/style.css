@@ -28,6 +28,10 @@ a:hover{
 	text-decoration:none;
 }
 
+a {
+  text-decoration:none;
+}
+
 .loginScreen input {
   margin: 10px;
   background-color: rgba(255, 255, 255, 0.3);
@@ -89,17 +93,37 @@ a {
   height:45px;
 }
 
+.mdl-textfield {
+  padding:10px 0 !important;
+}
+
+.mdl-textfield__input {
+  padding:5px 0 0 0 !important;
+}
+
+form {
+  margin:0 !important;
+}
+
+.mdl-list__item {
+  padding:0 16px !important;
+}
+
+.mdl-textfield__input {
+  padding:10px 0!important;
+}
+
 #upcoming_trip {
   background: url('../images/SF_BG.png') center / cover;
 }
 
 
 
-.future-trips {
+.white-card {
   padding:16px;
 }
 
-.future-trips-item {
+.white-card-item {
   margin-bottom:16px;
   padding:12px;
   min-height: 60px;
@@ -307,7 +331,7 @@ a {
 .demo-chart:nth-child(4) {
   color: #EF3C79;
 }*/
-.future-trips {
+.white-card {
   padding: 16px 32px;
   display: -webkit-flex;
   display: -ms-flexbox;
