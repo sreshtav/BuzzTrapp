@@ -54,7 +54,7 @@
 		border: 0;
 		font-size: 100%;
 		font: inherit;
-		font-family: "Proxima Nova", Sans-Serif;
+		font-family: "Open Sans", Sans-Serif;
 		vertical-align: baseline;
 	}
 
@@ -3902,7 +3902,7 @@
 			font-size: 3.25em;
 			font-weight: bold;
 			margin-bottom: 0.5em;
-			font-family: 'Proxima Nova', sans-serif;
+			font-family: 'Open Sans', sans-serif;
 		}
 
 		#header p {
