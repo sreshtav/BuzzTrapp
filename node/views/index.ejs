@@ -8,52 +8,31 @@
 	<head>
 		<title>Trapp: One-stop Travel Companion</title>
 		<meta charset="utf-8" />
-
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-	  <script src="scripts/jquery.min.js"></script>
+	  	<script src="scripts/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="stylesheets/font-awesome.min.css">
-
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-		<!--Fonts-->
-		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Basic' rel='stylesheet' type='text/css'>
 		<style>
 		.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+		@font-face {
+		    font-family: "Proxima Nova";
+		    src: url(http://www.example.org/mycustomfont.ttf) format("truetype");
+		}
+		p.customfont { 
+		    font-family: "My Custom Font", Verdana, Tahoma;
+		}
+
 		</style>
 		
 	</head>
 	<body id="top">
-
-		<!--Sticky bar-->
-<!-- 				<div class="sticky_bar">
-					<ul class="icons">
-						<li><div class="sticky_logo">
-							<ul class="icons">
-								<li><img src="images/trapp_icon.png" height="50px"></li>
-								<li><h2>Trapp</h2></li>
-							</ul>
-						</div></li>
-						<li><div class="sticky_actions">
-							<button class="button_download">Download</button>
-							<button class="button_sign_up">Get started for FREE</button>
-							<button class="button_log_in">Log In</button>
-						</div></li>
-					</ul>
-				</div> -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
@@ -155,7 +134,7 @@
 								<div>
 									<img class="block" src="images/nisheeth.jpg" width="150" alt="" />
 									<span class="block"><b>Nisheeth Bandaru</b></span>
-									<span class="block left-aligned">Back-end Development &nbsp;&nbsp;&nbsp;</span>
+									<span class="block left-aligned" style="height:40px;">Back-end Development</span>
 									<span class="block left-aligned">nisheeth@gatech.edu</span>
 								</div>
 							</li>
