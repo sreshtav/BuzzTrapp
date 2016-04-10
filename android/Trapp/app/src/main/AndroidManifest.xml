@@ -13,22 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".LoginActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".manage_trips.ManageTripsActivity"></activity>
-        <activity android:name=".create_trip.CreateTripActivity">
-
-
-        </activity>
+        <activity android:name=".manage_trips.ManageTripsActivity" />
+        <activity android:name=".create_trip.CreateTripActivity"></activity>
         <activity android:name=".SignUpActivity" />
-<!--        <activity android:name=".CreateTripDestinationFragment" />
-        <activity android:name=".CreateTripDurationFragment" />-->
-        <!--<activity android:name=".CreateTripFragment"></activity>-->
+        <!--
+            <activity android:name=".CreateTripDestinationFragment" />
+        <activity android:name=".CreateTripDurationFragment" />
+        -->
+        <!-- <activity android:name=".CreateTripFragment"></activity> -->
+        <activity android:name=".edit_trip.EditTripActivity"></activity>
     </application>
 
 </manifest>
