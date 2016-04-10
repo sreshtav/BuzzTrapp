@@ -42,8 +42,8 @@
 
 /*Fonts*/
 	@font-face {
-    font-family: Proxima Nova;
-    src: url(fonts/proxima_nova/Mark Simonson - Proxima Nova Alt Regular.otf);
+    font-family: ProximaNova;
+    src: url(/fonts/proxima_nova.otf) format("opentype");
 }
 
 /* Reset */
@@ -54,7 +54,7 @@
 		border: 0;
 		font-size: 100%;
 		font: inherit;
-		font-family: "Open Sans", sans-serif;
+		font-family: ProximaNova, "Open Sans", sans-serif;
 		vertical-align: baseline;
 	}
 
