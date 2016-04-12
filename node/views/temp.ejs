@@ -51,16 +51,34 @@
 		    	<img src="images/Trapp-icon-on-white-06.png" alt="Trapp icon" width="240vw"> 
 		    </div>
 		    <br>
-				<form class="noshadow" ng-submit="submit()">
-					<input class="noshadow" type="text" ng-model="user.email" name="email" placeholder="Email"><br>
-					<input class="noshadow" type="password" ng-model="user.password" name="password" placeholder="Password"><br>
-					<input class="noshadow" type="submit" value="Log In">
-				</form>
-				<br>
-				<a href="">Forgot password?</a>
-				<div class="loginErr">Invalid account or password.</div>
+		    <div ng-show="!creatingAccount">
+					<form class="noshadow" ng-submit="login()">
+						<input class="noshadow" type="text" ng-model="user.email" name="email" placeholder="Email"><br>
+						<input class="noshadow" type="password" ng-model="user.password" name="password" placeholder="Password"><br>
+						<input class="noshadow" type="submit" value="Log In">
+					</form>
+					<br>
+					<a href="">Forgot password?</a><br>
+					<div class="loginErr">{{error}}</div>
+					<a ng-click="creatingAccount = true">create user</a>
+		    </div>
+				<div ng-show="creatingAccount">
+					<form class="noshadow" ng-submit="submitNewUser()">
+						<input class="noshadow" type="text" ng-model="newUser.name" name="name" placeholder="Name"><br>
+						<input class="noshadow" type="text" ng-model="newUser.email" name="email" placeholder="Email"><br>
+						<input class="noshadow" type="password" ng-model="newUser.password1" name="password" placeholder="Password"><br>
+						<input class="noshadow" type="password" ng-model="newUser.password2" name="password" placeholder="Repeat Password"><br>
+						<input class="noshadow" type="submit" value="Create account">
+					</form>
+					<br>
+					<div class="loginErr">{{error}}</div>
+					<a ng-click="creatingAccount = false">cancel</a>
+				</div>
 			</div>
 		</div>
+
+
+
 		<div ng-show="isAuthenticated">
 			<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
 			  <header class="demo-header mdl-layout__header">
