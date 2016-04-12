@@ -58,10 +58,11 @@ controllers.homeCtrl = function ($scope, infoFact, $http) {
     $http
       .post('/api/addTrip', $scope.newTrip)
       .success(function (data, status, headers, config) {
-        if (data.success) {
+        if (data.succes) {
           console.log("ADDED NEW TRIP");
           infoFact.getTrips().then(function (data){
             $scope.myTrips = data;
+            $scope.dismiss()
           });
         } else {
         }
@@ -138,16 +139,6 @@ controllers.UserCtrl = function ($scope, $http, $window) {
     } else {
     }
   };
-
-  // $scope.callRestricted = function () {
-  //   $http({url: '/api/myTrips', method: 'GET'})
-  //   .success(function (data, status, headers, config) {
-  //     $scope.message = data; // Should log 'foo'
-  //   })
-  //   .error(function (data, status, headers, config) {
-  //     alert(data);
-  //   });
-  // };
 }
 
 factories.infoFact = function ($http, $q){
@@ -285,7 +276,16 @@ app.directive("calendar", function() {
 
 
 
-
+app.directive('myModal', function() {
+   return {
+     restrict: 'A',
+     link: function(scope, element, attr) {
+       scope.dismiss = function() {
+           element.modal('hide');
+       };
+     }
+   } 
+});
 
 
 

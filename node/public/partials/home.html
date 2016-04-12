@@ -14,9 +14,9 @@
         <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
       </div>
     </a>
-    <a href="#create-a-trip" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right" id="btn-create">
+    <button data-toggle="modal" data-target="#myModal" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right">
       <i class="material-icons">add</i>
-    </a>       
+    </button>       
   </div>
   <div class="demo-cards mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-grid mdl-grid--no-spacing">
     <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
@@ -28,11 +28,18 @@
         <div id='map'></div>
     </div>
   </div>
-  <!-- modal for destination and dates -->
-  <div class="modal white-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet" id="create-a-trip">
+
+
+  <!-- Modal -->
+  <div class="modal fade" my-modal id="myModal" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
-          <span class="close">x</span>
-          <form ng-submit="addNewTrip()">
+      <!--   <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add New Trip</h4>
+        </div> -->
+        <div class="modal-body">
+          <form stlye="width:100%">
             <div class="group">
               <label>Destination</label>
               <input ng-model="newTrip.location" type="text"><span class="highlight"></span><span class="bar"></span>
@@ -45,16 +52,15 @@
               <label>Return Date</label>
               <input ng-model="newTrip.endDate" type="date" class="return-date"><span class="highlight"></span><span class="bar"></span>
             </div>
-            <button type="submit" class="mdl-button mdl-js-button">Cancel
-            </button>
-            <input type="submit" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value ="Confirm">
-            </input>
           </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button"  class="mdl-button mdl-js-button" data-dismiss="modal">Close</button>
+          <button type="button" ng-click="addNewTrip()" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" >Add New Trip</button>
+        </div>
       </div>
+    </div>
   </div>
-</div>
-
-
 
 
 <script>
@@ -66,32 +72,6 @@ var map = new mapboxgl.Map({
     zoom: 9 // starting zoom
 });
 </script>
-<script>
-// Get the modal
-var modal = document.getElementById('create-a-trip');
 
-// Get the button that opens the modal
-var btn = document.getElementById("btn-create");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
 <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 
