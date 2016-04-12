@@ -2,24 +2,29 @@ package buzztrapp.trapp.create_trip;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
+import cz.msebera.android.httpclient.Header;
 
 public class CreateTripActivity extends AppCompatActivity implements ActionBar.TabListener{
 
@@ -150,6 +155,7 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
 //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_done) {
+            addTripToDatabase();
             Intent intent = new Intent(this, ManageTripsActivity.class);
             this.startActivity(intent);
             return true;
@@ -158,6 +164,31 @@ public class CreateTripActivity extends AppCompatActivity implements ActionBar.T
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void addTripToDatabase () {
+        Log.d("CreateTrip", "Inside getTrips");
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", preferences.getString("token", ""));
+        RequestParams params = new RequestParams();
+        Log.d("CreateTrip", "Location - " + destinations.get(0).location);
+        Log.d("CreateTrip", "Start date - " + dates.get(0));
+        Log.d("CreateTrip", "End date - " + dates.get(1));
+        params.put("location", destinations.get(0).location);
+        params.put("startDate", dates.get(0));
+        params.put("endDate", dates.get(dates.size()-1));
+        client.post("http://173.236.255.240/api/addTrip", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                Log.d("CreateTrip", "Inside success");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                Log.d("CreateTrip", "Inside failure");
+            }
+        });
     }
 
 
