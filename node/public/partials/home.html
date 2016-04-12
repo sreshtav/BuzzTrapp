@@ -14,7 +14,7 @@
         <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
       </div>
     </a>
-    <a href="#create_a_trip" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right">
+    <a href="#create-a-trip" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right" id="btn-create">
       <i class="material-icons">add</i>
     </a>       
   </div>
@@ -31,10 +31,9 @@
 </div>
 
 <!-- modal for destination and dates -->
-<div class="flex">
-  <div class="modal" id="create_a_trip">
-    <div class="inner-modal">
-      <div class="content">
+  <div class="modal" id="create-a-trip">
+      <div class="modal-content">
+          <span class="close">x</span>
           <form>
             <div class="group">
               <input type="text"><span class="highlight"></span><span class="bar"></span>
@@ -55,9 +54,8 @@
             </button>
           </form>
       </div>
-    </div>
   </div>
-</div>
+
 
 <script>
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
@@ -67,6 +65,33 @@ var map = new mapboxgl.Map({
     center: [-74.50, 40], // starting position
     zoom: 9 // starting zoom
 });
+</script>
+<script>
+// Get the modal
+var modal = document.getElementById('create-a-trip');
+
+// Get the button that opens the modal
+var btn = document.getElementById("btn-create");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 </script>
 <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 
