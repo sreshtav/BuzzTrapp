@@ -46,6 +46,10 @@
     cursor: pointer;
 }
 
+form {
+    padding:1em;
+}
+
 .loginScreen {
   background-color:#FF7F66;
   width: 100%;
@@ -63,7 +67,7 @@
 }
 
 .demo-header {
-	margin-left:240px;
+	margin-left:110px;
 	width:calc(100% - 240px); 
 }
 
