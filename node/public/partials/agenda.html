@@ -1,0 +1,15 @@
+<div class="header">
+    
+</div>
+<table>
+	<tr>
+	  <td class="header">
+	  	<span>{{selected.format("D ddd")}}</span>
+	  </td>
+	  <td></td> 
+	</tr>
+  <tr class="hourTable" ng-repeat="hour in hours">
+    <td class="hour" ng-class="{visible:hour.visible}">{{hour.hour.format('LT')}}</td>
+    <td>Name of Event or something</td> 
+  </tr>
+</table>
