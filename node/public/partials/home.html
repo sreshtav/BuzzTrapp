@@ -14,7 +14,7 @@
         <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
       </div>
     </a>
-    <a href="#/newTrip" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right">
+    <a href="#create_a_trip" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right">
       <i class="material-icons">add</i>
     </a>       
   </div>
@@ -32,8 +32,7 @@
 
 <!-- modal for destination and dates -->
 <div class="flex">
-  <a href="#">+</a>
-  <div class="modal">
+  <div class="modal" id="create_a_trip">
     <div class="inner-modal">
       <div class="content">
           <form>
