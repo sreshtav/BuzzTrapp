@@ -8,7 +8,7 @@
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 110px;
-    top: 0;
+    top: 20vh;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
@@ -21,7 +21,7 @@
     position: relative;
     background-color: #fefefe;
     margin: auto;
-    padding: 0;
+    padding: 1em;
     border: 1px solid #888;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
