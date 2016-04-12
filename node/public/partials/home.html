@@ -30,6 +30,36 @@
   </div>
 </div>
 
+<!-- modal for destination and dates -->
+<div class="flex">
+  <a href="#">+</a>
+  <div class="modal">
+    <div class="inner-modal">
+      <div class="content">
+          <form>
+            <div class="group">
+              <input type="text"><span class="highlight"></span><span class="bar"></span>
+              <label>Where do you want to explore?</label>
+            </div>
+            <div class="group">
+              <input type="date"><span class="highlight"></span><span class="bar"></span>
+              <label>Start Date</label>
+            </div>
+            <div class="group">
+              <input type="date"><span class="highlight"></span><span class="bar"></span>
+              <label>Return Date</label>
+            </div>
+            <button class="mdl-button mdl-js-button">
+              Cancel
+            </button>
+            <button type="date" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Confirm
+            </button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
 var map = new mapboxgl.Map({
