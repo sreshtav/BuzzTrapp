@@ -40,8 +40,6 @@ controllers.newTripCtrl = function ($scope, $location) {
   }
 
 }
-
-
 controllers.historyCtrl = function (infoFact, $scope, $http) {
   infoFact.getTrips().then(function (data){
     $scope.myTrips = data;
@@ -49,7 +47,10 @@ controllers.historyCtrl = function (infoFact, $scope, $http) {
 
 }
 
-controllers.homeCtrl = function ($scope) {
+controllers.homeCtrl = function ($scope, infoFact) {
+    infoFact.getTrips().then(function (data){
+    $scope.myTrips = data;
+  });
 }
 
 controllers.UserCtrl = function ($scope, $http, $window) {
@@ -61,7 +62,7 @@ controllers.UserCtrl = function ($scope, $http, $window) {
     $scope.isAuthenticated = true;
   }
 
-  $scope.submit = function () {
+  $scope.login = function () {
     $http
       .post('/auth/login', $scope.user)
       .success(function (data, status, headers, config) {
@@ -80,6 +81,32 @@ controllers.UserCtrl = function ($scope, $http, $window) {
         $scope.error = 'Error: Invalid user or password';
       });
   };
+
+  $scope.submitNewUser = function () {
+    var userObj = {};
+    userObj.name = $scope.newUser.name;
+    userObj.email = $scope.newUser.email;
+    if ($scope.newUser.password1 === $scope.newUser.password1)
+      userObj.password = $scope.newUser.password1;
+    $http
+      .post('/auth/signup', userObj)
+      .success(function (data, status, headers, config) {
+        if (data.success) {
+            $window.localStorage.token = data.msg;
+            $scope.isAuthenticated = true;
+        } else {
+            delete $window.localStorage.token;
+            $scope.isAuthenticated = false;
+            $scope.error = 'Error: Invalid user or password';
+        }
+      })
+      .error(function (data, status, headers, config) {
+        delete $window.localStorage.token;
+        $scope.isAuthenticated = false;
+        $scope.error = 'Error: Invalid user or password';
+      });
+
+  }
 
   $scope.logout = function () {
     if (confirm("Are you sure you want to log out?")) {
@@ -236,5 +263,48 @@ app.directive("calendar", function() {
             date.add(1, "d");
         }
         return days;
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.directive("agenda", function() {
+    return {
+        restrict: "E",
+        templateUrl: "partials/agenda.html",
+        scope: {
+            selected: "="
+        },
+        link: function(scope) {
+            _buildDay(scope);
+        }
+    };
+
+    function _createTime(hour, minute) {
+        return moment().year(0).month(0).day(0).second(0).millisecond(0).hour(hour).minute(minute);
+    }
+
+    function _buildDay(scope) {
+        scope.hours = [];
+        var date = moment();
+        var done = false, hour = 0, count = 0;
+        while (!done) {
+            scope.hours.push({'hour' : _createTime(hour++, 0), 'visible' : false});
+            done = count++ > 23;
+        }
+        scope.hours[8].visible = true;
+        scope.hours[12].visible = true;
+        scope.hours[21].visible = true;
+
     }
 });
