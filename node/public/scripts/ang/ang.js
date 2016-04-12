@@ -32,6 +32,10 @@ app.config([
           url: '/help',
           templateUrl: '/partials/help.html',
 		})
+        .state("suggestionMap",{
+          url:"/suggestionMap",
+          templateUrl:"/partials/suggestionMap.html" 
+        })
 	}]);
 
 controllers.newTripCtrl = function ($scope, $location) {
