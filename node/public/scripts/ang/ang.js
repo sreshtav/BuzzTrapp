@@ -48,8 +48,9 @@ controllers.historyCtrl = function (infoFact, $scope, $http) {
 }
 
 controllers.homeCtrl = function ($scope, infoFact) {
-    infoFact.getTrips().then(function (data){
+  infoFact.getTrips().then(function (data){
     $scope.myTrips = data;
+    // $scope.$apply();
   });
 }
 
