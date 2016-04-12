@@ -47,23 +47,26 @@ controllers.historyCtrl = function (infoFact, $scope, $http) {
 
 }
 
-controllers.homeCtrl = function ($scope, infoFact) {
+controllers.homeCtrl = function ($scope, infoFact, $http) {
   infoFact.getTrips().then(function (data){
     $scope.myTrips = data;
   });
 
   $scope.addNewTrip = function (){
 
-    var newTrip = new Trip({
-      'startDate' : req.body.startDate,
-      'endDate' : req.body.endDate,
-      'location' : req.body.location 
-    });
-
-    infoFact.addNewTrip($scope.newTrip)
-      .then(function (data){
-        if (data)
-          $scope.myTrips = data;
+    console.log("ADDING NEW TRIP");
+    $http
+      .post('/api/addTrip', $scope.newTrip)
+      .success(function (data, status, headers, config) {
+        if (data.success) {
+          console.log("ADDED NEW TRIP");
+          infoFact.getTrips().then(function (data){
+            $scope.myTrips = data;
+          });
+        } else {
+        }
+      })
+      .error(function (data, status, headers, config) {
       });
   }
 }
@@ -174,21 +177,6 @@ factories.infoFact = function ($http, $q){
         resolve(data);
       }, function (d, data) {reject(data)});
     });
-  }
-
-  services.addNewTrip = function (tripObj) {
-    $http
-      .post('/api/addTrip', tripObj)
-      .success(function (data, status, headers, config) {
-        if (data.success) {
-          return services.getTrips();
-        } else {
-          return null;
-        }
-      })
-      .error(function (data, status, headers, config) {
-        return null;
-      });
   }
 
   return services;

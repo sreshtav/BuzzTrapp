@@ -32,23 +32,23 @@
   <div class="modal white-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet" id="create-a-trip">
       <div class="modal-content">
           <span class="close">x</span>
-          <form>
+          <form ng-submit="addNewTrip()">
             <div class="group">
               <label>Destination</label>
-              <input type="text"><span class="highlight"></span><span class="bar"></span>
+              <input ng-model="newTrip.location" type="text"><span class="highlight"></span><span class="bar"></span>
             </div>
             <div class="group">
               <label>Start Date</label>
-              <input type="date" class="start-date"><span class="highlight"></span><span class="bar"></span>
+              <input ng-model="newTrip.startDate" type="date" class="start-date"><span class="highlight"></span><span class="bar"></span>
             </div>
             <div class="group">
               <label>Return Date</label>
-              <input type="date" class="return-date"><span class="highlight"></span><span class="bar"></span>
+              <input ng-model="newTrip.endDate" type="date" class="return-date"><span class="highlight"></span><span class="bar"></span>
             </div>
             <button type="submit" class="mdl-button mdl-js-button">Cancel
             </button>
-            <button type="submit" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Confirm
-            </button>
+            <input type="submit" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value ="Confirm">
+            </input>
           </form>
       </div>
   </div>
