@@ -57,9 +57,9 @@ controllers.UserCtrl = function ($scope, $http, $window) {
   $scope.isAuthenticated = false;
   $scope.welcome = '';
   $scope.message = '';
-
   if ($window.localStorage.token){
     $scope.isAuthenticated = true;
+    $scope.userEmail = $window.localStorage.userEmail;
   }
 
   $scope.login = function () {
@@ -68,6 +68,8 @@ controllers.UserCtrl = function ($scope, $http, $window) {
       .success(function (data, status, headers, config) {
         if (data.success) {
             $window.localStorage.token = data.msg;
+            $window.localStorage.userEmail = data.userEmail;
+            $scope.userEmail = data.userEmail;
             $scope.isAuthenticated = true;
         } else {
             delete $window.localStorage.token;
@@ -114,6 +116,7 @@ controllers.UserCtrl = function ($scope, $http, $window) {
       $scope.message = '';
       $scope.isAuthenticated = false;
       delete $window.localStorage.token;
+      delete $window.localStorage.userEmail;
     } else {
     }
   };
