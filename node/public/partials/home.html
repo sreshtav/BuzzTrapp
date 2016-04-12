@@ -5,11 +5,10 @@
       <p>San Francisco, San Jose, Santa Barbara, Long Beach, Yosemite… | March 12 - March 17</p>
     </div>
   </a>
-
   <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
     <h4 class="mdl-card__title-text">Future Trips</h4>
     <br>
-    <a href="#" ng-repeat="trip in myTrips">
+    <a href="#/suggestionMap/{{trip.location}}" ng-repeat="trip in myTrips">
       <div class="mdl-card__title mdl-card--expand white-card-item {{trip.cityClass}}">
         <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
       </div>

@@ -26,17 +26,43 @@ app.config([
         .state('newTrip', {
           url: '/newTrip',
           templateUrl: '/partials/newTrip.html',
-    		  controller: 'newTripCtrl'
+          controller: 'newTripCtrl'
         })
         .state('help', {
           url: '/help',
           templateUrl: '/partials/help.html',
-		})
+    })
         .state("suggestionMap",{
-          url:"/suggestionMap",
-          templateUrl:"/partials/suggestionMap.html" 
+          url:"/suggestionMap/:tripDestination",
+          templateUrl:"/partials/suggestionMap.html",
+    		  controller: 'suggestionMapCtrl'
         })
 	}]);
+
+controllers.suggestionMapCtrl = function ($scope, $stateParams) {
+  var cityCoordinates = {
+    "Miami" :  [40.712784, -74.005941],
+    "San Francisco" :  [37.77493, -122.419416],
+    "Hawaii" :  [21.306944, -157.858333],
+    "London" :  [51.507351, -0.127758],
+    "Washington DC" :  [38.907192, -77.036871],
+    "Hong Kong" :  [22.396428, 114.109497]
+  }
+
+  mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
+  var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+      center: cityCoordinates[$stateParams.tripDestination], // starting position
+      zoom: 2 // starting zoom
+  });
+  map.on('click', function(e) {
+      var latitude = e.latlng.lat;
+      var longitude = e.latlng.lng;
+      console.log(latitude + " - " + longitude);
+  });
+
+}
 
 controllers.newTripCtrl = function ($scope, $location) {
   $scope.cancel = function () {
@@ -155,7 +181,6 @@ factories.infoFact = function ($http, $q){
     "Washington DC" : "washington-dc",
     "Hong Kong" : "hong-kong"
   }
-
   var services = {};
 
   services.getTrips = function () {
