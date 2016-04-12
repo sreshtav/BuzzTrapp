@@ -9,27 +9,12 @@
   <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
     <h4 class="mdl-card__title-text">Future Trips</h4>
     <br>
-    <a href="#">
-      <div class="mdl-card__title mdl-card--expand white-card-item san-francisco">
-        <h6 class="mdl-card__item-text mdl-color-text--white">San Francisco | March 12 - March 17</h6>
+    <a href="#" ng-repeat="trip in myTrips">
+      <div class="mdl-card__title mdl-card--expand white-card-item {{trip.cityClass}}">
+        <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
       </div>
     </a>
-    <a href="#">
-      <div class="mdl-card__title mdl-card--expand white-card-item london">
-        <h6 class="mdl-card__item-text mdl-color-text--white">London | March 18 - March 23</h6>
-      </div>
-    </a>
-    <a href="#">
-      <div class="mdl-card__title mdl-card--expand white-card-item washington-dc">
-        <h6 class="mdl-card__item-text mdl-color-text--white">Washington, D.C. | April 12 - April 17</h6>
-      </div>
-    </a>
-    <a href="#">
-      <div class="mdl-card__title mdl-card--expand white-card-item hawaii">
-        <h6 class="mdl-card__item-text mdl-color-text--white">Hawaii | April 19 - April 23</h6>
-      </div>
-    </a>
-    <a href="#/newTrip" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right">
+    <a href="#create-a-trip" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right" id="btn-create">
       <i class="material-icons">add</i>
     </a>       
   </div>
@@ -40,37 +25,73 @@
     </div>
     <div class="demo-separator mdl-cell--1-col"></div>
     <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" id="map">
+        <div id='map'></div>
     </div>
   </div>
 </div>
 
-<script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
+<!-- modal for destination and dates -->
+  <div class="modal" id="create-a-trip">
+      <div class="modal-content">
+          <span class="close">x</span>
+          <form>
+            <div class="group">
+              <input type="text"><span class="highlight"></span><span class="bar"></span>
+              <label>Where do you want to explore?</label>
+            </div>
+            <div class="group">
+              <input type="date"><span class="highlight"></span><span class="bar"></span>
+              <label>Start Date</label>
+            </div>
+            <div class="group">
+              <input type="date"><span class="highlight"></span><span class="bar"></span>
+              <label>Return Date</label>
+            </div>
+            <button class="mdl-button mdl-js-button">
+              Cancel
+            </button>
+            <button type="date" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Confirm
+            </button>
+          </form>
+      </div>
+  </div>
+
+
 <script>
-  var map;
-
-  function initialize() {
-    var mapOptions = {
-      zoom: 2,
-      center: {lat: -33.865427, lng: 151.196123},
-      mapTypeId: google.maps.MapTypeId.TERRAIN
-    };
-    map = new google.maps.Map(document.getElementById('map'),
-          mapOptions);
-
-    // Create a <script> tag and set the USGS URL as the source.
-    var scriptMap = document.createElement('script');
-
-    // (In this example we use a locally stored copy instead.)
-    // script.src = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp';
-    scriptMap.src = 'earthquake_GeoJSONP.js';
-    document.getElementsByTagName('head')[0].appendChild(scriptMap);
-  }
-
-  function eqfeed_callback(results) {
-    map.data.addGeoJson(results);
-  }
-
-  // Call the initialize function after the page has finished loading
-  google.maps.event.addDomListener(window, 'load', initialize);
-
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+    center: [-74.50, 40], // starting position
+    zoom: 9 // starting zoom
+});
 </script>
+<script>
+// Get the modal
+var modal = document.getElementById('create-a-trip');
+
+// Get the button that opens the modal
+var btn = document.getElementById("btn-create");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+<script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
+

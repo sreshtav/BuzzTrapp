@@ -53,7 +53,7 @@ router.post('/login', function(req, res) {
       user.checkPassword(req.body.password, function(err, isMatch) {
         if (isMatch && !err) {
           var token = jwt.encode(user._id, "taufiqsAwesome");
-          res.json({success: true, msg: 'JWT ' + token});
+          res.json({success: true, msg: 'JWT ' + token, userEmail : user.email});
         } else {
           res.send({success: false, msg: 'passwordError'});
         }

@@ -25,6 +25,11 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+
+<!-- mapbox api -->
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.16.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.16.0/mapbox-gl.css' rel='stylesheet' />
+
  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
   <script src="/scripts/moment.js"></script>
   <script src="/scripts/jquery.min.js"></script>
@@ -46,17 +51,32 @@
 		    	<img src="images/Trapp-icon-on-white-06.png" alt="Trapp icon" width="240vw"> 
 		    </div>
 		    <br>
-				<form class="noshadow" ng-submit="submit()">
-					<input class="noshadow" type="text" ng-model="user.email" name="email" placeholder="Email"><br>
-					<input class="noshadow" type="password" ng-model="user.password" name="password" placeholder="Password"><br>
-					<input class="noshadow" type="submit" value="Log In">
-				</form>
-				<br>
-				<a href="">Forgot password?</a>
-				<div class="loginErr">Invalid account or password.</div>
+		    <div ng-show="!creatingAccount">
+					<form class="noshadow" ng-submit="login()">
+						<input class="noshadow" type="text" ng-model="user.email" name="email" placeholder="Email"><br>
+						<input class="noshadow" type="password" ng-model="user.password" name="password" placeholder="Password"><br>
+						<input class="noshadow" type="submit" value="Log In">
+					</form>
+					<br>
+					<a href="">Forgot password?</a><br>
+					<div class="loginErr">{{error}}</div>
+					<a ng-click="creatingAccount = true">create user</a>
+		    </div>
+				<div ng-show="creatingAccount">
+					<form class="noshadow" ng-submit="submitNewUser()">
+						<input class="noshadow" type="text" ng-model="newUser.name" name="name" placeholder="Name"><br>
+						<input class="noshadow" type="text" ng-model="newUser.email" name="email" placeholder="Email"><br>
+						<input class="noshadow" type="password" ng-model="newUser.password1" name="password" placeholder="Password"><br>
+						<input class="noshadow" type="password" ng-model="newUser.password2" name="password" placeholder="Repeat Password"><br>
+						<input class="noshadow" type="submit" value="Create account">
+					</form>
+					<br>
+					<div class="loginErr">{{error}}</div>
+					<a ng-click="creatingAccount = false">cancel</a>
+				</div>
 			</div>
 		</div>
-		<div ng-show="isAuthenticated">
+		<div ng-if="isAuthenticated">
 			<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
 			  <header class="demo-header mdl-layout__header">
 			    <div class="mdl-layout__header-row mdl-color--trapp-red">
@@ -69,7 +89,7 @@
 			    <header class="demo-drawer-header mdl-color--trapp-blue">
 			      <img src="images/user.png" class="demo-avatar">
 			      <div class="demo-avatar-dropdown">
-			        <span>hello@example.com</span>
+			        <span>{{userEmail}}</span>
 			        <div class="mdl-layout-spacer"></div>
 			        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
 			          <i class="material-icons" role="presentation">arrow_drop_down</i>
@@ -83,7 +103,7 @@
 			      </div>
 			    </header>
 			    <nav class="demo-navigation mdl-navigation mdl-color--trapp-blue">
-			      <a class="mdl-navigation__link mdl-color-text--white" href="#/"><i class="mdl-color-text--white material-icons" role="presentation">account_circle</i>Profile</a>
+			      <a class="mdl-navigation__link mdl-color-text--white" href="#/"><i class="mdl-color-text--white material-icons" role="presentation">account_circle</i>Manage Trips</a>
 			      <a class="mdl-navigation__link" href="#/history"><i class="mdl-color-text--white material-icons" role="presentation">history</i>History</a>
 			      <a class="mdl-navigation__link" href="#/setting"><i class="mdl-color-text--white material-icons" role="presentation">settings</i>Settings</a>
 			      <a class="mdl-navigation__link" href="#/help"><i class="mdl-color-text--white material-icons" role="presentation">help</i>Help</a>
