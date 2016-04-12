@@ -50,8 +50,22 @@ controllers.historyCtrl = function (infoFact, $scope, $http) {
 controllers.homeCtrl = function ($scope, infoFact) {
   infoFact.getTrips().then(function (data){
     $scope.myTrips = data;
-    // $scope.$apply();
   });
+
+  $scope.addNewTrip = function (){
+
+    var newTrip = new Trip({
+      'startDate' : req.body.startDate,
+      'endDate' : req.body.endDate,
+      'location' : req.body.location 
+    });
+
+    infoFact.addNewTrip($scope.newTrip)
+      .then(function (data){
+        if (data)
+          $scope.myTrips = data;
+      });
+  }
 }
 
 controllers.UserCtrl = function ($scope, $http, $window) {
@@ -162,13 +176,19 @@ factories.infoFact = function ($http, $q){
     });
   }
 
-
-  services.getTrips2 = function () {
-    return $http.get('/api/myTrips');
-  };
-
-  services.temp = function () {
-    return "yo";
+  services.addNewTrip = function (tripObj) {
+    $http
+      .post('/api/addTrip', tripObj)
+      .success(function (data, status, headers, config) {
+        if (data.success) {
+          return services.getTrips();
+        } else {
+          return null;
+        }
+      })
+      .error(function (data, status, headers, config) {
+        return null;
+      });
   }
 
   return services;
