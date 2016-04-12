@@ -1,60 +1,15 @@
 <div class="mdl-grid demo-content">
-
         <div id='map'></div>
 </div>
 
 <script>
-L.mapbox.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
-
-var map = L.mapbox.map('map', 'mapbox.streets')
-    .setView([40, -74.50], 8);
-
-var myLayer = L.mapbox.featureLayer().addTo(map);
-
-var geoJson = [{
-    "type": "food",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-75.00, 40]
-    },
-    "properties": {
-        "title": "Ray's Pizza",
-        "icon": {
-            "iconUrl": "images/food.png",
-            "iconSize": [50, 50], // size of the icon
-            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
-            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
-            "className": "dot"
-        }
-    }
-}, {
-    "type": "sightseeing",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-74.00, 40]
-    },
-    "properties": {
-        "title": "Logan Park",
-        "icon": {
-            "iconUrl": "images/sightseeing.png",
-            "iconSize": [100, 100],
-            "iconAnchor": [50, 50],
-            "popupAnchor": [0, -55],
-            "className": "dot"
-        }
-    }
-}];
-
-// Set a custom icon on each marker based on feature properties.
-myLayer.on('layeradd', function(e) {
-    var marker = e.layer,
-        feature = marker.feature;
-
-    marker.setIcon(L.icon(feature.properties.icon));
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+    center: [-74.50, 40], // starting position
+    zoom: 0 // starting zoom
 });
-
-// Add features to the map.
-myLayer.setGeoJSON(geoJson);
 </script>
 <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 
