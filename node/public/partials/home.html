@@ -5,7 +5,7 @@
       <p>San Francisco, San Jose, Santa Barbara, Long Beach, Yosemite… | March 12 - March 17</p>
     </div>
   </a>
-  <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+  <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet" style="max-height:500px;overflow:scroll;">
     <h4 class="mdl-card__title-text">Future Trips</h4>
     <br>
     <a href="#/suggestionMap/{{trip.location}}" ng-repeat="trip in myTrips">
@@ -13,7 +13,7 @@
         <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
       </div>
     </a>
-    <button data-toggle="modal" data-target="#myModal" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right">
+    <button data-toggle="modal" data-target="#myModal" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right" style="position:fixed; top:680px;left:740px;">
       <i class="material-icons">add</i>
     </button>       
   </div>
@@ -23,7 +23,8 @@
 			<calendar selected="day"></calendar>
     </div>
     <div class="demo-separator mdl-cell--1-col"></div>
-    <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" id="map">
+    <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="max-height:200px;">
+    <iframe width='100%' height='500px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/sliu0915.plnlcjn5/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw'></iframe>
     </div>
   </div>
 
@@ -58,13 +59,13 @@
 </div>
 
 <script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
-var map = new mapboxgl.Map({
-    container: 'map', // container id
-    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-    center: [40, 74], // starting position
-    zoom: 3 // starting zoom
-});
+// mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
+// var map = new mapboxgl.Map({
+//     container: 'map', // container id
+//     style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+//     center: [40, 74], // starting position
+//     zoom: 0 // starting zoom
+// });
 
 
 </script>
