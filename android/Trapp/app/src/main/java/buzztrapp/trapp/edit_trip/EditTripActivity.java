@@ -222,6 +222,9 @@ public class EditTripActivity extends AppCompatActivity{
 
     }
 
+    public void setDefaultDate(Date date){
+        selectedDate.setTime(date);
+    }
     //Overridden from the Communicator Implementation
     //Communicator is for inter-fragment communication
     public void setSelectedDate(Date date) {

@@ -44,7 +44,12 @@ public class EditTripTopFragment extends Fragment {
         startDate = ((EditTripActivity)getActivity()).getStartDate().getTime();
         endDate = ((EditTripActivity)getActivity()).getEndDate().getTime();
 
+        ((EditTripActivity)getActivity()).setDefaultDate(startDate);
+
+
         calendar.init(startDate, endDate).inMode(CalendarPickerView.SelectionMode.SINGLE);
+
+        calendar.selectDate(startDate);
 
         dateSelectedListener = new CalendarPickerView.OnDateSelectedListener() {
             @Override
