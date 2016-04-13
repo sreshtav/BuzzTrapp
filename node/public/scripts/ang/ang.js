@@ -31,11 +31,16 @@ app.config([
         .state('help', {
           url: '/help',
           templateUrl: '/partials/help.html',
-    })
+
+        })
         .state("suggestionMap",{
           url:"/suggestionMap/:tripDestination",
           templateUrl:"/partials/suggestionMap.html",
     		  controller: 'suggestionMapCtrl'
+        })
+        .state("mapbox-testing",{
+          url:"/mapbox-testing",
+          templateUrl:"/partials/mapbox-testing.html"
         })
 	}]);
 
