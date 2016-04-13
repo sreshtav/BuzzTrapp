@@ -58,7 +58,6 @@ public class ManageTripsFragment extends Fragment{
     }
 
     private void getTrips() {
-        Log.d("ManageTrip", "Inside getTrips");
         SharedPreferences preferences = this.getActivity().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
         AsyncHttpClient client = new AsyncHttpClient();
         client.addHeader("Authorization", preferences.getString("token", ""));
@@ -67,7 +66,6 @@ public class ManageTripsFragment extends Fragment{
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                Log.d("ManageTrip", "Inside success");
                 String json = new String(response);
                 try {
                     JSONArray jsonArray = new JSONArray(json);
@@ -86,15 +84,11 @@ public class ManageTripsFragment extends Fragment{
 
                         int image_resrc = getResources().getIdentifier(image_name, null, getActivity().getPackageName());
                         Log.d("ManageTrip", "image_resource = "+image_resrc+ ", image_name = "+image_name);
-                        Trip trip = new Trip(jsonObject.getString("location"), startDate, endDate, image_resrc);
-                        Log.d("ManageTrip", "Adding to list - " + trip.location + " " + trip.startDate + " " + trip.endDate);
+                        Trip trip = new Trip(jsonObject.getString("_id"), jsonObject.getString("location"), startDate, endDate, image_resrc);
                         fullTripsList.add(trip);
-
-                        Log.d("ManageTrip"," ");
                     }
 
                     if (fullTripsList.size() != 0) {
-                        Log.d("ManageTrip", "fulltriplist.size() = "+fullTripsList.size());
                         noTrippImage = getActivity().findViewById(R.id.noTripsImage);
                         noTrippText = getActivity().findViewById(R.id.noTripsText);
                         ((ViewGroup) noTrippImage.getParent()).removeView(noTrippImage);

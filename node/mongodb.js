@@ -18,7 +18,8 @@ var tripSchema = new Schema ({
 });
 var tripItemSchema = new Schema ({
   tripId: {type: mongoose.Schema.Types.ObjectId, ref: 'Trip', required: true},
-  startTime: {type: Date, required: true},
+  startDate: {type: Date, required: true},
+  endTime: {type: String, required: true}, 
   interestPointId: {type: mongoose.Schema.Types.ObjectId, ref: 'InterestPoint', required: true}
 });
 var interestPointSchema = new Schema ({
