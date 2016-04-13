@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var InterestPoint = mongoose.model('InterestPoint');
 var Trip = mongoose.model('Trip');
+var TripItem = mongoose.model('TripItem');
 var passport	  = require('passport');
 
 var basicAuth = passport.authenticate('jwt', { session: false});
@@ -59,6 +60,14 @@ router.post('/addTrip', basicAuth, function (req, res){
 	  } else {
 	    res.json({succes: true, msg: 'Successful created trip!'});
 	  }
+	});
+});
+
+router.get('/myTripItems',printAuth, basicAuth, function (req, res){
+	var tripId = mongoose.Types.ObjectId(req.query.tripId);
+	TripItem.find({'tripId' : tripId}, function (err, data){
+		if (err) res.send("Sorry, error"); //TODO: Make a real error catch
+		res.send(data);
 	});
 });
 
