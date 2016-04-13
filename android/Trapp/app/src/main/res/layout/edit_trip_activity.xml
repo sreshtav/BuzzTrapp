@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="buzztrapp.trapp.edit_trip.EditTripActivity"
-    android:id="@+id/mt_layout">
+    android:id="@+id/et_layout">
 
     <FrameLayout
         android:id="@+id/et_body_layout"
@@ -33,7 +33,7 @@
 
     <!-- Drawer-->
     <ListView
-        android:id="@+id/drawer_listview"
+        android:id="@+id/et_drawer_listview"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:entries="@array/drawer_menu"
