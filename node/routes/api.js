@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var InterestPoint = mongoose.model('InterestPoint');
 var Trip = mongoose.model('Trip');
+var TripItem = mongoose.model('TripItem');
 var passport	  = require('passport');
 
 var basicAuth = passport.authenticate('jwt', { session: false});
@@ -54,6 +55,30 @@ router.post('/addTrip', basicAuth, function (req, res){
 		'location' : req.body.location 
 	});
 	newTrip.save(function(err) {
+	  if (err) {
+	    res.json({succes: false, msg: err});
+	  } else {
+	    res.json({succes: true, msg: 'Successful created trip!'});
+	  }
+	});
+});
+
+router.get('/myTripItems',printAuth, basicAuth, function (req, res){
+	var tripId = mongoose.Types.ObjectId(req.query.tripId);
+	TripItem.find({'tripId' : tripId}, function (err, data){
+		if (err) res.send("Sorry, error"); //TODO: Make a real error catch
+		res.send(data);
+	});
+});
+
+router.post('/addTripItem', basicAuth, function (req, res){
+	var newTripItem = new TripItem({
+		'tripId' : mongoose.Types.ObjectId(req.body.tripId),
+		'startDate' : req.body.startDate,
+		'endTime' : req.body.endTime,
+		'interestPointId' : mongoose.Types.ObjectId(req.body.interestPointId)
+	});
+	newTripItem.save(function(err) {
 	  if (err) {
 	    res.json({succes: false, msg: err});
 	  } else {

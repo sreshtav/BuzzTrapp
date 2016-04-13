@@ -1,14 +1,16 @@
-<div class="mdl-grid demo-content">
-        <div id='cityMap'>say something</div>
-</div>
+<div id='map'>something</div>
 
 <script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
-var map = new mapboxgl.Map({
-    container: 'cityMap', // container id
-    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-    center: [-74.50, 40], // starting position
-    zoom: 0 // starting zoom
-});
+L.mapbox.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
+var map = L.mapbox.map('map', 'mapbox.streets')
+    .setView([37.9, -77], 6);
+
+// L.marker is a low-level marker constructor in Leaflet.
+L.marker([37.9, -77], {
+    icon: L.mapbox.marker.icon({
+        'marker-size': 'large',
+        'marker-symbol': 'bus',
+        'marker-color': '#fa0'
+    })
+}).addTo(map);
 </script>
-<script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
