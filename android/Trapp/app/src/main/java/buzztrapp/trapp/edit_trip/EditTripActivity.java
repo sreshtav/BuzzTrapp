@@ -247,7 +247,7 @@ public class EditTripActivity extends AppCompatActivity{
         return selectedDate;
     }
 
-    private void getTripItems () {
+    private ArrayList<TripItem> getTripItems () {
         final ArrayList<TripItem> tripItems = new ArrayList<TripItem>();
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -282,5 +282,6 @@ public class EditTripActivity extends AppCompatActivity{
                 Log.d("EditTrip", "Inside failure");
             }
         });
+        return tripItems;
     }
 }
