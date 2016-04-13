@@ -263,6 +263,8 @@ public class EditTripActivity extends AppCompatActivity{
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                Log.d("EditTrip", "onSuccess");
+
                 String json = new String(response);
                 try {
                     JSONArray jsonArray = new JSONArray(json);
