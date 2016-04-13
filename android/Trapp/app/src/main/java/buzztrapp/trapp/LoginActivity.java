@@ -219,6 +219,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     //Switches to ManageTrip Activity
                     showProgress(false);
+
                     startActivity(new Intent(LoginActivity.this, ManageTripsActivity.class));
                     finish();
 
