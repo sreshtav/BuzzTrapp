@@ -118,6 +118,7 @@ public class ManageTripsFragment extends Fragment{
                                         Bundle bundle = new Bundle();
                                         bundle.putSerializable("startDate", fullTripsList.get(position).startDate.getTime());
                                         bundle.putSerializable("endDate", fullTripsList.get(position).endDate.getTime());
+                                        bundle.putString("id", fullTripsList.get(position).id);
                                         intent.putExtras(bundle);
                                         view.getContext().startActivity(intent);
                                     }
@@ -135,7 +136,5 @@ public class ManageTripsFragment extends Fragment{
             }
         });
     }
-    
-
 
 }

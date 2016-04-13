@@ -36,12 +36,15 @@ public class EditTripActivity extends AppCompatActivity{
     private Menu menu;
 
     EditTripTopFragment topFragment;
+    EditTripBottomFragment bottomFragment;
     FragmentManager manager;
     FragmentTransaction transaction;
 
-    GregorianCalendar startDate;
-    GregorianCalendar endDate;
-    GregorianCalendar selectedDate;
+    GregorianCalendar startDate = new GregorianCalendar();
+    GregorianCalendar endDate = new GregorianCalendar();
+    GregorianCalendar selectedDate = new GregorianCalendar();
+
+    private String tripid;
 
     private String location;
 
@@ -53,43 +56,44 @@ public class EditTripActivity extends AppCompatActivity{
 
         //Best to change this part to retrieving details from db through the use of TRIPID
         //here im just going to get location and start date end date from text (wrong but temporary way)
-        /*String desc = getIntent().getStringExtra("desc");
 
-        //       trips.get(i).location + " | " + startDateString + " - " + endDateString
-
-        int i1 = desc.indexOf("|");
-        location = desc.substring(0,i1-1);
-
-        int i2 = desc.indexOf("-");
-        String startDateString = desc.substring(i1 + 2, i2 - 1);
-        String endDateString = desc.substring(i2 + 2);
-
-        int i3 = startDateString.indexOf(" ");
-        String startDateMonthString = startDateString.substring(0, i3);
-        String startDateDayString= startDateString.substring(i3 + 1);
-
-        if (startDateDayString.length() == 1){
-            startDateDayString = " 0".concat(startDateDayString);
-        }
-
-        int i4 = startDateString.indexOf(" ");
-        String endDateMonthString = endDateString.substring(0, i4);
-        String endDateDayString = endDateString.substring(i4 + 1);
-
-        if (endDateDayString.length() == 1){
-            endDateDayString = " 0".concat(endDateDayString);
-        }
-        Date startDateDate = new Date();
-        Date endDateDate = new Date();
-        try{
-            startDateDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(startDateMonthString.substring(0,3) +startDateDayString + " 2016");
-            endDateDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(endDateMonthString.substring(0,3)+endDateDayString + " 2016");
-        }catch(Exception e){
-
-        }
-
-        startDate.setTime(startDateDate);
-        endDate.setTime(endDateDate);*/
+//        String desc = getIntent().getStringExtra("desc");
+//
+//        //       trips.get(i).location + " | " + startDateString + " - " + endDateString
+//
+//        int i1 = desc.indexOf("|");
+//        location = desc.substring(0,i1-1);
+//
+//        int i2 = desc.indexOf("-");
+//        String startDateString = desc.substring(i1 + 2, i2 - 1);
+//        String endDateString = desc.substring(i2 + 2);
+//
+//        int i3 = startDateString.indexOf(" ");
+//        String startDateMonthString = startDateString.substring(0, i3);
+//        String startDateDayString= startDateString.substring(i3 + 1);
+//
+//        if (startDateDayString.length() == 1){
+//            startDateDayString = " 0".concat(startDateDayString);
+//        }
+//
+//        int i4 = startDateString.indexOf(" ");
+//        String endDateMonthString = endDateString.substring(0, i4);
+//        String endDateDayString = endDateString.substring(i4 + 1);
+//
+//        if (endDateDayString.length() == 1){
+//            endDateDayString = " 0".concat(endDateDayString);
+//        }
+//        Date startDateDate = new Date();
+//        Date endDateDate = new Date();
+//        try{
+//            startDateDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(startDateMonthString.substring(0,3) +startDateDayString + " 2016");
+//            endDateDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(endDateMonthString.substring(0,3)+endDateDayString + " 2016");
+//        }catch(Exception e){
+//
+//        }
+//
+//        startDate.setTime(startDateDate);
+//        endDate.setTime(endDateDate);
 
         //change the above
 
@@ -116,6 +120,9 @@ public class EditTripActivity extends AppCompatActivity{
         endDate = new GregorianCalendar();
         startDate.setTime(new Date(sDate.getTime()));
         endDate.setTime(new Date(eDate.getTime()));
+
+        tripid = bundle.getString("id");
+
         /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         selectedDate = new GregorianCalendar();
         String startDateString = "2016-04-15";
@@ -133,6 +140,12 @@ public class EditTripActivity extends AppCompatActivity{
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
         transaction.add(R.id.et_body_layout, topFragment, "EditTripTopFragment");
+        transaction.commit();
+
+        bottomFragment = new EditTripBottomFragment();
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(R.id.et_body_layout, bottomFragment, "EditTripBottomFragment");
         transaction.commit();
 
 
@@ -213,11 +226,20 @@ public class EditTripActivity extends AppCompatActivity{
     //Communicator is for inter-fragment communication
     public void setSelectedDate(Date date) {
         selectedDate.setTime(date);
+        bottomFragment.changeDate(selectedDate);
+
     }
 
     //just for debugging, remove if not required
     public void logToast(){
         /*Toast.makeText(EditTripActivity.this, "Date Selected "+selectedDate.getTime().toString(),
                 Toast.LENGTH_SHORT).show();*/
+    }
+
+    public String getTripid(){
+        return tripid;
+    }
+    public GregorianCalendar getSelectedDate(){
+        return selectedDate;
     }
 }
