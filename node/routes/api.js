@@ -65,7 +65,7 @@ router.post('/addTrip', basicAuth, function (req, res){
 
 router.get('/myTripItems',printAuth, basicAuth, function (req, res){
 	var tripId = mongoose.Types.ObjectId(req.query.tripId);
-	TripItem.find({'tripId' : tripId}, function (err, data){
+	TripItem.find({'tripId' : tripId, }, function (err, data){
 		if (err) res.send("Sorry, error"); //TODO: Make a real error catch
 		res.send(data);
 	});

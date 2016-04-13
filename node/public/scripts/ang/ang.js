@@ -47,21 +47,22 @@ app.config([
 controllers.suggestionMapCtrl = function ($scope, $stateParams, infoFact) {
   $scope.tripInfo = infoFact.currentEditingTrip;
   var cityCoordinates = {
-    "Miami" :  [40.712784, -74.005941],
+    "Miami" :  [-80.205941, 25.812784],
     "San Francisco" :  [37.77493, -122.419416],
     "Hawaii" :  [21.306944, -157.858333],
     "London" :  [51.507351, -0.127758],
     "Washington DC" :  [38.907192, -77.036871],
+    "New York" :  [38.907192, -77.036871],
     "Hong Kong" :  [22.396428, 114.109497]
   }
 
-  mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
-  var map = new mapboxgl.Map({
-      container: 'map', // container id
-      style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-      center: [22.396428, 82.109497], // starting position
-      zoom: 2 // starting zoom
-  });
+  // mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
+  // var map = new mapboxgl.Map({
+  //     container: 'map', // container id
+  //     style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+  //     center: [-80.205941, 25.812784], // starting position
+  //     zoom: 9 // starting zoom
+  // });
 
 }
 
@@ -186,6 +187,7 @@ factories.infoFact = function ($http, $q){
     "Hawaii" : "hawaii",
     "London" : "london",
     "Washington DC" : "washington-dc",
+    "New York" : "new-york",
     "Hong Kong" : "hong-kong"
   }
   var services = {};

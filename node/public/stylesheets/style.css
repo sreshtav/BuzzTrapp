@@ -192,6 +192,9 @@ form {
 .hawaii {
   background: url('../images/hawaii.png') center / cover;
 }
+.new-york {
+  background: url('../images/new-york.png') center / cover;
+}
 .hong-kong {
   background: url('../images/hong-kong.png') center / cover;
 }    
