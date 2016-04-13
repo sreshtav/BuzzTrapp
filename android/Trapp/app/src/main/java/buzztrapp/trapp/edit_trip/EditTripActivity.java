@@ -20,6 +20,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +50,8 @@ public class EditTripActivity extends AppCompatActivity{
     private String tripid;
 
     private String location;
+
+    private ArrayList<TripItem> tripItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +153,8 @@ public class EditTripActivity extends AppCompatActivity{
         transaction.add(R.id.et_body_layout, bottomFragment, "EditTripBottomFragment");
         transaction.commit();
 
+        tripItems = retrieveTripItems();
+
 
         drawerListener = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
             @Override
@@ -247,7 +253,7 @@ public class EditTripActivity extends AppCompatActivity{
         return selectedDate;
     }
 
-    private ArrayList<TripItem> getTripItems () {
+    private ArrayList<TripItem> retrieveTripItems () {
         final ArrayList<TripItem> tripItems = new ArrayList<TripItem>();
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -284,4 +290,9 @@ public class EditTripActivity extends AppCompatActivity{
         });
         return tripItems;
     }
+
+    public ArrayList<TripItem> getTripItems(){
+        return tripItems;
+    }
+
 }

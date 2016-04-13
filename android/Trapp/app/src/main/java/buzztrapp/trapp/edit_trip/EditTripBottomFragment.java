@@ -1,6 +1,7 @@
 package buzztrapp.trapp.edit_trip;
 
 import android.app.Fragment;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.alamkanak.weekview.WeekViewLoader;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -31,13 +33,18 @@ public class EditTripBottomFragment extends Fragment{
     private String tripid;
     private TextView testTV;
 
+    private List<TripItem> tripItems;
+
     GregorianCalendar date;
 
     WeekView mWeekView;
+    WeekViewEvent event;
 
     WeekView.EventClickListener mEventClickListener;
     MonthLoader.MonthChangeListener mMonthChangeListener;
     WeekView.EventLongPressListener mEventLongPressListener;
+
+    private WeekViewLoader weekViewLoader;
 
     @Nullable
     @Override
@@ -56,11 +63,43 @@ public class EditTripBottomFragment extends Fragment{
         tripid = ((EditTripActivity)getActivity()).getTripid();
 //        testTV.setText("id = "+ tripid);
 
+        tripItems = ((EditTripActivity)getActivity()).getTripItems();
+
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) getActivity().findViewById(R.id.weekView);
 // Set an action when any event is clicked.
+
+        mEventClickListener = new WeekView.EventClickListener() {
+            @Override
+            public void onEventClick(WeekViewEvent event, RectF eventRect) {
+
+            }
+        };
+
         mWeekView.setOnEventClickListener(mEventClickListener);
+
+        weekViewLoader = new WeekViewLoader() {
+            @Override
+            public double toWeekViewPeriodIndex(Calendar instance) {
+                return 0;
+            }
+
+            @Override
+            public List<? extends WeekViewEvent> onLoad(int periodIndex) {
+                List<WeekViewEvent> events = new ArrayList<>();
+
+                for (int i = 0; i<tripItems.size(); i++){
+                    event = new WeekViewEvent(i, "id "+tripItems.get(i).id+" from "+tripItems.get(i).tripId, tripItems.get(i).startTime, tripItems.get(i).endTime);
+                    events.add(event);
+                }
+                return events;
+            }
+        };
+
+        mWeekView.setWeekViewLoader(weekViewLoader);
+
+        weekViewLoader.onLoad((int)weekViewLoader.toWeekViewPeriodIndex(date));
 
         mWeekView.goToDate(date);
 
@@ -71,6 +110,11 @@ public class EditTripBottomFragment extends Fragment{
             public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
                 // Populate the week view with some events.
                 List<WeekViewEvent> events = new ArrayList<>();
+
+                for (int i = 0; i<tripItems.size(); i++){
+                    event = new WeekViewEvent(i, "id "+tripItems.get(i).id+" from "+tripItems.get(i).tripId, tripItems.get(i).startTime, tripItems.get(i).endTime);
+                    events.add(event);
+                }
                 return events;
             }
         };
@@ -87,5 +131,6 @@ public class EditTripBottomFragment extends Fragment{
 //        testTV.setText("id = "+ tripid + ", SelectedDate = "+ this.date.getTime().toString());
         mWeekView.goToDate(date);
     }
+
 
 }
