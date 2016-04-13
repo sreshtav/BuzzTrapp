@@ -44,8 +44,12 @@ app.config([
         })
 	}]);
 
-controllers.suggestionMapCtrl = function ($scope, $stateParams, infoFact) {
-  $scope.tripInfo = infoFact.currentEditingTrip;
+controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state) {
+  var  cities = {
+    "Miami" : "plni8h4k",
+    "New York" : "pm1iajik"
+  }
+  
   var cityCoordinates = {
     "Miami" :  [-80.205941, 25.812784],
     "San Francisco" :  [37.77493, -122.419416],
@@ -56,6 +60,10 @@ controllers.suggestionMapCtrl = function ($scope, $stateParams, infoFact) {
     "Hong Kong" :  [22.396428, 114.109497]
   }
 
+  $scope.tripInfo = infoFact.currentEditingTrip;
+  $scope.mapURL = cities[$scope.tripInfo.location];
+
+
   // mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
   // var map = new mapboxgl.Map({
   //     container: 'map', // container id
@@ -64,6 +72,23 @@ controllers.suggestionMapCtrl = function ($scope, $stateParams, infoFact) {
   //     zoom: 9 // starting zoom
   // });
 
+
+
+
+  $scope.deleteTrip = function () {
+    console.log("deleting" + "/removeTrip?tripid=" + $scope.tripInfo._id);
+    $http
+      .delete("/api/removeTrip?tripid=" + $scope.tripInfo._id)
+      .success(function (data, status, headers, config) {
+        console.log(data);
+        infoFact.currentEditingTrip = {};
+        $scope.tripInfo = {};
+        $state.go("home");
+      })
+      .error(function (data, status, headers, config) {
+        console.log(data);
+      });
+  }
 }
 
 controllers.newTripCtrl = function ($scope, $location) {

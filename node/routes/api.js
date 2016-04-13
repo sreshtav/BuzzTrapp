@@ -47,6 +47,18 @@ router.get('/myTrips',printAuth, basicAuth, function (req, res){
 	});
 });
 
+router.delete('/removeTrip', basicAuth, function (req, res){
+	var conditions = {
+		'_id' : req.query.tripid,
+		'userId' : req.user._id
+	};
+	Trip.remove(conditions, function (err, data){
+		if (err) res.send(500); //TODO: Make a real error catch
+		console.log(data);
+		res.send(data);
+	});
+});
+
 router.post('/addTrip', basicAuth, function (req, res){
 	var newTrip = new Trip({
 		'startDate' : req.body.startDate,
@@ -65,7 +77,7 @@ router.post('/addTrip', basicAuth, function (req, res){
 
 router.get('/myTripItems',printAuth, basicAuth, function (req, res){
 	var tripId = mongoose.Types.ObjectId(req.query.tripId);
-	TripItem.find({'tripId' : tripId, }, function (err, data){
+	TripItem.find({'tripId' : tripId}, function (err, data){
 		if (err) res.send("Sorry, error"); //TODO: Make a real error catch
 		res.send(data);
 	});

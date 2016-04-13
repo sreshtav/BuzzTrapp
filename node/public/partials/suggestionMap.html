@@ -2,13 +2,21 @@
 	<day-buttons></day-buttons>
 </div>
 {{tripInfo}}
-
-<!-- <div class="mdl-grid demo-content">
+<!-- 
+<div class="mdl-grid demo-content">
   <div id='map2'></div>
-	<div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:0%" id="map"></div>
-</div> -->
-
-<iframe width='100%' height='500px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/sliu0915.plni8h4k/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw'></iframe>
+	<div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map"></div>
+</div>
+ -->
+<iframe width='100%' height='500px' frameBorder='0' ng-src="https://a.tiles.mapbox.com/v4/sliu0915.plni8h4k/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw"></iframe>
 
 <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 
+
+
+<button type="button" ng-click="deleteTrip()" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" >Delete Trip</button>
+
+
+
+
+{{mapURL}}
