@@ -1,30 +1,31 @@
 package buzztrapp.trapp.edit_trip;
 
-import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.app.FragmentManager;
+import android.content.SharedPreferences;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.text.ParseException;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
-
-import buzztrapp.trapp.Communicator;
 import buzztrapp.trapp.R;
-import buzztrapp.trapp.create_trip.CreateTripActivity;
-import buzztrapp.trapp.manage_trips.ManageTripsActivity;
+import cz.msebera.android.httpclient.Header;
 
 public class EditTripActivity extends AppCompatActivity{
 
@@ -244,5 +245,42 @@ public class EditTripActivity extends AppCompatActivity{
     }
     public GregorianCalendar getSelectedDate(){
         return selectedDate;
+    }
+
+    private void getTripItems () {
+        final ArrayList<TripItem> tripItems = new ArrayList<TripItem>();
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", preferences.getString("token", ""));
+        RequestParams params = new RequestParams();
+        client.get("http://173.236.255.240/api/myTripItems?tripId="+tripid, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                String json = new String(response);
+                try {
+                    JSONArray jsonArray = new JSONArray(json);
+                    Log.d("EditTrip", "Got back " + jsonArray.length() + " tripItems");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        GregorianCalendar startDate = new GregorianCalendar();
+                        startDate.setTime(sdf.parse(jsonObject.getString("startTime")));
+                        GregorianCalendar endDate = new GregorianCalendar();
+                        endDate.setTime(sdf.parse(jsonObject.getString("endTime")));
+
+                        TripItem tripItem = new TripItem(jsonObject.getString("_id"), jsonObject.getString("tripId"), startDate, endDate, jsonObject.getString("interestPointId"));
+                        tripItems.add(tripItem);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                Log.d("EditTrip", "Inside failure");
+            }
+        });
     }
 }

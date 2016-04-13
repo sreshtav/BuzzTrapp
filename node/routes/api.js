@@ -74,7 +74,7 @@ router.get('/myTripItems',printAuth, basicAuth, function (req, res){
 router.post('/addTripItem', basicAuth, function (req, res){
 	var newTripItem = new TripItem({
 		'tripId' : mongoose.Types.ObjectId(req.body.tripId),
-		'startDate' : req.body.startDate,
+		'startTime' : req.body.startTime,
 		'endTime' : req.body.endTime,
 		'interestPointId' : mongoose.Types.ObjectId(req.body.interestPointId)
 	});
