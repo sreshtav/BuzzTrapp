@@ -5,7 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.v4.app.NotificationCompat;
+import android.app.Notification;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -156,11 +156,14 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
     public void showNotification() {
 
         // Builds a notification
-        NotificationCompat.Builder notificBuilder = new NotificationCompat.Builder(this)
+        Notification notificBuilder = new Notification.Builder(this)
                 .setContentTitle("Stop by for Lunch?")
-                .setContentText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap here to go there")
+                .setContentText("Lunch")
+                .setSmallIcon(R.drawable.trapp_icon_1)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap here to go there"))
                 .setTicker("Stop by for Lunch?")
-                .setSmallIcon(R.drawable.trapp_icon_1);
+                .build();
 
         // Define that we have the intention of opening MoreInfoNotification
         Intent moreInfoIntent = new Intent(this, ManageTripsActivity.class);
@@ -180,14 +183,14 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Defines the Intent to fire when the notification is clicked
-        notificBuilder.setContentIntent(pendingIntent);
+        //notificBuilder.setContentIntent(pendingIntent);
 
         // Gets a NotificationManager which is used to notify the user of the background event
         notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Post the notification
-        notificationManager.notify(notifID, notificBuilder.build());
+        notificationManager.notify(notifID, notificBuilder);
 
         // Used so that we can't stop a notification that has already been stopped
         isNotificActive = true;
