@@ -2,6 +2,7 @@ package buzztrapp.trapp.manage_trips;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -22,6 +25,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import buzztrapp.trapp.R;
+import buzztrapp.trapp.edit_trip.EditTripActivity;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -51,8 +55,7 @@ public class ManageTripsFragment extends Fragment{
         getTrips();
 
         Log.d("ManageTrip", "Fragment: onActivityCreated()");
-        Log.d("ManageTrip", "full trip list size() = "+ fullTripsList.size());
-
+        Log.d("ManageTrip", "full trip list size() = " + fullTripsList.size());
 
 
     }
@@ -103,6 +106,23 @@ public class ManageTripsFragment extends Fragment{
 
                         adapter = new ManageTripsRVAdapter(fullTripsList);
                         rv.setAdapter(adapter);
+                        rv.addOnItemTouchListener(
+                                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        // TODO Handle item click
+                                        Toast.makeText(getActivity(), "rv clicked = " +position,
+                                                Toast.LENGTH_SHORT).show();
+
+                                        Intent intent = new Intent(view.getContext(), EditTripActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("startDate", fullTripsList.get(position).startDate.getTime());
+                                        bundle.putSerializable("endDate", fullTripsList.get(position).endDate.getTime());
+                                        intent.putExtras(bundle);
+                                        view.getContext().startActivity(intent);
+                                    }
+                                })
+                        );
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
