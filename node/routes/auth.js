@@ -28,7 +28,7 @@ router.post('/signup', function(req, res) {
   } else {
     var newUser = new User({
       name: req.body.name,
-      email: req.body.email,
+      email: req.body.email.toLowerCase(),
       password: req.body.password
     });
     newUser.save(function(err) {
@@ -44,7 +44,7 @@ router.post('/signup', function(req, res) {
 router.post('/login', function(req, res) {
   console.log(req.body);
   User.findOne({
-    email: req.body.email
+    email: req.body.email.toLowerCase()
   }, function(err, user) {
     if (err) res.send(500);
     else if (!user) {
