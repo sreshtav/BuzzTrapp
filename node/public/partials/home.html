@@ -8,11 +8,13 @@
   <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet" style="max-height:500px;overflow:scroll;">
     <h4 class="mdl-card__title-text">Future Trips</h4>
     <br>
-    <a href="#/suggestionMap/{{trip.location}}" ng-repeat="trip in myTrips">
-      <div class="mdl-card__title mdl-card--expand white-card-item {{trip.cityClass}}">
-        <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
-      </div>
-    </a>
+    <div ng-repeat="trip in myTrips">
+      <a ng-click="editTripAction(trip)">
+        <div class="mdl-card__title mdl-card--expand white-card-item {{trip.cityClass}}">
+          <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
+        </div>
+      </a>
+    </div>
     <button data-toggle="modal" data-target="#myModal" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right" style="position:fixed; top:680px;left:740px;">
       <i class="material-icons">add</i>
     </button>       

@@ -34,7 +34,7 @@ app.config([
 
         })
         .state("suggestionMap",{
-          url:"/suggestionMap/:tripDestination",
+          url:"/suggestionMap",
           templateUrl:"/partials/suggestionMap.html",
     		  controller: 'suggestionMapCtrl'
         })
@@ -44,7 +44,8 @@ app.config([
         })
 	}]);
 
-controllers.suggestionMapCtrl = function ($scope, $stateParams) {
+controllers.suggestionMapCtrl = function ($scope, $stateParams, infoFact) {
+  $scope.tripInfo = infoFact.currentEditingTrip;
   var cityCoordinates = {
     "Miami" :  [40.712784, -74.005941],
     "San Francisco" :  [37.77493, -122.419416],
@@ -58,13 +59,8 @@ controllers.suggestionMapCtrl = function ($scope, $stateParams) {
   var map = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-      center: cityCoordinates[$stateParams.tripDestination], // starting position
+      center: [22.396428, 82.109497], // starting position
       zoom: 2 // starting zoom
-  });
-  map.on('click', function(e) {
-      var latitude = e.latlng.lat;
-      var longitude = e.latlng.lng;
-      console.log(latitude + " - " + longitude);
   });
 
 }
@@ -82,7 +78,7 @@ controllers.historyCtrl = function (infoFact, $scope, $http) {
 
 }
 
-controllers.homeCtrl = function ($scope, infoFact, $http) {
+controllers.homeCtrl = function ($scope, infoFact, $http, $state) {
   infoFact.getTrips().then(function (data){
     $scope.myTrips = data;
   });
@@ -105,6 +101,13 @@ controllers.homeCtrl = function ($scope, infoFact, $http) {
       .error(function (data, status, headers, config) {
       });
   }
+
+  $scope.editTripAction = function (trip){
+    infoFact.currentEditingTrip = trip;
+    $state.go("suggestionMap");
+
+  }
+
 }
 
 controllers.UserCtrl = function ($scope, $http, $window) {
@@ -177,7 +180,6 @@ controllers.UserCtrl = function ($scope, $http, $window) {
 }
 
 factories.infoFact = function ($http, $q){
-
   var cityClassName = {
     "Miami" : "miami",
     "San Francisco" : "san-francisco",
@@ -187,6 +189,7 @@ factories.infoFact = function ($http, $q){
     "Hong Kong" : "hong-kong"
   }
   var services = {};
+  services.currentEditingTrip = {};
 
   services.getTrips = function () {
     return $q(function(resolve, reject) {
@@ -351,6 +354,67 @@ app.directive("agenda", function() {
         scope.hours[8].visible = true;
         scope.hours[12].visible = true;
         scope.hours[21].visible = true;
+
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.directive("dayButtons", function (infoFact) {
+    return {
+        restrict: "E",
+        templateUrl: "partials/dayButtons.html",
+        scope: {
+            selected: "="
+        },
+        link: function(scope) {
+            _buildWeek(scope);
+        }
+    };
+
+    function _createTime(hour, minute) {
+        return moment().year(0).month(0).day(0).second(0).millisecond(0).hour(hour).minute(minute);
+    }
+
+    function _buildWeek(scope) {
+        var startDate = moment(infoFact.currentEditingTrip.startDate);
+        var endDate = moment(infoFact.currentEditingTrip.endDate);
+        scope.months = [];  // months holds month objs: {name : july, number: 6, days : [4,5,6,7,8]}
+        console.log(infoFact.currentEditingTrip);
+        for (var i = endDate.month(); i >= startDate.month(); --i) {
+          var month = {};
+          month.name = monthNum[i];
+          month.num = i+1;
+          month.days = {};
+          scope.months.push(month);
+        };
+        // scope.hours = [];
+        // var date = moment();
+        // var done = false, hour = 0, count = 0;
+        // while (!done) {
+        //     scope.hours.push({'hour' : _createTime(hour++, 0), 'visible' : false});
+        //     done = count++ > 23;
+        // }
+        // scope.hours[8].visible = true;
+        // scope.hours[12].visible = true;
+        // scope.hours[21].visible = true;
 
     }
 });
