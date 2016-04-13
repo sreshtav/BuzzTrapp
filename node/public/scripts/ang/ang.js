@@ -32,6 +32,10 @@ app.config([
           url: '/help',
           templateUrl: '/partials/help.html',
 		})
+        .state("suggestionMap",{
+          url:"/suggestionMap",
+          templateUrl:"/partials/suggestionMap.html" 
+        })
 	}]);
 
 controllers.newTripCtrl = function ($scope, $location) {
@@ -47,11 +51,29 @@ controllers.historyCtrl = function (infoFact, $scope, $http) {
 
 }
 
-controllers.homeCtrl = function ($scope, infoFact) {
+controllers.homeCtrl = function ($scope, infoFact, $http) {
   infoFact.getTrips().then(function (data){
     $scope.myTrips = data;
-    // $scope.$apply();
   });
+
+  $scope.addNewTrip = function (){
+
+    console.log("ADDING NEW TRIP");
+    $http
+      .post('/api/addTrip', $scope.newTrip)
+      .success(function (data, status, headers, config) {
+        if (data.succes) {
+          console.log("ADDED NEW TRIP");
+          infoFact.getTrips().then(function (data){
+            $scope.myTrips = data;
+            $scope.dismiss()
+          });
+        } else {
+        }
+      })
+      .error(function (data, status, headers, config) {
+      });
+  }
 }
 
 controllers.UserCtrl = function ($scope, $http, $window) {
@@ -121,16 +143,6 @@ controllers.UserCtrl = function ($scope, $http, $window) {
     } else {
     }
   };
-
-  // $scope.callRestricted = function () {
-  //   $http({url: '/api/myTrips', method: 'GET'})
-  //   .success(function (data, status, headers, config) {
-  //     $scope.message = data; // Should log 'foo'
-  //   })
-  //   .error(function (data, status, headers, config) {
-  //     alert(data);
-  //   });
-  // };
 }
 
 factories.infoFact = function ($http, $q){
@@ -160,15 +172,6 @@ factories.infoFact = function ($http, $q){
         resolve(data);
       }, function (d, data) {reject(data)});
     });
-  }
-
-
-  services.getTrips2 = function () {
-    return $http.get('/api/myTrips');
-  };
-
-  services.temp = function () {
-    return "yo";
   }
 
   return services;
@@ -277,7 +280,16 @@ app.directive("calendar", function() {
 
 
 
-
+app.directive('myModal', function() {
+   return {
+     restrict: 'A',
+     link: function(scope, element, attr) {
+       scope.dismiss = function() {
+           element.modal('hide');
+       };
+     }
+   } 
+});
 
 
 
