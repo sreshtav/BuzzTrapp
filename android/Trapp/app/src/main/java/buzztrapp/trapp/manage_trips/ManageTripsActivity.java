@@ -161,7 +161,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
                 .setContentText("Lunch")
                 .setSmallIcon(R.drawable.trapp_icon_1)
                 .setStyle(new Notification.BigTextStyle()
-                        .bigText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap here to go there"))
+                        .bigText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap for directions"))
                 .setTicker("Stop by for Lunch?")
                 .build();
 
