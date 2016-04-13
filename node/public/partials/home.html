@@ -5,11 +5,10 @@
       <p>San Francisco, San Jose, Santa Barbara, Long Beach, Yosemite… | March 12 - March 17</p>
     </div>
   </a>
-
   <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
     <h4 class="mdl-card__title-text">Future Trips</h4>
     <br>
-    <a href="#" ng-repeat="trip in myTrips">
+    <a href="#/suggestionMap/{{trip.location}}" ng-repeat="trip in myTrips">
       <div class="mdl-card__title mdl-card--expand white-card-item {{trip.cityClass}}">
         <h6 class="mdl-card__item-text mdl-color-text--white">{{trip.location}} | {{trip.strStartDate}} - {{trip.strEndDate}}</h6>
       </div>
@@ -25,7 +24,6 @@
     </div>
     <div class="demo-separator mdl-cell--1-col"></div>
     <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" id="map">
-        <div id='map'></div>
     </div>
   </div>
 
@@ -34,10 +32,6 @@
   <div class="modal fade" my-modal id="myModal" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-      <!--   <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Add New Trip</h4>
-        </div> -->
         <div class="modal-body">
           <form stlye="width:100%">
             <div class="group">
@@ -61,21 +55,12 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
-=======
 </div>
->>>>>>> c225e4e359c61842648ebe04c58aa6441bbf1c67
+<<<<<<< Updated upstream
+=======
 
+>>>>>>> Stashed changes
 
-<script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
-var map = new mapboxgl.Map({
-    container: 'map', // container id
-    style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-    center: [-74.50, 40], // starting position
-    zoom: 0 // starting zoom
-});
-</script>
 
 <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 
