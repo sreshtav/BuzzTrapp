@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package buzztrapp.trapp.edit_trip.helper;
+package buzztrapp.trapp.helper;
 
 import android.support.v7.widget.RecyclerView;
 

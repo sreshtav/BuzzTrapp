@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import buzztrapp.trapp.Communicator;
 import buzztrapp.trapp.R;
@@ -42,10 +43,55 @@ public class EditTripActivity extends AppCompatActivity{
     GregorianCalendar endDate;
     GregorianCalendar selectedDate;
 
+    private String location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_trip_activity);
+
+
+        //Best to change this part to retrieving details from db through the use of TRIPID
+        //here im just going to get location and start date end date from text (wrong but temporary way)
+        /*String desc = getIntent().getStringExtra("desc");
+
+        //       trips.get(i).location + " | " + startDateString + " - " + endDateString
+
+        int i1 = desc.indexOf("|");
+        location = desc.substring(0,i1-1);
+
+        int i2 = desc.indexOf("-");
+        String startDateString = desc.substring(i1 + 2, i2 - 1);
+        String endDateString = desc.substring(i2 + 2);
+
+        int i3 = startDateString.indexOf(" ");
+        String startDateMonthString = startDateString.substring(0, i3);
+        String startDateDayString= startDateString.substring(i3 + 1);
+
+        if (startDateDayString.length() == 1){
+            startDateDayString = " 0".concat(startDateDayString);
+        }
+
+        int i4 = startDateString.indexOf(" ");
+        String endDateMonthString = endDateString.substring(0, i4);
+        String endDateDayString = endDateString.substring(i4 + 1);
+
+        if (endDateDayString.length() == 1){
+            endDateDayString = " 0".concat(endDateDayString);
+        }
+        Date startDateDate = new Date();
+        Date endDateDate = new Date();
+        try{
+            startDateDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(startDateMonthString.substring(0,3) +startDateDayString + " 2016");
+            endDateDate = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH).parse(endDateMonthString.substring(0,3)+endDateDayString + " 2016");
+        }catch(Exception e){
+
+        }
+
+        startDate.setTime(startDateDate);
+        endDate.setTime(endDateDate);*/
+
+        //change the above
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.et_toolbar);
         setSupportActionBar(toolbar);
@@ -59,9 +105,18 @@ public class EditTripActivity extends AppCompatActivity{
         //@Sreshta: Insert getting of dates here
         //startDate = <get start date from DB>
         //endDate = <get end date from DB>
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        Date sDate = (Date) bundle.getSerializable("startDate");
+        Date eDate = (Date) bundle.getSerializable("endDate");
+
+        long t = sDate.getTime();
+
         startDate = new GregorianCalendar();
         endDate = new GregorianCalendar();
+        startDate.setTime(new Date(sDate.getTime()));
+        endDate.setTime(new Date(eDate.getTime()));
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         selectedDate = new GregorianCalendar();
         String startDateString = "2016-04-15";
         String endDateString = "2016-04-21";
@@ -70,7 +125,7 @@ public class EditTripActivity extends AppCompatActivity{
             endDate.setTime(sdf.parse(endDateString));
         }catch(ParseException p){
 
-        }
+        }*/
 
         //remove example dates above
 

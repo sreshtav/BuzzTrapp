@@ -29,8 +29,6 @@ public class EditTripTopFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        Log.d("Aaron", "Fragment: onCreateView()");
         return inflater.inflate(R.layout.edit_trip_top_fragment, container, false);
     }
 
