@@ -50,4 +50,10 @@
     <string name="ee_transportation">Transportation</string>
     <string name="ee_memo">Memo</string>
 
+    <!-- Edit Event Toolbar header-->
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+
 </resources>

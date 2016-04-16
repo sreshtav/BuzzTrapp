@@ -9,7 +9,10 @@
 
 
     <include layout="@layout/toolbar"
-        android:id="@+id/include" />
+        android:id="@+id/ee_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -307,7 +310,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:background="@color/formBg"
             android:paddingTop="@dimen/ee_vert_padding"
@@ -344,6 +348,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/formBlack"
+                android:layout_margin="@dimen/ee_vert_padding"
                 android:gravity="top"
                 android:textSize="14sp"
                 android:text="Work Work Work Work Work"
@@ -351,28 +356,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/trappRed"
-                android:layout_margin="@dimen/ee_vert_padding"
-                />
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@color/curiousBlue"
-                android:layout_margin="@dimen/ee_vert_padding"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
 
     </LinearLayout>
 
