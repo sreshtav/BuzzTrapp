@@ -1,6 +1,6 @@
 <div class="mdl-grid demo-content">
   <a href="#">
-    <div class="upcoming-trips mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" id="upcoming_trip">
+    <div class="upcoming-trips mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-grid" id="upcoming_trip">
       <h4>Your upcoming trip to <b>San Francisco</b> is in <b>3</b> days!</h4>
       <p>San Francisco, San Jose, Santa Barbara, Long Beach, Yosemite… | March 12 - March 17</p>
     </div>
@@ -15,14 +15,14 @@
         </div>
       </a>
     </div>
-    <button data-toggle="modal" data-target="#myModal" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right" style="position:fixed; top:680px;left:740px;">
+    <button data-toggle="modal" data-target="#myModal" class="mdl-button mdl-js-button mdl-button--bottom-right mdl-button--fab mdl-js-ripple-effect mdl-button--colored right" width="50" height="50">
       <i class="material-icons">add</i>
     </button>       
   </div>
   <div class="demo-cards mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-grid mdl-grid--no-spacing">
     <div class="white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
       <h4 class="mdl-card__title-text">Calendar</h4>
-			<calendar selected="day"></calendar>
+			<calendar selected="day" style="margin-left:auto;margin-right:auto;"></calendar>
     </div>
     <div class="demo-separator mdl-cell--1-col"></div>
     <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="max-height:200px;">
@@ -30,6 +30,7 @@
     </div>
   </div>
 
+</div>
 
   <!-- Modal -->
   <div class="modal fade" my-modal id="myModal" aria-labelledby="myModalLabel">
@@ -58,7 +59,6 @@
       </div>
     </div>
   </div>
-</div>
 
 <script>
 // mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
