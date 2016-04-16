@@ -20,8 +20,10 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +53,7 @@ public class EditTripActivity extends AppCompatActivity{
 
     private String location;
 
-    private ArrayList<TripItem> tripItems;
+    private ArrayList<TripItem> tripItems = new ArrayList<TripItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +129,8 @@ public class EditTripActivity extends AppCompatActivity{
         endDate.setTime(new Date(eDate.getTime()));
 
         tripid = bundle.getString("id");
+        tripItems = (ArrayList<TripItem>) bundle.getSerializable("tripItems");
+        Log.d("EditTrip", "Got tripItems - " + tripItems.size());
 
         /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         selectedDate = new GregorianCalendar();
@@ -153,8 +157,7 @@ public class EditTripActivity extends AppCompatActivity{
         transaction.add(R.id.et_body_layout, bottomFragment, "EditTripBottomFragment");
         transaction.commit();
 
-        tripItems = retrieveTripItems();
-
+        //tripItems = retrieveTripItems();
 
         drawerListener = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
             @Override
@@ -251,46 +254,6 @@ public class EditTripActivity extends AppCompatActivity{
     }
     public GregorianCalendar getSelectedDate(){
         return selectedDate;
-    }
-
-    private ArrayList<TripItem> retrieveTripItems () {
-        final ArrayList<TripItem> tripItems = new ArrayList<TripItem>();
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.addHeader("Authorization", preferences.getString("token", ""));
-        RequestParams params = new RequestParams();
-        client.get("http://173.236.255.240/api/myTripItems?tripId="+tripid, params, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                Log.d("EditTrip", "onSuccess");
-
-                String json = new String(response);
-                try {
-                    JSONArray jsonArray = new JSONArray(json);
-                    Log.d("EditTrip", "Got back " + jsonArray.length() + " tripItems");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        GregorianCalendar startDate = new GregorianCalendar();
-                        startDate.setTime(sdf.parse(jsonObject.getString("startTime")));
-                        GregorianCalendar endDate = new GregorianCalendar();
-                        endDate.setTime(sdf.parse(jsonObject.getString("endTime")));
-
-                        TripItem tripItem = new TripItem(jsonObject.getString("_id"), jsonObject.getString("tripId"), startDate, endDate, jsonObject.getString("interestPointId"));
-                        tripItems.add(tripItem);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                Log.d("EditTrip", "Inside failure");
-            }
-        });
-        return tripItems;
     }
 
     public ArrayList<TripItem> getTripItems(){

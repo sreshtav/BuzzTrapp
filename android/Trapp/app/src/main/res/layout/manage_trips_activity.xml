@@ -9,6 +9,10 @@
     tools:context=".manage_trips.ManageTripsActivity"
     android:id="@+id/mt_layout">
 
+    <ProgressBar android:id="@+id/manage_trip_progress" style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" android:visibility="gone" />
+
     <FrameLayout
         android:id="@+id/mt_body_layout"
         android:layout_width="match_parent"

@@ -1,9 +1,12 @@
 package buzztrapp.trapp.manage_trips;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -26,6 +30,7 @@ import java.util.List;
 
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.edit_trip.EditTripActivity;
+import buzztrapp.trapp.edit_trip.TripItem;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -40,6 +45,8 @@ public class ManageTripsFragment extends Fragment{
 
     private List<Trip> fullTripsList = new ArrayList<Trip>();
     private ManageTripsRVAdapter adapter;
+    private View mProgressView;
+    private View mListView;
 
     @Nullable
     @Override
@@ -53,10 +60,10 @@ public class ManageTripsFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getTrips();
-
+        mProgressView = (View) getActivity().findViewById(R.id.manage_trip_progress);
+        mListView = (View) getActivity().findViewById(R.id.drawer_listview);
         Log.d("ManageTrip", "Fragment: onActivityCreated()");
         Log.d("ManageTrip", "full trip list size() = " + fullTripsList.size());
-
 
     }
 
@@ -83,10 +90,10 @@ public class ManageTripsFragment extends Fragment{
 
                         String image_name = jsonObject.getString("location");
                         image_name = image_name.replaceAll("[^A-Za-z]+", "").toLowerCase();
-                        image_name = "@drawable/"+image_name;
+                        image_name = "@drawable/" + image_name;
 
                         int image_resrc = getResources().getIdentifier(image_name, null, getActivity().getPackageName());
-                        Log.d("ManageTrip", "image_resource = "+image_resrc+ ", image_name = "+image_name);
+                        Log.d("ManageTrip", "image_resource = " + image_resrc + ", image_name = " + image_name);
                         Trip trip = new Trip(jsonObject.getString("_id"), jsonObject.getString("location"), startDate, endDate, image_resrc);
                         fullTripsList.add(trip);
                     }
@@ -111,16 +118,10 @@ public class ManageTripsFragment extends Fragment{
                                     @Override
                                     public void onItemClick(View view, int position) {
                                         // TODO Handle item click
-                                        Toast.makeText(getActivity(), "rv clicked = " +position,
+                                        Toast.makeText(getActivity(), "rv clicked = " + position,
                                                 Toast.LENGTH_SHORT).show();
-
-                                        Intent intent = new Intent(view.getContext(), EditTripActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putSerializable("startDate", fullTripsList.get(position).startDate.getTime());
-                                        bundle.putSerializable("endDate", fullTripsList.get(position).endDate.getTime());
-                                        bundle.putString("id", fullTripsList.get(position).id);
-                                        intent.putExtras(bundle);
-                                        view.getContext().startActivity(intent);
+                                        showProgress(true);
+                                        retrieveTripItems(position);
                                     }
                                 })
                         );
@@ -133,6 +134,85 @@ public class ManageTripsFragment extends Fragment{
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                 Log.d("ManageTrip", "Inside failure");
+            }
+        });
+    }
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mListView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mListView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mListView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mListView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private void retrieveTripItems (final int position) {
+        final ArrayList<TripItem> tripItems = new ArrayList<TripItem>();
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", preferences.getString("token", ""));
+        RequestParams params = new RequestParams();
+        client.get("http://173.236.255.240/api/myTripItems?tripId="+fullTripsList.get(position).id, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                String json = new String(response);
+                try {
+                    JSONArray jsonArray = new JSONArray(json);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                        GregorianCalendar startDate = new GregorianCalendar();
+                        startDate.setTime(sdf.parse(jsonObject.getString("startTime")));
+                        GregorianCalendar endDate = new GregorianCalendar();
+                        endDate.setTime(sdf.parse(jsonObject.getString("endTime")));
+                        TripItem tripItem = new TripItem(jsonObject.getString("_id"), jsonObject.getString("tripId"),
+                                startDate, endDate, jsonObject.getString("city"), jsonObject.getString("interest"),
+                                jsonObject.getInt("averageTime"), jsonObject.getString("description"), jsonObject.getString("address"),
+                                jsonObject.getString("name"));
+                        tripItems.add(tripItem);
+                    }
+                    showProgress(false);
+                    Intent intent = new Intent(getActivity(), EditTripActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("startDate", fullTripsList.get(position).startDate.getTime());
+                    bundle.putSerializable("endDate", fullTripsList.get(position).endDate.getTime());
+                    bundle.putString("id", fullTripsList.get(position).id);
+                    bundle.putSerializable("tripItems", tripItems);
+                    intent.putExtras(bundle);
+                    getActivity().startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                Log.d("EditTrip", "Inside failure");
             }
         });
     }
