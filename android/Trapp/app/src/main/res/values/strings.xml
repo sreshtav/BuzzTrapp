@@ -46,5 +46,7 @@
 
     <!-- Edit Event Form Text-->
     <string name="ee_date">Date</string>
+    <string name="ee_alarm">Alarm</string>
+    <string name="ee_transportation">Transportation</string>
 
 </resources>
