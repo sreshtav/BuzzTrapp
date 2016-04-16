@@ -21,6 +21,24 @@ router.get('/allInterestPoints', basicAuth, function (req, res, next) {
 });
 
 
+router.post('/updateTripItem', basicAuth, function (req, res, next) {
+	var update = {};
+	if (req.body.startTime) update.startTime = req.body.startTime;
+	if (req.body.endTime) update.endTime = req.body.endTime;
+	var conditions = { _id: req.body._id }
+	  , options = { multi: false };
+
+	TripItem.update(conditions, update, options, callback);
+
+	function callback (err, numAffected) {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(200);
+		}
+	})	
+});
+
 router.post('/createInterestPoint', basicAuth, function (req, res, next) {
 	var object = new InterestPoint();
 	console.log(req.body);

@@ -15,4 +15,8 @@ router.get('/app', function(req, res, next) {
   res.render('temp');
 });
 
+router.get('/app2', function(req, res, next) {
+  res.render('temp2');
+});
+
 module.exports = router;
