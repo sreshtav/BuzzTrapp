@@ -1,5 +1,6 @@
 package buzztrapp.trapp.edit_trip;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.graphics.RectF;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import buzztrapp.trapp.R;
 /**
  * Created by Aaron on 4/12/2016.
  */
+@TargetApi(23)
 public class EditTripBottomFragment extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener{
 
 
@@ -85,6 +87,17 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         }
         for (int i = 0; i<tripItems.size(); i++){
             event = new WeekViewEvent(i, "id "+tripItems.get(i).id+" from "+tripItems.get(i).tripId, tripItems.get(i).startTime, tripItems.get(i).endTime);
+            /*switch(tripItems.get(i).id){
+                case "food": event.setColor(getContext().getColor(R.color.foodType));
+                    break;
+                case "shop": event.setColor(getContext().getColor(R.color.shopType));
+                    break;
+                case "sightseeing": event.setColor(getContext().getColor(R.color.sightseeingType));
+                    break;
+                default:
+                    event.setColor(getResources().getColor(R.color.defaultType));
+                    break;
+            }*/
             events.add(event);
         }
 
@@ -171,7 +184,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
         ArrayList<WeekViewEvent> newEvents = getNewEvents(newYear, newMonth);
         events.addAll(newEvents);
-
+/*
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 3);
         startTime.set(Calendar.MINUTE, 0);
@@ -261,7 +274,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR_OF_DAY, 3);
         event = new WeekViewEvent(5, getEventTitle(startTime), startTime, endTime);
-        events.add(event);
+        events.add(event);*/
 
         return events;
     }
@@ -269,29 +282,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
     protected String getEventTitle(Calendar time) {
         return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
     }
-    /*private void setupDateTimeInterpreter(final boolean shortDate) {
-        mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
-            @Override
-            public String interpretDate(Calendar date) {
-                SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE", Locale.getDefault());
-                String weekday = weekdayNameFormat.format(date.getTime());
-                SimpleDateFormat format = new SimpleDateFormat(" M/d", Locale.getDefault());
-
-                // All android api level do not have a standard way of getting the first letter of
-                // the week day name. Hence we get the first char programmatically.
-                // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
-                if (shortDate)
-                    weekday = String.valueOf(weekday.charAt(0));
-                return weekday.toUpperCase() + format.format(date.getTime());
-            }
-
-            @Override
-            public String interpretTime(int hour) {
-                return hour > 11 ? (hour - 12) + " PM" : (hour == 0 ? "12 AM" : hour + " AM");
-            }
-        });
-    }*/
-/*    *//**
+   /**
      * Get events that were added by tapping on empty view.
      * @param year The year currently visible on the week view.
      * @param month The month currently visible on the week view.
