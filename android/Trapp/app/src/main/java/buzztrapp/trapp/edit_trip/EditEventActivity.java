@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
@@ -40,13 +41,15 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     private String type;
 
 //    Form variables
-    EditText title_et;
+    TextView title_tv;
 
     LinearLayout date_ll;
     TextView date_tv;
     LinearLayout time_ll;
     TextView startTime_tv;
     TextView endTime_tv;
+
+    TextView indays_tv;
 
     LinearLayout loc_ll;
     LinearLayout alarm_ll;
@@ -65,7 +68,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
     final String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
-
+    Calendar currentDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +79,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         setSupportActionBar(toolbar);
 
 
-
+        currentDate = Calendar.getInstance();
 
         Intent inIntent = getIntent();
         Bundle inBundle = inIntent.getExtras();
@@ -101,7 +104,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         startTime =  (GregorianCalendar) startDate.clone();
         endTime =  (GregorianCalendar) endDate.clone();
 
-        title_et = (EditText) findViewById(R.id.ee_title_et);
+        title_tv = (TextView) findViewById(R.id.ee_title_tv);
         loc_ll = (LinearLayout) findViewById(R.id.ee_location);
         alarm_ll = (LinearLayout) findViewById(R.id.ee_alarm);
         date_ll = (LinearLayout) findViewById(R.id.ee_date);
@@ -109,6 +112,8 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         time_ll = (LinearLayout) findViewById(R.id.ee_time);
         startTime_tv = (TextView) findViewById(R.id.ee_start_time_tv);
         endTime_tv = (TextView) findViewById(R.id.ee_end_time_tv);
+
+        indays_tv = (TextView) findViewById(R.id.ee_indays_tv);
 
         sdf = new SimpleDateFormat("MMM dd", Locale.US);
 
@@ -141,6 +146,9 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         }
         endTime_tv.setText(endHour + ":" + endMinuteStr + endampm);
 
+
+        long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
+        indays_tv.setText("In "+Math.round(daysBetween)+" days");
         transport_ll = (LinearLayout) findViewById(R.id.ee_transportation);
 
 
@@ -238,7 +246,10 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         return true;
     }
-
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -282,6 +293,9 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(EditEventActivity.this, "Date Selected " ,
                     Toast.LENGTH_SHORT).show();
             dateDialog.show();
+
+            long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
+            indays_tv.setText("In " + Math.round(daysBetween) + " days");
         }
         else if(v == startTime_tv){
 
