@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Single marker</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+
+
+<div id='map'></div>
+
+<script>
+var items = 
+[ {
+    coordinates: [-74.50, 40],
+    title: 'Test Data 1',
+    description: '1718 14th St NW, Washington, DC',
+    type: 'cafe'
+  },
+  {
+    coordinates: [-74.40, 40],
+    title: 'Test Data 2',
+    description: '1718 14th St NW, Washington, DC',
+    type: 'cafe'
+  },
+  {
+    coordinates: [-74.30, 40],
+    title: 'Test Data 3',
+    description: '1718 14th St NW, Washington, DC',
+    type: 'restaurant'
+  },
+  {
+    coordinates: [-74.20, 40],
+    title: 'Test Data 4',
+    description: '1718 14th St NW, Washington, DC',
+    type: 'restaurant'
+  }
+]
+
+
+var miami = [25.772068899816585, -80.18989562988281];
+var atlanta = [33.745467600106196, -84.39079284667969];
+var sf = [37.77831314799672, -122.41790771484375];
+
+
+L.mapbox.accessToken = 'pk.eyJ1IjoiZGhhbmFuaTk0IiwiYSI6ImNpbHh2eDdiYTA4NDl2Z2tzZ3Rsemw5bGgifQ.73Vj_xaGomgnX0LRDzqM8w';
+var map = L.mapbox.map('map', 'mapbox.streets')
+    .setView([40, -74.5], 13);
+
+
+var geoJson = [];
+for (var i = items.length - 1; i >= 0; i--) {
+  var temp = {
+      type: 'Feature',
+      geometry: {
+          type: 'Point',
+          coordinates: items[i].coordinates
+      },
+      properties: {
+          title: items[i].title,
+          description: items[i].description,
+          'marker-size': 'large',
+          'marker-color': '#BE9A6B',
+          'marker-symbol': items[i].type
+      }
+  }
+geoJson.push(temp);
+};
+
+var myLayer = L.mapbox.featureLayer().addTo(map);
+myLayer.setGeoJSON(geoJson);
+
+function resetColors() {
+    for (var i = 0; i < geoJson.length; i++) {
+        geoJson[i].properties['marker-color'] = geoJson[i].properties['old-color'] ||
+            geoJson[i].properties['marker-color'];
+    }
+    myLayer.setGeoJSON(geoJson);
+}
+
+// myLayer.on('click', function(e) {
+//     resetColors();
+//     e.layer.feature.properties['old-color'] = e.layer.feature.properties['marker-color'];
+//     e.layer.feature.properties['marker-color'] = '#ff8888';
+//     myLayer.setGeoJSON(geoJson);
+// });
+
+
+
+map.on('click', function(e) {
+    alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+});
+
+</script>
+
+
+</body>
+</html>
