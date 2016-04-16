@@ -570,8 +570,9 @@ app.directive("dayButtons", function (infoFact) {
           month.num = i+1;
           month.days = [];
           // month.days.push(1);
-          var num = 1;
-          while (num <= daysInMonth(month.name))
+          var startNum = 1;
+          var endNum = daysInMonth(month.name);
+          while (num <= endNum)
             month.days.push(num++);
           scope.months.push(month);
         };

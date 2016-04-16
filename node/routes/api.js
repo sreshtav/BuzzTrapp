@@ -36,7 +36,7 @@ router.post('/updateTripItem', basicAuth, function (req, res, next) {
 		} else {
 			res.send(200);
 		}
-	})	
+	}	
 });
 
 router.post('/createInterestPoint', basicAuth, function (req, res, next) {
