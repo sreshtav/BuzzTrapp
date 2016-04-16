@@ -25,6 +25,13 @@
     <color name="white">#FFFFFF</color>
     <color name="transparentWhite">#3cffffff</color>
     <color name="transparent">#00ffffff</color>
+    <color name="linegrey">#555555</color>
     <color name="black">#000000</color>
     <color name="blackTint">#55000000</color>
+
+    <!-- Create Trip Type Color-->
+    <color name="foodType">#F2EBBF</color>
+    <color name="sightseeingType">#8CBEB2</color>
+    <color name="shopType">#F3B562</color>
+    <color name="defaultType">#FF6480</color>
 </resources>

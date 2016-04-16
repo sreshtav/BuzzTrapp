@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="buzztrapp.trapp.edit_trip.EditEventActivity"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/include" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ee_type_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="@dimen/ee_horizontal_padding"
+            android:id="@+id/ee_title_tv"
+            android:background="@color/transparent"
+            android:textSize="14sp"
+            android:textColorHint="@color/slateGray"
+            android:hint="Title"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/linegrey"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/ee_vert_padding"
+        android:paddingBottom="@dimen/ee_vert_padding"
+        android:paddingLeft="@dimen/ee_horizontal_padding"
+        android:paddingRight="@dimen/ee_horizontal_padding"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:weightSum="3">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/slateGray"
+                android:text="@string/ee_date"/>
+            <TextView
+                android:id="@+id/ee_date_et"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:hint="Fri, May 23"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:background="@color/transparent"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/ee_indays_tv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="in ____ days"
+                android:textColor="@color/slateGray"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/ee_vert_padding"
+            android:paddingBottom="@dimen/ee_vert_padding"
+            android:paddingLeft="@dimen/ee_horizontal_padding"
+            android:paddingRight="@dimen/ee_horizontal_padding"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Time (UTC+11)"
+                android:textSize="14sp"
+                android:textColor="@color/slateGray"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="12:30pm - 2:30pm"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <!-- Black Line-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/linegrey"/>
+
+
+
+
+
+
+
+
+
+
+    <!--<TextView
+        android:id="@+id/ee_textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+
+
+</LinearLayout>
