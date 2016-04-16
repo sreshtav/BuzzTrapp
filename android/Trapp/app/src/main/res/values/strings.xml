@@ -49,6 +49,7 @@
     <string name="ee_alarm">Alarm</string>
     <string name="ee_transportation">Transportation</string>
     <string name="ee_memo">Memo</string>
+    <string name="ee_location">Location</string>
 
     <!-- Edit Event Toolbar header-->
     <string name="save">Save</string>

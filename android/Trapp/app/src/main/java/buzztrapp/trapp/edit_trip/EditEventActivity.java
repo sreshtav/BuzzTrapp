@@ -1,19 +1,27 @@
 package buzztrapp.trapp.edit_trip;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
 
-public class EditEventActivity extends AppCompatActivity {
+public class EditEventActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GregorianCalendar start = new GregorianCalendar();
     private GregorianCalendar end = new GregorianCalendar();
@@ -22,9 +30,25 @@ public class EditEventActivity extends AppCompatActivity {
     private String location;
     private android.support.v7.widget.Toolbar toolbar;
 
+    private SimpleDateFormat sdf;
+
     private boolean new_event;
 
     private String type;
+
+//    Form variables
+    EditText title_et;
+
+    LinearLayout date_ll;
+    TextView date_tv;
+    LinearLayout time_ll;
+
+    LinearLayout loc_ll;
+    LinearLayout alarm_ll;
+    LinearLayout transport_ll;
+
+
+    DatePickerDialog dateDialog;
 
 
     private Menu menu;
@@ -37,6 +61,30 @@ public class EditEventActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ee_toolbar);
         setSupportActionBar(toolbar);
+
+
+        title_et = (EditText) findViewById(R.id.ee_title_et);
+        loc_ll = (LinearLayout) findViewById(R.id.ee_location);
+        alarm_ll = (LinearLayout) findViewById(R.id.ee_alarm);
+        date_ll = (LinearLayout) findViewById(R.id.ee_date);
+        date_tv = (TextView) findViewById(R.id.ee_date_tv);
+        time_ll = (LinearLayout) findViewById(R.id.ee_time);
+        transport_ll = (LinearLayout) findViewById(R.id.ee_transportation);
+
+
+        date_ll.setOnClickListener(this);
+        sdf = new SimpleDateFormat("MMM dd", Locale.US);
+
+        Calendar newCalendar = Calendar.getInstance();
+        dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                GregorianCalendar newDate = new GregorianCalendar();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                final String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+                date_tv.setText(days[newDate.get(Calendar.DAY_OF_WEEK)-1]+ ", " + sdf.format(newDate.getTime()));
+            }
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
 
         Intent inIntent = getIntent();
@@ -123,4 +171,12 @@ public class EditEventActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if(v == date_ll) {
+            Toast.makeText(EditEventActivity.this, "Date Selected " ,
+                    Toast.LENGTH_SHORT).show();
+            dateDialog.show();
+        }
+    }
 }
