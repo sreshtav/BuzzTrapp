@@ -2,6 +2,7 @@ package buzztrapp.trapp.edit_trip;
 
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,12 +27,13 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import buzztrapp.trapp.R;
+import buzztrapp.trapp.create_trip.CreateTripActivity;
 
 /**
  * Created by Aaron on 4/12/2016.
  */
 @TargetApi(23)
-public class EditTripBottomFragment extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener{
+public class EditTripBottomFragment extends Fragment implements WeekView.EventClickListener, WeekView.EmptyViewClickListener, MonthLoader.MonthChangeListener{
 
 
     private String tripid;
@@ -153,6 +155,8 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         onMonthChange(2016,04);
         mWeekView.notifyDatasetChanged();
 
+        mWeekView.setOnEventClickListener(this);
+        mWeekView.setEmptyViewClickListener(this);
 // Set long press listener for events.
         mWeekView.setEventLongPressListener(mEventLongPressListener);
 
@@ -168,9 +172,38 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
+        Toast toast = Toast.makeText(getContext(), event.getName() + " clicked!", Toast.LENGTH_SHORT);
+        toast.show();
 
+        Intent intent = new Intent(getContext(), EditEventActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("name", event.getName());
+        bundle.putString("location", event.getLocation());
+        bundle.putSerializable("color", event.getColor());
+        bundle.putSerializable("startTime", event.getStartTime());
+        bundle.putSerializable("endTime", event.getEndTime());
+        intent.putExtras(bundle);
+        getContext().startActivity(intent);
     }
 
+    @Override
+    public void onEmptyViewClicked(Calendar time) {
+        Toast toast = Toast.makeText(getContext(), "Empty event at time "+time.getTime().toString()+" clicked!", Toast.LENGTH_SHORT);
+        toast.show();
+
+        Intent intent = new Intent(getContext(), EditEventActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("name", "");
+        bundle.putString("location", "");
+        bundle.putSerializable("color", getResources().getColor(R.color.defaultType));
+        bundle.putSerializable("startTime", time);
+        Calendar endTime = (Calendar)time.clone();
+        endTime.add(Calendar.HOUR, 1);
+        bundle.putSerializable("endTime", endTime);
+        intent.putExtras(bundle);
+        getContext().startActivity(intent);
+
+    }
    /* @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events.
@@ -317,6 +350,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         }
         return tempEvents;
     }
+
 
 /*
     public static void setmNewEvents(ArrayList<WeekViewEvent> mNewEvents) {
