@@ -7,9 +7,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Permission to use AlarmManager -->
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <!-- Permission to Send SMS -->
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -17,22 +17,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" >
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".manage_trips.ManageTripsActivity" />
-        <activity android:name=".create_trip.CreateTripActivity"></activity>
+        <activity android:name=".manage_trips.ManageTripsActivity">
+        </activity>
+        <activity android:name=".create_trip.CreateTripActivity" />
         <activity android:name=".SignUpActivity" />
         <!--
             <activity android:name=".CreateTripDestinationFragment" />
         <activity android:name=".CreateTripDurationFragment" />
         -->
         <!-- <activity android:name=".CreateTripFragment"></activity> -->
-        <activity android:name=".edit_trip.EditTripActivity"></activity>
+        <activity android:name=".edit_trip.EditTripActivity" />
+        <activity android:name=".edit_trip.EditEventActivity">
+        </activity>
+        <activity android:name=".edit_trip.EditEventBottomFragment"></activity>
     </application>
 
 </manifest>
