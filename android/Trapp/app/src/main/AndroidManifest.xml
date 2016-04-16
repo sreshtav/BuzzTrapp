@@ -17,16 +17,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".LoginActivity" >
-
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".manage_trips.ManageTripsActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".manage_trips.ManageTripsActivity">
         </activity>
         <activity android:name=".create_trip.CreateTripActivity" />
         <activity android:name=".SignUpActivity" />

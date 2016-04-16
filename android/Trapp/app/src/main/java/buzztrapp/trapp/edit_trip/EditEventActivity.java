@@ -33,13 +33,13 @@ public class EditEventActivity extends AppCompatActivity {
         GregorianCalendar startDate = (GregorianCalendar) inBundle.getSerializable("startTime");
         GregorianCalendar endDate = (GregorianCalendar) inBundle.getSerializable("endTime");
 
-        TextView tv = (TextView)findViewById(R.id.ee_textView);
+/*        TextView tv = (TextView)findViewById(R.id.ee_textView);
 
         if (name.equals("") && location.equals("")){
             tv.setText("No Event found! Create one now! Start time = "+startDate.getTime().toString() +", end time = "+endDate.getTime().toString());
         }
         else{
             tv.setText("Event details: name = "+name + ", location = "+location + ", start time = "+startDate.getTime().toString() +", end time = "+endDate.getTime().toString());
-        }
+        }*/
     }
 }
