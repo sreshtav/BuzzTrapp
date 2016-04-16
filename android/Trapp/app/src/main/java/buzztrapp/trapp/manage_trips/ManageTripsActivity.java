@@ -11,7 +11,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
-import android.content.Intent;
+
 import java.util.GregorianCalendar;
 
 import android.support.design.widget.FloatingActionButton;
@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import buzztrapp.trapp.AlertReceiver;
+import buzztrapp.trapp.helper.NextLocationAlertReceiver;
 import buzztrapp.trapp.Communicator;
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.create_trip.CreateTripActivity;
@@ -104,7 +104,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
             public void onDrawerOpened(View drawerView) {
                 Toast.makeText(ManageTripsActivity.this, "Drawer Closed",
                         Toast.LENGTH_SHORT).show();
-                showNotification();
+                setAlarm();
 
             }
 
@@ -138,7 +138,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         Long alertTime = new GregorianCalendar().getTimeInMillis()+5*1000;
 
         // Define our intention of executing AlertReceiver
-        Intent alertIntent = new Intent(this, AlertReceiver.class);
+        Intent alertIntent = new Intent(this, NextLocationAlertReceiver.class);
 
         // Allows you to schedule for your application to do something at a later date
         // even if it is in he background or isn't active
@@ -151,19 +151,12 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
                 PendingIntent.getBroadcast(this, 1, alertIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT));
 
+        Toast.makeText(ManageTripsActivity.this, "Alarm set", Toast.LENGTH_SHORT).show();
+        Log.d("Nisheeth", "set the alarm");
+
     }
 
     public void showNotification() {
-
-        // Builds a notification
-        Notification notificBuilder = new Notification.Builder(this)
-                .setContentTitle("Stop by for Lunch?")
-                .setContentText("Lunch")
-                .setSmallIcon(R.drawable.trapp_icon_1)
-                .setStyle(new Notification.BigTextStyle()
-                        .bigText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap for directions"))
-                .setTicker("Stop by for Lunch?")
-                .build();
 
         // Define that we have the intention of opening MoreInfoNotification
         Intent moreInfoIntent = new Intent(this, ManageTripsActivity.class);
@@ -181,6 +174,19 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         // FLAG_UPDATE_CURRENT : If the intent exists keep it but update it if needed
         PendingIntent pendingIntent = tStackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Builds a notification
+        Notification notificBuilder = new Notification.Builder(this)
+                .setContentTitle("Stop by for Lunch?")
+                .setContentText("Lunch")
+                .setSmallIcon(R.drawable.trapp_icon_1)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap for directions"))
+                .addAction(R.drawable.trapp_icon_1_5, "Action button", pendingIntent)
+                .setTicker("Stop by for Lunch?")
+                .build();
+
+
 
         // Defines the Intent to fire when the notification is clicked
         //notificBuilder.setContentIntent(pendingIntent);

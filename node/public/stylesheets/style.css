@@ -6,12 +6,16 @@ outline: none;
 }
 
 
-.modal-backdrop.in { z-index: auto;}
+.modal-backdrop.in { z-index: auto; display:none;}
 
 
 
 form {
     padding:1em;
+}
+
+.mdl-layout__drawer-button > i.material-icons {
+  padding-top:10px;
 }
 
 .loginScreen {
@@ -329,8 +333,8 @@ form {
   -ms-grid-row-align: center;
   align-items: center;
   color:white;
-  padding:20px 80px;
-  min-height:20vh;
+  padding:20px 20px 0 20px;
+  min-height:10vh;
 }
 
 /*.demo-chart:nth-child(1) {

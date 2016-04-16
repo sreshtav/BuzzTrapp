@@ -44,4 +44,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Edit Event Form Text-->
+    <string name="ee_date">Date</string>
+    <string name="ee_alarm">Alarm</string>
+    <string name="ee_transportation">Transportation</string>
+    <string name="ee_memo">Memo</string>
+    <string name="ee_location">Location</string>
+
+    <!-- Edit Event Toolbar header-->
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+
 </resources>
