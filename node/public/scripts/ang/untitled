@@ -1,0 +1,56 @@
+  $scope.tripInfo = infoFact.currentEditingTrip;
+  var mapCoord = cityCoordinates[$scope.tripInfo.location];
+  L.mapbox.accessToken = 'pk.eyJ1IjoiZGhhbmFuaTk0IiwiYSI6ImNpbHh2eDdiYTA4NDl2Z2tzZ3Rsemw5bGgifQ.73Vj_xaGomgnX0LRDzqM8w';
+
+var map = L.mapbox.map('map', 'mapbox.emerald')
+    .setView(mapCoord, 16);
+
+// Credit Foursquare for their wonderful data
+// map.attributionControl.addAttribution('<a href="https://foursquare.com/">Places data from Foursquare</a>');
+
+// Create a Foursquare developer account: https://developer.foursquare.com/
+// NOTE: CHANGE THESE VALUES TO YOUR OWN:
+// Otherwise they can be cycled or deactivated with zero notice.
+
+
+var CLIENT_ID = 'Z1YL1IRWJINRSIYFKX2UPN42HG0KBKZ5ZX3QWZWLPNW1LGDE';
+var CLIENT_SECRET = 'UB3QP3YNFAXSFV0STRV1YOPHSX1MKCTB5TEKDM3J2THCJOIH';
+
+// https://developer.foursquare.com/start/search
+var API_ENDPOINT = 'https://api.foursquare.com/v2/venues/search' +
+  '?client_id=CLIENT_ID' +
+  '&client_secret=CLIENT_SECRET' +
+  '&v=20130815' +
+  '&ll=LATLON' +
+  '&query=coffee' +
+  '&callback=?';
+
+// Keep our place markers organized in a nice group.
+var foursquarePlaces = L.layerGroup().addTo(map);
+
+// Use jQuery to make an AJAX request to Foursquare to load markers data.
+$.getJSON(API_ENDPOINT
+    .replace('CLIENT_ID', CLIENT_ID)
+    .replace('CLIENT_SECRET', CLIENT_SECRET)
+    .replace('LATLON', map.getCenter().lat +
+        ',' + map.getCenter().lng), function(result, status) {
+
+    if (status !== 'success') return alert('Request to Foursquare failed');
+
+    // Transform each venue result into a marker on the map.
+    for (var i = 0; i < result.response.venues.length; i++) {
+      var venue = result.response.venues[i];
+      var latlng = L.latLng(venue.location.lat, venue.location.lng);
+      console.log(venue);
+      var marker = L.marker(latlng, {
+          icon: L.mapbox.marker.icon({
+            'marker-color': '#BE9A6B',
+            'marker-symbol': 'cafe',
+            'marker-size': 'large'
+          })
+        })
+      .bindPopup(venue.name)
+        .addTo(foursquarePlaces);
+    }
+
+});

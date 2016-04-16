@@ -44,43 +44,174 @@ app.config([
         })
 	}]);
 
-controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state) {
+controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $compile) {
   var  cities = {
     "Miami" : "plni8h4k",
     "New York" : "pm1iajik"
   }
   
   var cityCoordinates = {
-    "Miami" :  [-80.205941, 25.812784],
+    "Miami" :  [25.774387672608608, -80.19444465637207],
     "San Francisco" :  [37.77493, -122.419416],
     "Hawaii" :  [21.306944, -157.858333],
     "London" :  [51.507351, -0.127758],
     "Washington DC" :  [38.907192, -77.036871],
-    "New York" :  [38.907192, -77.036871],
+    "New York" :  [40.73034831215804, -73.99085998535155],
     "Hong Kong" :  [22.396428, 114.109497]
   }
 
+
   $scope.tripInfo = infoFact.currentEditingTrip;
-  $scope.mapURL = cities[$scope.tripInfo.location];
+  var mapCoord = cityCoordinates[$scope.tripInfo.location];
+  L.mapbox.accessToken = 'pk.eyJ1IjoiZGhhbmFuaTk0IiwiYSI6ImNpbHh2eDdiYTA4NDl2Z2tzZ3Rsemw5bGgifQ.73Vj_xaGomgnX0LRDzqM8w';
+
+var map = L.mapbox.map('map2', 'mapbox.streets', { zoomControl: false })
+    .setView(mapCoord, 14);
+
+map.dragging.disable();
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
+map.scrollWheelZoom.disable();
+map.keyboard.disable();
+
+// Credit Foursquare for their wonderful data
+// map.attributionControl.addAttribution('<a href="https://foursquare.com/">Places data from Foursquare</a>');
+
+// Create a Foursquare developer account: https://developer.foursquare.com/
+// NOTE: CHANGE THESE VALUES TO YOUR OWN:
+// Otherwise they can be cycled or deactivated with zero notice.
 
 
-  // mapboxgl.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
-  // var map = new mapboxgl.Map({
-  //     container: 'map', // container id
-  //     style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-  //     center: [-80.205941, 25.812784], // starting position
-  //     zoom: 9 // starting zoom
-  // });
+var CLIENT_ID = 'Z1YL1IRWJINRSIYFKX2UPN42HG0KBKZ5ZX3QWZWLPNW1LGDE';
+var CLIENT_SECRET = 'UB3QP3YNFAXSFV0STRV1YOPHSX1MKCTB5TEKDM3J2THCJOIH';
+
+// https://developer.foursquare.com/start/search
+var API_ENDPOINT = 'https://api.foursquare.com/v2/venues/search' +
+  '?client_id=CLIENT_ID' +
+  '&client_secret=CLIENT_SECRET' +
+  '&v=20130815' +
+  '&ll=LATLON' +
+  '&query=TYPE' +
+  '&callback=?';
+
+// Keep our place markers organized in a nice group.
+var foursquarePlaces = L.layerGroup().addTo(map);
+
+// Use jQuery to make an AJAX request to Foursquare to load markers data.
+$.getJSON(API_ENDPOINT
+    .replace('CLIENT_ID', CLIENT_ID)
+    .replace('CLIENT_SECRET', CLIENT_SECRET)
+    .replace('TYPE', 'coffee')
+    .replace('LATLON', map.getCenter().lat +
+        ',' + map.getCenter().lng), function(result, status) {
+    if (status !== 'success') return alert('Request to Foursquare failed');
+    for (var i = 0; i < result.response.venues.length; i++) {
+      var venue = result.response.venues[i];
+      var latlng = L.latLng(venue.location.lat, venue.location.lng);
+      var marker = L.marker(latlng, {
+          icon: L.mapbox.marker.icon({
+            'marker-color': '#BE9A6B',
+            'marker-symbol': 'cafe',
+            'marker-size': 'large'
+          })
+        })
+      .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .addTo(foursquarePlaces);
+    }
+});
+
+$.getJSON(API_ENDPOINT
+    .replace('CLIENT_ID', CLIENT_ID)
+    .replace('CLIENT_SECRET', CLIENT_SECRET)
+    .replace('TYPE', 'food')
+    .replace('LATLON', map.getCenter().lat +
+        ',' + map.getCenter().lng), function(result, status) {
+    if (status !== 'success') return alert('Request to Foursquare failed');
+    for (var i = 0; i < result.response.venues.length; i++) {
+      var venue = result.response.venues[i];
+      var latlng = L.latLng(venue.location.lat, venue.location.lng);
+      var marker = L.marker(latlng, {
+          icon: L.mapbox.marker.icon({
+            'marker-color': '#BE4730',
+            'marker-symbol': 'restaurant',
+            'marker-size': 'large'
+          })
+        })
+      .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .addTo(foursquarePlaces);
+    }
+});
+
+$.getJSON(API_ENDPOINT
+    .replace('CLIENT_ID', CLIENT_ID)
+    .replace('CLIENT_SECRET', CLIENT_SECRET)
+    .replace('TYPE', 'arts')
+    .replace('LATLON', map.getCenter().lat +
+        ',' + map.getCenter().lng), function(result, status) {
+    if (status !== 'success') return alert('Request to Foursquare failed');
+    // console.log(result.response.venues[0]);
+    for (var i = 0; i < result.response.venues.length; i++) {
+      var venue = result.response.venues[i];
+      var latlng = L.latLng(venue.location.lat, venue.location.lng);
+      var marker = L.marker(latlng, {
+          icon: L.mapbox.marker.icon({
+            'marker-color': '#49BE62',
+            'marker-symbol': 'camera',
+            'marker-size': 'large'
+          })
+        })
+      .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .addTo(foursquarePlaces);
+    }
+});
+
+
+$.getJSON(API_ENDPOINT
+    .replace('CLIENT_ID', CLIENT_ID)
+    .replace('CLIENT_SECRET', CLIENT_SECRET)
+    .replace('TYPE', 'drinks')
+    .replace('LATLON', map.getCenter().lat +
+        ',' + map.getCenter().lng), function(result, status) {
+    if (status !== 'success') return alert('Request to Foursquare failed');
+    for (var i = 0; i < result.response.venues.length; i++) {
+      var venue = result.response.venues[i];
+      var latlng = L.latLng(venue.location.lat, venue.location.lng);
+
+
+      var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+      linkFunction = $compile(angular.element(html)),
+      newScope = $scope.$new();
+
+      newScope.venue = venue;
+      // newScope.set = hotels
+      // var marker = L.marker([51.5, -0.09], {icon: blueIcon}).bindPopup()
 
 
 
+      var marker = L.marker(latlng, {
+          icon: L.mapbox.marker.icon({
+            'marker-color': '#3070BE',
+            'marker-symbol': 'bar',
+            'marker-size': 'large'
+          })
+        })
+      .bindPopup(linkFunction(newScope)[0])
+        .addTo(foursquarePlaces);
+    }
+
+
+
+});
+
+  $scope.addItem = function (id) {
+    console.log(id);
+  }
 
   $scope.deleteTrip = function () {
     console.log("deleting" + "/removeTrip?tripid=" + $scope.tripInfo._id);
     $http
       .delete("/api/removeTrip?tripid=" + $scope.tripInfo._id)
       .success(function (data, status, headers, config) {
-        console.log(data);
         infoFact.currentEditingTrip = {};
         $scope.tripInfo = {};
         $state.go("home");
@@ -420,16 +551,28 @@ app.directive("dayButtons", function (infoFact) {
         return moment().year(0).month(0).day(0).second(0).millisecond(0).hour(hour).minute(minute);
     }
 
+    function daysInMonth(month) {
+      if (month == "Feburary") return 29;
+      var day30 = ['April', 'June', 'September', 'November'];
+      if (day30.includes(month)) return 30;
+      else return 31;
+    }
+
     function _buildWeek(scope) {
         var startDate = moment(infoFact.currentEditingTrip.startDate);
         var endDate = moment(infoFact.currentEditingTrip.endDate);
         scope.months = [];  // months holds month objs: {name : july, number: 6, days : [4,5,6,7,8]}
-        console.log(infoFact.currentEditingTrip);
+        // console.log(infoFact.currentEditingTrip);
+        console.log(endDate.month() + "<_ END START _>" + startDate.month());
         for (var i = endDate.month(); i >= startDate.month(); --i) {
           var month = {};
           month.name = monthNum[i];
           month.num = i+1;
-          month.days = {};
+          month.days = [];
+          // month.days.push(1);
+          var num = 1;
+          while (num <= daysInMonth(month.name))
+            month.days.push(num++);
           scope.months.push(month);
         };
         // scope.hours = [];
