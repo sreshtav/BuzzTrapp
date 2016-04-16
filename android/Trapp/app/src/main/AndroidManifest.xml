@@ -37,6 +37,8 @@
         <activity android:name=".edit_trip.EditEventActivity">
         </activity>
         <activity android:name=".edit_trip.EditEventBottomFragment"></activity>
+
+        <receiver android:name=".AlertReceiver"/>
     </application>
 
 </manifest>

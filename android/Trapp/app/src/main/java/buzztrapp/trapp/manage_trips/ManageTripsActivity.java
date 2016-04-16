@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -104,7 +105,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
             public void onDrawerOpened(View drawerView) {
                 Toast.makeText(ManageTripsActivity.this, "Drawer Closed",
                         Toast.LENGTH_SHORT).show();
-                showNotification();
+                setAlarm();
 
             }
 
@@ -151,19 +152,12 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
                 PendingIntent.getBroadcast(this, 1, alertIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT));
 
+        Toast.makeText(ManageTripsActivity.this, "Alarm set", Toast.LENGTH_SHORT).show();
+        Log.d("Nisheeth", "set the alarm");
+
     }
 
     public void showNotification() {
-
-        // Builds a notification
-        Notification notificBuilder = new Notification.Builder(this)
-                .setContentTitle("Stop by for Lunch?")
-                .setContentText("Lunch")
-                .setSmallIcon(R.drawable.trapp_icon_1)
-                .setStyle(new Notification.BigTextStyle()
-                        .bigText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap for directions"))
-                .setTicker("Stop by for Lunch?")
-                .build();
 
         // Define that we have the intention of opening MoreInfoNotification
         Intent moreInfoIntent = new Intent(this, ManageTripsActivity.class);
@@ -181,6 +175,19 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         // FLAG_UPDATE_CURRENT : If the intent exists keep it but update it if needed
         PendingIntent pendingIntent = tStackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Builds a notification
+        Notification notificBuilder = new Notification.Builder(this)
+                .setContentTitle("Stop by for Lunch?")
+                .setContentText("Lunch")
+                .setSmallIcon(R.drawable.trapp_icon_1)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText("A highly rated Indian restaurant Touch is 1.1 miles away. Tap for directions"))
+                .addAction(R.drawable.trapp_icon_1_5, "Action button", pendingIntent)
+                .setTicker("Stop by for Lunch?")
+                .build();
+
+
 
         // Defines the Intent to fire when the notification is clicked
         //notificBuilder.setContentIntent(pendingIntent);
