@@ -78,7 +78,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:padding="0dp"
-                android:hint="Fri, May 23"
                 android:gravity="center_vertical"
                 android:textColor="@color/formBlack"
                 android:textStyle="bold"
@@ -127,23 +126,26 @@
                     android:id="@+id/ee_start_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="12:30pm"
+                    android:text=""
                     android:textColor="@color/formBlack"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="-"
                     android:textColor="@color/formBlack"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:gravity="center"/>
 
                 <TextView
                     android:id="@+id/ee_end_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="12:30pm"
+                    android:text=""
                     android:textColor="@color/formBlack"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:gravity="center"/>
             </LinearLayout>
 
         </LinearLayout>

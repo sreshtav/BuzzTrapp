@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -56,7 +57,14 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     TimePickerDialog startTimeDialog;
     TimePickerDialog endTimeDialog;
 
+    Calendar startTime;
+    Calendar endTime;
+    Calendar date;
+
     private Menu menu;
+
+    final String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +83,8 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         name = inBundle.getString("name");
         location = inBundle.getString("location");
-        GregorianCalendar startDate = (GregorianCalendar) inBundle.getSerializable("startTime");
-        GregorianCalendar endDate = (GregorianCalendar) inBundle.getSerializable("endTime");
+        final GregorianCalendar startDate = (GregorianCalendar) inBundle.getSerializable("startTime");
+        final GregorianCalendar endDate = (GregorianCalendar) inBundle.getSerializable("endTime");
 
         if (name.equals("") && location.equals(""))
             new_event = true;
@@ -89,7 +97,9 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             getSupportActionBar().setTitle("Edit an Event");
 
 
-
+        date = (GregorianCalendar) startDate.clone();
+        startTime =  (GregorianCalendar) startDate.clone();
+        endTime =  (GregorianCalendar) endDate.clone();
 
         title_et = (EditText) findViewById(R.id.ee_title_et);
         loc_ll = (LinearLayout) findViewById(R.id.ee_location);
@@ -100,11 +110,42 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         startTime_tv = (TextView) findViewById(R.id.ee_start_time_tv);
         endTime_tv = (TextView) findViewById(R.id.ee_end_time_tv);
 
+        sdf = new SimpleDateFormat("MMM dd", Locale.US);
+
+
+        date_tv.setText(days[date.get(Calendar.DAY_OF_WEEK) - 1] + ", " + sdf.format(date.getTime()));
+
+        String startampm = "am";
+        int startHour = startTime.get(Calendar.HOUR);
+        if(startHour>12) {
+            startHour -= 12;
+            startampm = "pm";
+        }
+        int startMinute = startTime.get(Calendar.MINUTE);
+        String startMinuteStr = Integer.toString(startMinute);
+        if(startMinute<10){
+            startMinuteStr = "0"+ startMinuteStr;
+        }
+        startTime_tv.setText(startHour + ":" + startMinuteStr + startampm);
+
+        String endampm = "am";
+        int endHour = endTime.get(Calendar.HOUR);
+        if(endHour>12) {
+            endHour -= 12;
+            endampm = "pm";
+        }
+        int endMinute = endTime.get(Calendar.MINUTE);
+        String endMinuteStr = Integer.toString(startMinute);
+        if(endMinute<10){
+            endMinuteStr = "0"+ endMinuteStr;
+        }
+        endTime_tv.setText(endHour + ":" + endMinuteStr + endampm);
+
         transport_ll = (LinearLayout) findViewById(R.id.ee_transportation);
 
 
+
         date_ll.setOnClickListener(this);
-        sdf = new SimpleDateFormat("MMM dd", Locale.US);
 
         Calendar newCalendar = Calendar.getInstance();
         dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -112,8 +153,10 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 GregorianCalendar newDate = new GregorianCalendar();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                final String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-                date_tv.setText(days[newDate.get(Calendar.DAY_OF_WEEK)-1]+ ", " + sdf.format(newDate.getTime()));
+                date_tv.setText(days[newDate.get(Calendar.DAY_OF_WEEK) - 1] + ", " + sdf.format(newDate.getTime()));
+                startDate.set(year, monthOfYear, dayOfMonth);
+                endDate.set(year, monthOfYear, dayOfMonth);
+                date.set(year, monthOfYear, dayOfMonth);
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -127,7 +170,13 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                     selectedHour -= 12;
                     ampm = "pm";
                 }
-                startTime_tv.setText(selectedHour + ":" + selectedMinute + ampm);
+                String selMin = Integer.toString(selectedMinute);
+                if(selectedMinute<10){
+                    selMin = "0"+selectedMinute;
+                }
+                startTime_tv.setText(selectedHour + ":" + selMin + ampm);
+
+                startTime.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -143,7 +192,21 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                     selectedHour -= 12;
                     ampm = "pm";
                 }
-                endTime_tv.setText(selectedHour + ":" + selectedMinute + ampm);
+
+                if(endDate.before(startDate))
+                {
+                    Toast.makeText(EditEventActivity.this, "End time must be after the starting time" ,
+                            Toast.LENGTH_SHORT).show();
+                    selectedHour = startTime.HOUR_OF_DAY + 1;
+                    selectedMinute = startTime.MINUTE;
+                }
+                String selMin = Integer.toString(selectedMinute);
+                if(selectedMinute<10){
+                    selMin = "0"+selectedMinute;
+                }
+                endTime_tv.setText(selectedHour + ":" + selMin + ampm);
+                endDate.set(date.YEAR, date.MONTH,date.DAY_OF_MONTH, selectedHour, selectedMinute);
+
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
