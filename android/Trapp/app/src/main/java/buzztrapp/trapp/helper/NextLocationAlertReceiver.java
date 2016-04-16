@@ -1,4 +1,4 @@
-package buzztrapp.trapp;
+package buzztrapp.trapp.helper;
 
 /**
  * Created by nishe on 13-Apr-16.
@@ -16,9 +16,10 @@ import android.widget.Toast;
 
 import java.io.Console;
 
+import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
 
-public class AlertReceiver extends BroadcastReceiver{
+public class NextLocationAlertReceiver extends BroadcastReceiver{
 
     // Called when a broadcast is made targeting this class
     @Override

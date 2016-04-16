@@ -11,12 +11,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
-import android.content.Intent;
+
 import java.util.GregorianCalendar;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +26,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import buzztrapp.trapp.AlertReceiver;
+import buzztrapp.trapp.helper.NextLocationAlertReceiver;
 import buzztrapp.trapp.Communicator;
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.create_trip.CreateTripActivity;
@@ -139,7 +138,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         Long alertTime = new GregorianCalendar().getTimeInMillis()+5*1000;
 
         // Define our intention of executing AlertReceiver
-        Intent alertIntent = new Intent(this, AlertReceiver.class);
+        Intent alertIntent = new Intent(this, NextLocationAlertReceiver.class);
 
         // Allows you to schedule for your application to do something at a later date
         // even if it is in he background or isn't active

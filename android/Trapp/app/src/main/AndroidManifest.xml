@@ -38,7 +38,7 @@
         </activity>
         <activity android:name=".edit_trip.EditEventBottomFragment"></activity>
 
-        <receiver android:name=".AlertReceiver"/>
+        <receiver android:name=".helper.NextLocationAlertReceiver"/>
     </application>
 
 </manifest>
