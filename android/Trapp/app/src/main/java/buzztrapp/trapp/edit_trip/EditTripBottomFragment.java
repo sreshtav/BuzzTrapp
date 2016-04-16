@@ -79,14 +79,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) getActivity().findViewById(R.id.weekView);
 // Set an action when any event is clicked.
-
-        if (tripItems.isEmpty())
-        {
-            TripItem t1 = new TripItem("id1","tid1", new GregorianCalendar(2016,04,17,16,30,00),new GregorianCalendar(2016,04,17,17,30,00), "ipid1");
-            tripItems.add(t1);
-            TripItem t2 = new TripItem("id2","tid2", new GregorianCalendar(2016,04,19,18,00,00),new GregorianCalendar(2016,04,19,19,00,00), "ipid2");
-            tripItems.add(t2);
-        }
+        
         for (int i = 0; i<tripItems.size(); i++){
             event = new WeekViewEvent(i, "id "+tripItems.get(i).id+" from "+tripItems.get(i).tripId, tripItems.get(i).startTime, tripItems.get(i).endTime);
             /*switch(tripItems.get(i).id){

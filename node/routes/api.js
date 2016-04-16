@@ -76,11 +76,38 @@ router.post('/addTrip', basicAuth, function (req, res){
 });
 
 router.get('/myTripItems',printAuth, basicAuth, function (req, res){
-	var tripId = mongoose.Types.ObjectId(req.query.tripId);
-	TripItem.find({'tripId' : tripId}, function (err, data){
-		if (err) res.send("Sorry, error"); //TODO: Make a real error catch
-		res.send(data);
-	});
+  var tripId = mongoose.Types.ObjectId(req.query.tripId);
+  TripItem.find({'tripId' : tripId}, function (err, data){
+    if (err) res.send("Sorry, error"); //TODO: Make a real error catch
+    //console.log(data);
+    var responseData = [];
+    var dataItemsProcessed = 0;
+    data.forEach(function(tripitem) {
+     	InterestPoint.find(
+      		{'_id': mongoose.Types.ObjectId(tripitem.interestPointId)}, 
+	      	function(errEachIP, dataIP) {
+	      		var newTripItem = {};
+	      		newTripItem['_id'] = tripitem._id;
+	      		newTripItem['tripId'] = tripitem.tripId;
+	      		newTripItem['startTime'] = tripitem.startTime;
+	      		newTripItem['endTime'] = tripitem.endTime;
+	      		if (dataIP.length == 1) {
+	      			newTripItem['city'] = dataIP[0].city;
+	      			newTripItem['interest'] = dataIP[0].interest;
+	      			newTripItem['averageTime'] = dataIP[0].averageTime;
+	      			newTripItem['description'] = dataIP[0].description;
+	      			newTripItem['address'] = dataIP[0].address;
+	      			newTripItem['name'] = dataIP[0].name;
+	      		}
+	      		responseData.push(newTripItem);
+	      		dataItemsProcessed++;
+	      		if (dataItemsProcessed == data.length) {
+	      			res.send(responseData);
+	      		}
+	      	}
+	    );
+    });
+  });
 });
 
 router.post('/addTripItem', basicAuth, function (req, res){
