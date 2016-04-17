@@ -64,6 +64,8 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     TextView endTime_tv;
     ImageView type_iv;
 
+    EditText memo_et;
+
     TextView indays_tv;
 
     LinearLayout loc_ll;
@@ -155,6 +157,11 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         endTime_tv = (TextView) findViewById(R.id.ee_end_time_tv);
 
         indays_tv = (TextView) findViewById(R.id.ee_indays_tv);
+
+
+        memo_et = (EditText) findViewById(R.id.ee_memo_et);
+
+        memo_et.setText("Name = "+name+", id = "+id);
 
         sdf = new SimpleDateFormat("MMM dd", Locale.US);
 

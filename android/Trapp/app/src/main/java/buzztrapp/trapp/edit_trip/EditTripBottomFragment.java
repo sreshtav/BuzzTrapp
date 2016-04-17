@@ -20,6 +20,7 @@ import com.alamkanak.weekview.WeekViewLoader;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +49,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
     WeekView mWeekView;
     WeekViewEvent event;
     ArrayList<WeekViewEvent> events = new ArrayList<>();
+    ArrayList<WeekViewEvent> eventsCopy = new ArrayList<>();
 
     ArrayList<String> ids;
     ArrayList<String> types;
@@ -103,6 +105,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
             }
             events.add(event);
         }
+        eventsCopy = (ArrayList<WeekViewEvent>)events.clone();
 
         mEventClickListener = new WeekView.EventClickListener() {
             @Override
@@ -192,8 +195,8 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 
     public int getEventPosition(WeekViewEvent event){
         int pos = 0;
-        for (pos = 0; pos<events.size(); pos++){
-            if(event.getStartTime().compareTo(events.get(pos).getStartTime()) == 0){
+        for (pos = 0; pos<eventsCopy.size(); pos++){
+            if(event.getStartTime().getTime().compareTo(eventsCopy.get(pos).getStartTime().getTime()) == 0){
                 break;
             }
         }
