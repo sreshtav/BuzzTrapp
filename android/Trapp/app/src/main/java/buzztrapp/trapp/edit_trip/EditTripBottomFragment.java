@@ -41,6 +41,8 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 
     private List<TripItem> tripItems;
 
+    private List<String> eventTypes;
+
     GregorianCalendar date;
 
     WeekView mWeekView;
@@ -66,7 +68,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        eventTypes = new ArrayList<>();
         date = new GregorianCalendar();
         date = ((EditTripActivity)getActivity()).getSelectedDate();
 //        testTV = (TextView) getActivity().findViewById(R.id.textView6);
@@ -82,10 +84,10 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         
         for (int i = 0; i<tripItems.size(); i++){
             event = new WeekViewEvent(i, tripItems.get(i).name, tripItems.get(i).startTime, tripItems.get(i).endTime);
-            switch(tripItems.get(i).id){
+            switch(tripItems.get(i).interest.toLowerCase()){
                 case "food": event.setColor(getContext().getColor(R.color.foodType));
                     break;
-                case "shop": event.setColor(getContext().getColor(R.color.shopType));
+                case "shopping": event.setColor(getContext().getColor(R.color.shopType));
                     break;
                 case "sightseeing": event.setColor(getContext().getColor(R.color.sightseeingType));
                     break;
@@ -113,12 +115,12 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 
             @Override
             public List<? extends WeekViewEvent> onLoad(int periodIndex) {
-                List<WeekViewEvent> events = new ArrayList<>();
+                /*List<WeekViewEvent> events = new ArrayList<>();
 
                 for (int i = 0; i<tripItems.size(); i++){
-                    event = new WeekViewEvent(i, "id "+tripItems.get(i).id+" from "+tripItems.get(i).tripId, tripItems.get(i).startTime, tripItems.get(i).endTime);
+                    event = new WeekViewEvent(i, tripItems.get(i).name, tripItems.get(i).startTime, tripItems.get(i).endTime);
                     events.add(event);
-                }
+                }*/
                 return events;
             }
         };
@@ -172,7 +174,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         Bundle bundle = new Bundle();
         bundle.putString("name", event.getName());
         bundle.putString("location", event.getLocation());
-        bundle.putSerializable("color", event.getColor());
+//        bundle.putSerializable("color", event.getColor());
         bundle.putSerializable("startTime", event.getStartTime());
         bundle.putSerializable("endTime", event.getEndTime());
         intent.putExtras(bundle);
@@ -188,7 +190,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         Bundle bundle = new Bundle();
         bundle.putString("name", "");
         bundle.putString("location", "");
-        bundle.putSerializable("color", getResources().getColor(R.color.defaultType));
+//        bundle.putSerializable("color", event.getColor());
         bundle.putSerializable("startTime", time);
         Calendar endTime = (Calendar)time.clone();
         endTime.add(Calendar.HOUR, 1);

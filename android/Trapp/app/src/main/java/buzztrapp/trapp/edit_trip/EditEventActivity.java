@@ -1,8 +1,10 @@
 package buzztrapp.trapp.edit_trip;
 
+import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -24,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
-
+@TargetApi(23)
 public class EditEventActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GregorianCalendar start = new GregorianCalendar();
@@ -48,6 +51,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     LinearLayout time_ll;
     TextView startTime_tv;
     TextView endTime_tv;
+    ImageView type_iv;
 
     TextView indays_tv;
 
@@ -59,6 +63,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     DatePickerDialog dateDialog;
     TimePickerDialog startTimeDialog;
     TimePickerDialog endTimeDialog;
+
 
     Calendar startTime;
     Calendar endTime;
@@ -86,6 +91,20 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         name = inBundle.getString("name");
         location = inBundle.getString("location");
+//        Color inColor = (Color)inBundle.getSerializable("color");
+//        int typeColor = Color.parseColor(inColor.toString());
+//        if(typeColor == getColor(R.color.foodType)){
+//            type = "food";
+//        }else if(typeColor == getColor(R.color.shopType)){
+//            type = "shopping";
+//        }else if(typeColor == getColor(R.color.sightseeingType)){
+//            type = "sightseeing";
+//        }else{
+//            type = "none";
+//        }
+        type ="";
+//
+//        type = inBundle.getString("interest").toLowerCase();
         final GregorianCalendar startDate = (GregorianCalendar) inBundle.getSerializable("startTime");
         final GregorianCalendar endDate = (GregorianCalendar) inBundle.getSerializable("endTime");
 
@@ -105,6 +124,25 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         endTime =  (GregorianCalendar) endDate.clone();
 
         title_tv = (TextView) findViewById(R.id.ee_title_tv);
+        type_iv = (ImageView) findViewById(R.id.ee_type_iv);
+
+        title_tv.setText(name);
+        switch(type){
+            case "shopping":
+                type_iv.setImageResource(R.drawable.shopping);
+                break;
+            case "sightseeing":
+                type_iv.setImageResource(R.drawable.shopping);
+                break;
+            case "food":
+                type_iv.setImageResource(R.drawable.food);
+                break;
+            default:
+                type_iv.setImageResource(R.drawable.more);
+                break;
+        }
+
+
         loc_ll = (LinearLayout) findViewById(R.id.ee_location);
         alarm_ll = (LinearLayout) findViewById(R.id.ee_alarm);
         date_ll = (LinearLayout) findViewById(R.id.ee_date);
@@ -147,7 +185,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         endTime_tv.setText(endHour + ":" + endMinuteStr + endampm);
 
 
-        long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
+        long daysBetween = getDateDiff(currentDate.getTime(), date.getTime(), TimeUnit.DAYS);
         indays_tv.setText("In "+Math.round(daysBetween)+" days");
         transport_ll = (LinearLayout) findViewById(R.id.ee_transportation);
 
@@ -165,6 +203,9 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                 startDate.set(year, monthOfYear, dayOfMonth);
                 endDate.set(year, monthOfYear, dayOfMonth);
                 date.set(year, monthOfYear, dayOfMonth);
+
+                long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
+                indays_tv.setText("In " + Math.round(daysBetween) + " days");
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -294,8 +335,6 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                     Toast.LENGTH_SHORT).show();
             dateDialog.show();
 
-            long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
-            indays_tv.setText("In " + Math.round(daysBetween) + " days");
         }
         else if(v == startTime_tv){
 
