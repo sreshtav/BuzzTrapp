@@ -26,17 +26,19 @@
 
         <ImageView
             android:id="@+id/ee_type_iv"
-            android:layout_width="24dp"
+            android:layout_width="32dp"
             android:layout_height="wrap_content"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:paddingLeft="@dimen/ee_horizontal_padding"
             android:id="@+id/ee_title_tv"
             android:padding="0dp"
             android:background="@color/transparent"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
             android:textColorHint="@color/formGray"
             android:hint="Title"/>
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
     private String type;
 
-    private long id;
+    private String id;
 
 //    Form variables
     TextView title_tv;
@@ -94,19 +95,9 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         name = inBundle.getString("name");
         location = inBundle.getString("location");
-        id = inBundle.getLong("id");
-//        Color inColor = (Color)inBundle.getSerializable("color");
-//        int typeColor = Color.parseColor(inColor.toString());
-//        if(typeColor == getColor(R.color.foodType)){
-//            type = "food";
-//        }else if(typeColor == getColor(R.color.shopType)){
-//            type = "shopping";
-//        }else if(typeColor == getColor(R.color.sightseeingType)){
-//            type = "sightseeing";
-//        }else{
-//            type = "none";
-//        }
-        type ="";
+        id = inBundle.getString("id");
+        type = inBundle.getString("type");
+
 //
 //        type = inBundle.getString("interest").toLowerCase();
         final GregorianCalendar startDate = (GregorianCalendar) inBundle.getSerializable("startTime");
@@ -127,11 +118,11 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         startTime =  (GregorianCalendar) startDate.clone();
         endTime =  (GregorianCalendar) endDate.clone();
 
-        title_tv = (TextView) findViewById(R.id.ee_title_tv);
         type_iv = (ImageView) findViewById(R.id.ee_type_iv);
+        title_tv = (TextView) findViewById(R.id.ee_title_tv);
 
         title_tv.setText(name);
-        switch(type){
+        switch(type.toLowerCase()){
             case "shopping":
                 type_iv.setImageResource(R.drawable.shopping);
                 break;
@@ -211,10 +202,10 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                 long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
                 indays_tv.setText("In " + Math.round(daysBetween) + " days");
 
-                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
-                    editDone(true);
-                }else{
+                if(startTime.compareTo(startDate) == 0 || endTime.compareTo(endDate) == 0){
                     editDone(false);
+                }else{
+                    editDone(true);
                 }
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -237,10 +228,10 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
                 startTime.set(startTime.get(Calendar.YEAR), startTime.get(Calendar.MONTH),startTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
 
-                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
-                    editDone(true);
-                }else{
+                if(startTime.compareTo(startDate) == 0 || endTime.compareTo(endDate) == 0){
                     editDone(false);
+                }else{
+                    editDone(true);
                 }
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
@@ -270,12 +261,13 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                     selMin = "0"+selectedMinute;
                 }
                 endTime_tv.setText(selectedHour + ":" + selMin + ampm);
-                endTime.set(endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH),endTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
+                endTime.set(endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH), endTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
+                Log.d("EditEvent", "startTime = " + startTime.toString() + ", startDate = " + startDate.toString());
 
-                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
-                    editDone(true);
-                }else{
+                if(startTime.compareTo(startDate) == 0 || endTime.compareTo(endDate) == 0){
                     editDone(false);
+                }else{
+                    editDone(true);
                 }
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
