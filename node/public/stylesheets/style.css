@@ -586,4 +586,28 @@ calendar > div.week.names > span {
 
 
 
+day-buttons .monthName {
+  display: inline;
+  font-weight: 200;
+}
+
+day-buttons .monthName.selected {
+  font-weight: 700;
+}
+
+day-buttons .dayBtn {
+  color: white;
+  padding: 3px;
+  background-color: #FF7F66;
+  margin: 2px;
+}
+
+day-buttons .dayBtn.selected {
+  background-color: #78C0F9;
+}
+
+.dayTimeBtns.selected {
+  background-color: red;
+}
+
 
