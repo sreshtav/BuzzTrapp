@@ -151,8 +151,8 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
                 PendingIntent.getBroadcast(this, 1, alertIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT));
 
-        Toast.makeText(ManageTripsActivity.this, "Alarm set", Toast.LENGTH_SHORT).show();
-        Log.d("Nisheeth", "set the alarm");
+       // Toast.makeText(ManageTripsActivity.this, "Alarm set", Toast.LENGTH_SHORT).show();
+       // Log.d("Nisheeth", "set the alarm");
 
     }
 
