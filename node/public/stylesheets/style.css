@@ -181,6 +181,10 @@ form {
   background-color: #2185C5 !important;
 }
 
+.btn-secondary {
+  color: #2185C5 !important;
+}
+
 
 .mdl-color--trapp-red {
   background-color: #FF7F66;
@@ -512,13 +516,15 @@ input[type="submit"] {
 }
 
 calendar {
-  float: left;
+
   font-family: 'Roboto', sans-serif;
   display: block;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   background: white;
   width: 200px;
+  margin-left:auto;
+  margin-right:auto;
   /*border: solid 1px #CCC;*/
   margin-bottom: 10px;
 }
