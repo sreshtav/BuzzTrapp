@@ -388,7 +388,7 @@
                 android:layout_margin="@dimen/ee_vert_padding"
                 android:gravity="top"
                 android:textSize="14sp"
-                android:text="Work Work Work Work Work"
+                android:hint="Write Something about this Event!"
                 android:background="@color/transparent"/>
 
         </LinearLayout>
