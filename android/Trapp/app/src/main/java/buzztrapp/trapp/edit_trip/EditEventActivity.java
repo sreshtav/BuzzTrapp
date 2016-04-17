@@ -154,7 +154,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         date_tv.setText(days[date.get(Calendar.DAY_OF_WEEK) - 1] + ", " + sdf.format(date.getTime()));
 
         String startampm = "am";
-        int startHour = startTime.get(Calendar.HOUR);
+        int startHour = startTime.get(Calendar.HOUR_OF_DAY);
         if(startHour>12) {
             startHour -= 12;
             startampm = "pm";
@@ -167,7 +167,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         startTime_tv.setText(startHour + ":" + startMinuteStr + startampm);
 
         String endampm = "am";
-        int endHour = endTime.get(Calendar.HOUR);
+        int endHour = endTime.get(Calendar.HOUR_OF_DAY);
         if(endHour>12) {
             endHour -= 12;
             endampm = "pm";
@@ -202,7 +202,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                 long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
                 indays_tv.setText("In " + Math.round(daysBetween) + " days");
 
-                if(startTime.compareTo(startDate) == 0 || endTime.compareTo(endDate) == 0){
+                if(startTime.compareTo(startDate) == 0 && endTime.compareTo(endDate) == 0){
                     editDone(false);
                 }else{
                     editDone(true);
@@ -216,23 +216,57 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 String ampm = "am";
-                if(selectedHour>12) {
-                    selectedHour -= 12;
+
+                int tempHr = selectedHour;
+
+                if(tempHr>12) {
+                    tempHr -= 12;
                     ampm = "pm";
                 }
                 String selMin = Integer.toString(selectedMinute);
                 if(selectedMinute<10){
                     selMin = "0"+selectedMinute;
                 }
-                startTime_tv.setText(selectedHour + ":" + selMin + ampm);
 
-                startTime.set(startTime.get(Calendar.YEAR), startTime.get(Calendar.MONTH),startTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
 
-                if(startTime.compareTo(startDate) == 0 || endTime.compareTo(endDate) == 0){
+                startTime_tv.setText(tempHr + ":" + selMin + ampm);
+
+                startTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                startTime.set(Calendar.MINUTE, selectedMinute);
+
+
+                if(endTime.getTime().before(startTime.getTime()))
+                {
+                    Toast.makeText(EditEventActivity.this, "End time must be after the starting time" ,
+                            Toast.LENGTH_SHORT).show();
+                    selectedHour = startTime.HOUR_OF_DAY + 1;
+                    selectedMinute = startTime.MINUTE;
+
+
+                    endTime.set(Calendar.HOUR_OF_DAY, startTime.get(Calendar.HOUR_OF_DAY));
+                    endTime.set(Calendar.MINUTE, startTime.get(Calendar.MINUTE));
+                    tempHr = endTime.get(Calendar.HOUR_OF_DAY);
+                    if(tempHr>12) {
+                        tempHr -= 12;
+                        ampm = "pm";
+                    }
+                    selectedMinute = endTime.get(Calendar.MINUTE);
+                    if(selectedMinute<10){
+                        selMin = "0"+selectedMinute;
+                    }
+                    endTime_tv.setText(tempHr + ":" + selMin + ampm);
+
+                }
+
+
+                if(startTime.compareTo(startDate) == 0 && endTime.compareTo(endDate) == 0){
                     editDone(false);
                 }else{
                     editDone(true);
                 }
+
+
+
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -244,27 +278,48 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 String ampm = "am";
-                if(selectedHour>12) {
-                    selectedHour -= 12;
+                int tempHr = selectedHour;
+
+                if(tempHr>12) {
+                    tempHr -= 12;
                     ampm = "pm";
                 }
 
-                if(endTime.before(startTime))
+                String selMin = Integer.toString(selectedMinute);
+                if(selectedMinute<10){
+                    selMin = "0"+selectedMinute;
+                }
+                endTime_tv.setText(tempHr + ":" + selMin + ampm);
+
+                endTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                endTime.set(Calendar.MINUTE, selectedMinute);
+//                Log.d("EditEvent", "startTime = " + startTime.toString() + ", startDate = " + startDate.toString());
+
+
+                if(endTime.getTime().before(startTime.getTime()))
                 {
                     Toast.makeText(EditEventActivity.this, "End time must be after the starting time" ,
                             Toast.LENGTH_SHORT).show();
                     selectedHour = startTime.HOUR_OF_DAY + 1;
                     selectedMinute = startTime.MINUTE;
-                }
-                String selMin = Integer.toString(selectedMinute);
-                if(selectedMinute<10){
-                    selMin = "0"+selectedMinute;
-                }
-                endTime_tv.setText(selectedHour + ":" + selMin + ampm);
-                endTime.set(endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH), endTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
-                Log.d("EditEvent", "startTime = " + startTime.toString() + ", startDate = " + startDate.toString());
 
-                if(startTime.compareTo(startDate) == 0 || endTime.compareTo(endDate) == 0){
+                    endTime.set(Calendar.HOUR_OF_DAY, startTime.get(Calendar.HOUR_OF_DAY));
+                    endTime.set(Calendar.MINUTE, startTime.get(Calendar.MINUTE));
+
+                    tempHr = endTime.get(Calendar.HOUR_OF_DAY);
+                    if(tempHr>12) {
+                        tempHr -= 12;
+                        ampm = "pm";
+                    }
+                    selectedMinute = endTime.get(Calendar.MINUTE);
+                    if(selectedMinute<10){
+                        selMin = "0"+selectedMinute;
+                    }
+                    endTime_tv.setText(tempHr + ":" + selMin + ampm);
+
+                }
+
+                if(startTime.compareTo(startDate) == 0 && endTime.compareTo(endDate) == 0){
                     editDone(false);
                 }else{
                     editDone(true);
