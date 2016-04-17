@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -188,8 +189,10 @@ public class ManageTripsFragment extends Fragment{
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                         GregorianCalendar startDate = new GregorianCalendar();
                         startDate.setTime(sdf.parse(jsonObject.getString("startTime")));
+                        startDate.add(Calendar.HOUR, -3);
                         GregorianCalendar endDate = new GregorianCalendar();
                         endDate.setTime(sdf.parse(jsonObject.getString("endTime")));
+                        endDate.add(Calendar.HOUR, -3);
                         TripItem tripItem = new TripItem(jsonObject.getString("_id"), jsonObject.getString("tripId"),
                                 startDate, endDate, jsonObject.getString("city"), jsonObject.getString("interest"),
                                 jsonObject.getInt("averageTime"), jsonObject.getString("description"), jsonObject.getString("address"),

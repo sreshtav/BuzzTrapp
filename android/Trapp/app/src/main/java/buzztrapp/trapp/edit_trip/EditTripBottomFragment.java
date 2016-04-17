@@ -81,8 +81,8 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 // Set an action when any event is clicked.
         
         for (int i = 0; i<tripItems.size(); i++){
-            event = new WeekViewEvent(i, "id "+tripItems.get(i).id+" from "+tripItems.get(i).tripId, tripItems.get(i).startTime, tripItems.get(i).endTime);
-            /*switch(tripItems.get(i).id){
+            event = new WeekViewEvent(i, tripItems.get(i).name, tripItems.get(i).startTime, tripItems.get(i).endTime);
+            switch(tripItems.get(i).id){
                 case "food": event.setColor(getContext().getColor(R.color.foodType));
                     break;
                 case "shop": event.setColor(getContext().getColor(R.color.shopType));
@@ -90,9 +90,9 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
                 case "sightseeing": event.setColor(getContext().getColor(R.color.sightseeingType));
                     break;
                 default:
-                    event.setColor(getResources().getColor(R.color.defaultType));
+                    event.setColor(getContext().getColor(R.color.defaultType));
                     break;
-            }*/
+            }
             events.add(event);
         }
 
