@@ -3,7 +3,9 @@ package buzztrapp.trapp.edit_trip;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +21,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,6 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
+import cz.msebera.android.httpclient.Header;
+
 @TargetApi(23)
 public class EditEventActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -402,9 +410,8 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                         Toast.LENGTH_SHORT).show();
             }else
             {
-                Toast.makeText(EditEventActivity.this, "Trip Created!" ,
-                        Toast.LENGTH_SHORT).show();
-                //SOmething here
+                Toast.makeText(EditEventActivity.this, "Trip Created!" , Toast.LENGTH_SHORT).show();
+                addTripItemToDatabase();
             }
 
         }
@@ -414,6 +421,32 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void addTripItemToDatabase () {
+        Log.d("EditTrip", "Inside addtripitem");
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", preferences.getString("token", ""));
+        RequestParams params = new RequestParams();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Log.d("EditTrip", "tripitem id - " + id);
+        Log.d("EditTrip", "new start time - " + sdf.format(startTime.getTime()));
+        Log.d("EditTrip", "new end time - " + sdf.format(endTime.getTime()));
+        params.put("_id", id);
+        params.put("startTime", sdf.format(startTime.getTime()));
+        params.put("endTime", sdf.format(endTime.getTime()));
+        client.post("http://173.236.255.240/api/updateTripItem", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                Log.d("EditTrip", "Inside success");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                Log.d("EditTrip", "Inside failure");
+            }
+        });
     }
 
 
