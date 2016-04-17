@@ -1,5 +1,10 @@
 <div>
 	<day-buttons></day-buttons>
+	<div ng-init="timeOfDay = 0">
+		<button class = "dayTimeBtns" ng-click="timeOfDay = 0" ng-class="{selected : timeOfDay == 0}">Morning</button>
+		<button class = "dayTimeBtns" ng-click="timeOfDay = 1" ng-class="{selected : timeOfDay == 1}">Afternood</button>
+		<button class = "dayTimeBtns" ng-click="timeOfDay = 2" ng-class="{selected : timeOfDay == 2}">Evening</button>
+	</div>
 </div>
 <div class="mdl-grid demo-content">
   <div id='map'></div>
@@ -9,3 +14,6 @@
 <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 
 <button type="button" ng-click="deleteTrip()" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" >Delete Trip</button>
+
+
+{{timeOfDay}}
