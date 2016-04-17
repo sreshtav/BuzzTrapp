@@ -67,9 +67,9 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     TimePickerDialog endTimeDialog;
 
 
-    Calendar startTime;
-    Calendar endTime;
-    Calendar date;
+    GregorianCalendar startTime;
+    GregorianCalendar endTime;
+    GregorianCalendar date;
 
 
     private Menu menu;
