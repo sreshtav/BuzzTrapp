@@ -43,6 +43,8 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
     private String type;
 
+    private long id;
+
 //    Form variables
     TextView title_tv;
 
@@ -69,6 +71,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     Calendar endTime;
     Calendar date;
 
+
     private Menu menu;
 
     final String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
@@ -91,6 +94,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         name = inBundle.getString("name");
         location = inBundle.getString("location");
+        id = inBundle.getLong("id");
 //        Color inColor = (Color)inBundle.getSerializable("color");
 //        int typeColor = Color.parseColor(inColor.toString());
 //        if(typeColor == getColor(R.color.foodType)){
@@ -200,12 +204,18 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                 GregorianCalendar newDate = new GregorianCalendar();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 date_tv.setText(days[newDate.get(Calendar.DAY_OF_WEEK) - 1] + ", " + sdf.format(newDate.getTime()));
-                startDate.set(year, monthOfYear, dayOfMonth);
-                endDate.set(year, monthOfYear, dayOfMonth);
+                startTime.set(year, monthOfYear, dayOfMonth);
+                endTime.set(year, monthOfYear, dayOfMonth);
                 date.set(year, monthOfYear, dayOfMonth);
 
                 long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
                 indays_tv.setText("In " + Math.round(daysBetween) + " days");
+
+                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
+                    editDone(true);
+                }else{
+                    editDone(false);
+                }
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -225,7 +235,13 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                 }
                 startTime_tv.setText(selectedHour + ":" + selMin + ampm);
 
-                startTime.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
+                startTime.set(startTime.get(Calendar.YEAR), startTime.get(Calendar.MONTH),startTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
+
+                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
+                    editDone(true);
+                }else{
+                    editDone(false);
+                }
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -242,7 +258,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                     ampm = "pm";
                 }
 
-                if(endDate.before(startDate))
+                if(endTime.before(startTime))
                 {
                     Toast.makeText(EditEventActivity.this, "End time must be after the starting time" ,
                             Toast.LENGTH_SHORT).show();
@@ -254,8 +270,13 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                     selMin = "0"+selectedMinute;
                 }
                 endTime_tv.setText(selectedHour + ":" + selMin + ampm);
-                endDate.set(date.YEAR, date.MONTH,date.DAY_OF_MONTH, selectedHour, selectedMinute);
+                endTime.set(endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH),endTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
 
+                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
+                    editDone(true);
+                }else{
+                    editDone(false);
+                }
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -269,6 +290,16 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         else{
             tv.setText("Event details: name = "+name + ", location = "+location + ", start time = "+startDate.getTime().toString() +", end time = "+endDate.getTime().toString());
         }*/
+    }
+
+    public void editDone(boolean i){
+        if(i){
+            menu.findItem(R.id.action_save).setVisible(true);
+            menu.findItem(R.id.action_delete).setVisible(false);
+        }else{
+            menu.findItem(R.id.action_save).setVisible(false);
+            menu.findItem(R.id.action_delete).setVisible(true);
+        }
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -316,11 +347,22 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
 //noinspection SimplifiableIfStatement
 
-        if (id == R.id.action_done) {
-            Intent intent = new Intent(this, ManageTripsActivity.class);
-            this.startActivity(intent);
-            return true;
+        if (id == R.id.action_save) {
 
+            if(new_event)
+            {
+                Toast.makeText(EditEventActivity.this, "No Adding Trips at this moment. Sorry!" ,
+                        Toast.LENGTH_SHORT).show();
+            }else
+            {
+                Toast.makeText(EditEventActivity.this, "Trip Created!" ,
+                        Toast.LENGTH_SHORT).show();
+                //SOmething here
+            }
+
+        }
+        else if(id == R.id.action_cancel){
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

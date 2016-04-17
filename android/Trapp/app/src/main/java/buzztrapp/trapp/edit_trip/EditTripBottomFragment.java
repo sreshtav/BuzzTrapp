@@ -173,6 +173,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         Intent intent = new Intent(getContext(), EditEventActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("name", event.getName());
+        bundle.putLong("id", event.getId());
         bundle.putString("location", event.getLocation());
 //        bundle.putSerializable("color", event.getColor());
         bundle.putSerializable("startTime", event.getStartTime());
@@ -190,6 +191,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         Bundle bundle = new Bundle();
         bundle.putString("name", "");
         bundle.putString("location", "");
+        bundle.putLong("id", event.getId());
 //        bundle.putSerializable("color", event.getColor());
         bundle.putSerializable("startTime", time);
         Calendar endTime = (Calendar)time.clone();
