@@ -5,6 +5,10 @@ left:5%;
 outline: none;
 }
 
+.modal-content .group {
+  margin: 10px 0;
+}
+
 
 .modal-backdrop.in { z-index: auto; display:none;}
 
