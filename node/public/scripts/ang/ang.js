@@ -38,10 +38,6 @@ app.config([
           templateUrl:"/partials/suggestionMap.html",
     		  controller: 'suggestionMapCtrl'
         })
-        .state("mapbox-testing",{
-          url:"/mapbox-testing",
-          templateUrl:"/partials/mapbox-testing.html"
-        })
 	}]);
 
 controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $compile) {
