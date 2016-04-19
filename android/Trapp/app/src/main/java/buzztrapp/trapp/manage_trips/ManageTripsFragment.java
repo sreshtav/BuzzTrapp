@@ -66,6 +66,7 @@ public class ManageTripsFragment extends Fragment{
         Log.d("ManageTrip", "Fragment: onActivityCreated()");
         Log.d("ManageTrip", "full trip list size() = " + fullTripsList.size());
 
+
     }
 
     private void getTrips() {
@@ -81,13 +82,17 @@ public class ManageTripsFragment extends Fragment{
                 try {
                     JSONArray jsonArray = new JSONArray(json);
                     Log.d("ManageTrip", "Got back " + jsonArray.length() + " trips");
+                    Log.d("Nisheeth", "Before loop");
                     for (int i = 0; i < jsonArray.length(); i++) {
+
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         GregorianCalendar startDate = new GregorianCalendar();
                         startDate.setTime(sdf.parse(jsonObject.getString("startDate")));
                         GregorianCalendar endDate = new GregorianCalendar();
                         endDate.setTime(sdf.parse(jsonObject.getString("endDate")));
+
+                        // Testing: Send a notification 5 seconds from now reminding of the next trip
 
                         String image_name = jsonObject.getString("location");
                         image_name = image_name.replaceAll("[^A-Za-z]+", "").toLowerCase();
@@ -197,7 +202,9 @@ public class ManageTripsFragment extends Fragment{
                                 startDate, endDate, jsonObject.getString("city"), jsonObject.getString("interest"),
                                 jsonObject.getInt("averageTime"), jsonObject.getString("description"), jsonObject.getString("address"),
                                 jsonObject.getString("name"));
+                        //Log.d("Devy", jsonObject.getString("description"));
                         tripItems.add(tripItem);
+
                     }
                     showProgress(false);
                     Intent intent = new Intent(getActivity(), EditTripActivity.class);
