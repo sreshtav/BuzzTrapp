@@ -194,10 +194,11 @@ public class ManageTripsFragment extends Fragment{
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                         GregorianCalendar startDate = new GregorianCalendar();
                         startDate.setTime(sdf.parse(jsonObject.getString("startTime")));
-                        startDate.add(Calendar.HOUR, -3);
                         GregorianCalendar endDate = new GregorianCalendar();
                         endDate.setTime(sdf.parse(jsonObject.getString("endTime")));
-                        endDate.add(Calendar.HOUR, -3);
+                        Log.d("ManageTrip", "trip id - " + jsonObject.getString("_id"));
+                        Log.d("ManageTrip", "start time - " + sdf.parse(jsonObject.getString("startTime")));
+                        Log.d("ManageTrip", "end time - " + sdf.parse(jsonObject.getString("endTime")));
                         TripItem tripItem = new TripItem(jsonObject.getString("_id"), jsonObject.getString("tripId"),
                                 startDate, endDate, jsonObject.getString("city"), jsonObject.getString("interest"),
                                 jsonObject.getInt("averageTime"), jsonObject.getString("description"), jsonObject.getString("address"),

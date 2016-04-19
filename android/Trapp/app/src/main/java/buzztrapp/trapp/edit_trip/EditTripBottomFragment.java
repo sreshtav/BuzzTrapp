@@ -20,6 +20,7 @@ import com.alamkanak.weekview.WeekViewLoader;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +34,7 @@ import buzztrapp.trapp.create_trip.CreateTripActivity;
  * Created by Aaron on 4/12/2016.
  */
 @TargetApi(23)
-public class EditTripBottomFragment extends Fragment implements WeekView.EventClickListener, WeekView.EmptyViewClickListener, MonthLoader.MonthChangeListener{
+public class EditTripBottomFragment extends Fragment implements WeekView.EventClickListener, WeekView.EmptyViewClickListener{
 
 
     private String tripid;
@@ -48,6 +49,10 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
     WeekView mWeekView;
     WeekViewEvent event;
     ArrayList<WeekViewEvent> events = new ArrayList<>();
+    ArrayList<WeekViewEvent> eventsCopy = new ArrayList<>();
+
+    ArrayList<String> ids;
+    ArrayList<String> types;
 
 
     WeekView.EventClickListener mEventClickListener;
@@ -76,13 +81,16 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 //        testTV.setText("id = "+ tripid);
 
         tripItems = ((EditTripActivity)getActivity()).getTripItems();
-
+        ids = new ArrayList<>();
+        types = new ArrayList<>();
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) getActivity().findViewById(R.id.weekView);
 // Set an action when any event is clicked.
         
         for (int i = 0; i<tripItems.size(); i++){
+            ids.add(i,tripItems.get(i).id);
+            types.add(i,tripItems.get(i).interest);
             event = new WeekViewEvent(i, tripItems.get(i).name, tripItems.get(i).startTime, tripItems.get(i).endTime);
             switch(tripItems.get(i).interest.toLowerCase()){
                 case "food": event.setColor(getContext().getColor(R.color.foodType));
@@ -97,6 +105,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
             }
             events.add(event);
         }
+        eventsCopy = (ArrayList<WeekViewEvent>)events.clone();
 
         mEventClickListener = new WeekView.EventClickListener() {
             @Override
@@ -147,7 +156,6 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
             }
         };*/
 //        mWeekView.setMonthChangeListener(this);
-        onMonthChange(2016,04);
         mWeekView.notifyDatasetChanged();
 
         mWeekView.setOnEventClickListener(this);
@@ -170,16 +178,29 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         Toast toast = Toast.makeText(getContext(), event.getName() + " clicked!", Toast.LENGTH_SHORT);
         toast.show();
 
+        int pos = getEventPosition(event);
+
         Intent intent = new Intent(getContext(), EditEventActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("name", event.getName());
-        bundle.putLong("id", event.getId());
+        bundle.putString("id", ids.get(pos));
         bundle.putString("location", event.getLocation());
 //        bundle.putSerializable("color", event.getColor());
         bundle.putSerializable("startTime", event.getStartTime());
         bundle.putSerializable("endTime", event.getEndTime());
+        bundle.putSerializable("type", types.get(pos));
         intent.putExtras(bundle);
         getContext().startActivity(intent);
+    }
+
+    public int getEventPosition(WeekViewEvent event){
+        int pos = 0;
+        for (pos = 0; pos<eventsCopy.size(); pos++){
+            if(event.getStartTime().getTime().compareTo(eventsCopy.get(pos).getStartTime().getTime()) == 0){
+                break;
+            }
+        }
+        return pos;
     }
 
     @Override
@@ -208,106 +229,6 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         return events;
     }*/
 
-    @Override
-    public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        // Populate the week view with the events that was added by tapping on empty view.
-        List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-        ArrayList<WeekViewEvent> newEvents = getNewEvents(newYear, newMonth);
-        events.addAll(newEvents);
-/*
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth - 1);
-        startTime.set(Calendar.YEAR, newYear);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR, 1);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 30);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 4);
-        endTime.set(Calendar.MINUTE, 30);
-        endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(10, getEventTitle(startTime), startTime, endTime);
-        event.setName("match foot");
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 4);
-        startTime.set(Calendar.MINUTE, 20);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 5);
-        endTime.set(Calendar.MINUTE, 0);
-        event = new WeekViewEvent(10, getEventTitle(startTime), startTime, endTime);
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 5);
-        startTime.set(Calendar.MINUTE, 30);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 2);
-        endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(2, getEventTitle(startTime), startTime, endTime);
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 5);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth - 1);
-        startTime.set(Calendar.YEAR, newYear);
-        startTime.add(Calendar.DATE, 1);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        event = new WeekViewEvent(3, getEventTitle(startTime), startTime, endTime);
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, 15);
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        event = new WeekViewEvent(4, getEventTitle(startTime), startTime, endTime);
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, 1);
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        event = new WeekViewEvent(5, getEventTitle(startTime), startTime, endTime);
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, startTime.getActualMaximum(Calendar.DAY_OF_MONTH));
-        startTime.set(Calendar.HOUR_OF_DAY, 15);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        event = new WeekViewEvent(5, getEventTitle(startTime), startTime, endTime);
-        events.add(event);*/
-
-        return events;
-    }
 
     protected String getEventTitle(Calendar time) {
         return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));

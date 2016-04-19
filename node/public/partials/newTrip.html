@@ -1,103 +1,73 @@
+
+
+<div class="mdl-grid" style="margin-left:auto;margin-right:18px;">
+<a href="#/suggestionMap"> 
+		<button type="button" class="btn btn-raised btn-link" style="margin-left:auto;"><i class="material-icons mdl-list__item-icon" style="color:#2185C5;">map</i>&nbsp; Switch to Map View
+		</button>
+</a>
+</div>
+
 <div class="mdl-grid demo-content">
 
   <div class="month white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">  
-  <h4 class="mdl-card__title-text">Calendar</h4>
-			<calendar selected="day"></calendar>   
-			<calendar selected="day"></calendar>  
+  	<!-- 	<h4 class="mdl-card__title-text">Calendar</h4> -->
+		<calendar selected="day"></calendar>   
+			<button type="button" class="btn btn-raised btn-primary margin-top-auto">Save Trip</button>
+			<button type="button" class="btn btn-raised btn-danger">Delete Trip</button>
   </div>
+
   <div class="date white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet"> 
       <agenda selected="day"></agenda>      
   </div>
-  <div class="event white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">     
-  <div>
-		<ul class="demo-list-control mdl-list">
-		  <li class="mdl-list__item">
-			<form action="#">
-			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			    <input class="mdl-textfield__input" type="text" id="sample3">
-			    <label class="mdl-textfield__label" for="sample3">Title</label>
-			  </div>
-			</form>
-		  </li>
-		  <li class="mdl-list__item">
-		    <span class="mdl-list__item-primary-content">
-		      All Day Event
-		    </span>
-		      <span class="mdl-list__item-secondary-action">
-		        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-1">
-		          <input type="checkbox" id="list-switch-1" class="mdl-switch__input" checked />
-		        </label>
-		    </span>
-		  </li>
-		  <li class="mdl-list__item">
-			    <span class="mdl-list__item-primary-content">
-					<form action="#">
-					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input" type="date" id="sample3">
-					    <label class="mdl-textfield__label" for="sample3">Date</label>
-					  </div>
-					</form>
-		    	</span>
-		  </li>
+  <div class="event white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet" style="margin:8;">     
+		<form>
+		  <fieldset class="form-group">
+		    <label for="eventTitle" class="bmd-label-floating">Title</label>
+		    <input type="text" class="form-control" id="eventTitle">
+		  </fieldset>
 
-		  <li class="mdl-list__item">
-		  		<span class="mdl-list__item-primary-content">
-					<form action="#">
-					  <div class="mdl-textfield mdl-js-textfield">
-					    <input class="mdl-textfield__input" type="time" id="sample3">
-					    <label class="mdl-textfield__label" for="sample3"> Start Time</label>
-					  </div>
-					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input" type="time" id="sample3">
-					    <label class="mdl-textfield__label" for="sample3"> End Time</label>
-					  </div>
-					</form>
-		    	</span>
-		  </li>
+		  <fieldset class="form-group">
+		    <label for="eventDate" class="bmd-label-floating">Date</label>
+		    <input type="date" class="form-control" id="eventDate">
+		  </fieldset>  
 
-		  <li class="mdl-list__item">
-			<form action="#">
-			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			    <input class="mdl-textfield__input" type="text" id="sample3">
-			    <label class="mdl-textfield__label" for="sample3"><i class="material-icons mdl-list__item-icon">place</i>Location</label>
-			  </div>
-			</form>
-		  </li>
+		  <fieldset class="form-group">
+		    <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
+		    <input type="time" class="form-control" id="eventStartTime">
+		  </fieldset> 
 
-		  <li class="mdl-list__item">
-			<form action="#">
-			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			    <input class="mdl-textfield__input" type="text" id="sample3">
-			    <label class="mdl-textfield__label" for="sample3"><i class="material-icons mdl-list__item-icon">notifications</i>Alert</label>
-			  </div>
-			</form>
-		  </li>
+		  <fieldset class="form-group">
+		    <label for="eventEndTime" class="bmd-label-floating">End Time</label>
+		    <input type="time" class="form-control" id="eventEndTime">
+		  </fieldset>  
 
-		  <li class="mdl-list__item">
-			<form action="#">
-			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			    <input class="mdl-textfield__input" type="text" id="sample3">
-			    <label class="mdl-textfield__label" for="sample3"><i class="material-icons mdl-list__item-icon">directions_walk</i>Transportation</label>
-			  </div>
-			</form>
-		  </li>
+		   <fieldset class="form-group">
+		    <label for="eventLocation" class="bmd-label-floating"><i class="material-icons mdl-list__item-icon">place</i>Location</label>
+		    <input type="text" class="form-control" id="eventLocation">
+		  </fieldset>    
 
-		  <li class="mdl-list__item">
-				<!-- Floating Multiline Textfield -->
-				<form action="#">
-				  <div class="mdl-textfield mdl-js-textfield">
-				    <textarea class="mdl-textfield__input" type="text" rows= "3" id="memo" ></textarea>
-				    <label class="mdl-textfield__label" for="sample5">
-				    	<i class="material-icons mdl-list__item-icon">create</i>
-				    	Memo
-				    </label>
-				  </div>
-				</form>
+		  <fieldset class="form-group">
+		    <label for="eventAlert" class="bmd-label-floating"><i class="material-icons mdl-list__item-icon">notifications</i>Alert</label>
+		    <select class="form-control" id="eventAlert">
+		      <option>15 mins before</option>
+		      <option>30 mins before</option>
+		      <option>1 hour before</option>
+		    </select>
+		  </fieldset>
 
-		  </li>
+		   <fieldset class="form-group">
+		    <label for="eventTransportation" class="bmd-label-floating"><i class="material-icons mdl-list__item-icon">directions_walk</i>Transportation</label>
+		    <select class="form-control" id="eventTransportation">
+		      <option>Walking</option>
+		      <option>Transit</option>
+		      <option>Driving</option>
+		    </select>
+		  </fieldset>
 
-		</ul>
-  </div>
+		  <fieldset class="form-group">
+		    <textarea class="form-control" rows="5" placeholder="Memo"></textarea>
+		  </fieldset>  
+		</form>
   </div>
 
 </div>

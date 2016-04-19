@@ -3,10 +3,13 @@ package buzztrapp.trapp.edit_trip;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
+import cz.msebera.android.httpclient.Header;
+
 @TargetApi(23)
 public class EditEventActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -43,7 +52,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
     private String type;
 
-    private long id;
+    private String id;
 
 //    Form variables
     TextView title_tv;
@@ -54,6 +63,8 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     TextView startTime_tv;
     TextView endTime_tv;
     ImageView type_iv;
+
+    EditText memo_et;
 
     TextView indays_tv;
 
@@ -94,19 +105,9 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         name = inBundle.getString("name");
         location = inBundle.getString("location");
-        id = inBundle.getLong("id");
-//        Color inColor = (Color)inBundle.getSerializable("color");
-//        int typeColor = Color.parseColor(inColor.toString());
-//        if(typeColor == getColor(R.color.foodType)){
-//            type = "food";
-//        }else if(typeColor == getColor(R.color.shopType)){
-//            type = "shopping";
-//        }else if(typeColor == getColor(R.color.sightseeingType)){
-//            type = "sightseeing";
-//        }else{
-//            type = "none";
-//        }
-        type ="";
+        id = inBundle.getString("id");
+        type = inBundle.getString("type");
+
 //
 //        type = inBundle.getString("interest").toLowerCase();
         final GregorianCalendar startDate = (GregorianCalendar) inBundle.getSerializable("startTime");
@@ -127,11 +128,11 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         startTime =  (GregorianCalendar) startDate.clone();
         endTime =  (GregorianCalendar) endDate.clone();
 
-        title_tv = (TextView) findViewById(R.id.ee_title_tv);
         type_iv = (ImageView) findViewById(R.id.ee_type_iv);
+        title_tv = (TextView) findViewById(R.id.ee_title_tv);
 
         title_tv.setText(name);
-        switch(type){
+        switch(type.toLowerCase()){
             case "shopping":
                 type_iv.setImageResource(R.drawable.shopping);
                 break;
@@ -157,13 +158,18 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         indays_tv = (TextView) findViewById(R.id.ee_indays_tv);
 
+
+        memo_et = (EditText) findViewById(R.id.ee_memo_et);
+
+        memo_et.setText("Name = "+name+", id = "+id);
+
         sdf = new SimpleDateFormat("MMM dd", Locale.US);
 
 
         date_tv.setText(days[date.get(Calendar.DAY_OF_WEEK) - 1] + ", " + sdf.format(date.getTime()));
 
         String startampm = "am";
-        int startHour = startTime.get(Calendar.HOUR);
+        int startHour = startTime.get(Calendar.HOUR_OF_DAY);
         if(startHour>12) {
             startHour -= 12;
             startampm = "pm";
@@ -176,7 +182,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         startTime_tv.setText(startHour + ":" + startMinuteStr + startampm);
 
         String endampm = "am";
-        int endHour = endTime.get(Calendar.HOUR);
+        int endHour = endTime.get(Calendar.HOUR_OF_DAY);
         if(endHour>12) {
             endHour -= 12;
             endampm = "pm";
@@ -211,10 +217,10 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                 long daysBetween = getDateDiff(currentDate.getTime(),date.getTime(),TimeUnit.DAYS);
                 indays_tv.setText("In " + Math.round(daysBetween) + " days");
 
-                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
-                    editDone(true);
-                }else{
+                if(startTime.compareTo(startDate) == 0 && endTime.compareTo(endDate) == 0){
                     editDone(false);
+                }else{
+                    editDone(true);
                 }
             }
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -225,23 +231,57 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 String ampm = "am";
-                if(selectedHour>12) {
-                    selectedHour -= 12;
+
+                int tempHr = selectedHour;
+
+                if(tempHr>12) {
+                    tempHr -= 12;
                     ampm = "pm";
                 }
                 String selMin = Integer.toString(selectedMinute);
                 if(selectedMinute<10){
                     selMin = "0"+selectedMinute;
                 }
-                startTime_tv.setText(selectedHour + ":" + selMin + ampm);
 
-                startTime.set(startTime.get(Calendar.YEAR), startTime.get(Calendar.MONTH),startTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
 
-                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
-                    editDone(true);
-                }else{
-                    editDone(false);
+                startTime_tv.setText(tempHr + ":" + selMin + ampm);
+
+                startTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                startTime.set(Calendar.MINUTE, selectedMinute);
+
+
+                if(endTime.getTime().before(startTime.getTime()))
+                {
+                    Toast.makeText(EditEventActivity.this, "End time must be after the starting time" ,
+                            Toast.LENGTH_SHORT).show();
+                    selectedHour = startTime.HOUR_OF_DAY + 1;
+                    selectedMinute = startTime.MINUTE;
+
+
+                    endTime.set(Calendar.HOUR_OF_DAY, startTime.get(Calendar.HOUR_OF_DAY));
+                    endTime.set(Calendar.MINUTE, startTime.get(Calendar.MINUTE));
+                    tempHr = endTime.get(Calendar.HOUR_OF_DAY);
+                    if(tempHr>12) {
+                        tempHr -= 12;
+                        ampm = "pm";
+                    }
+                    selectedMinute = endTime.get(Calendar.MINUTE);
+                    if(selectedMinute<10){
+                        selMin = "0"+selectedMinute;
+                    }
+                    endTime_tv.setText(tempHr + ":" + selMin + ampm);
+
                 }
+
+
+                if(startTime.compareTo(startDate) == 0 && endTime.compareTo(endDate) == 0){
+                    editDone(false);
+                }else{
+                    editDone(true);
+                }
+
+
+
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -253,29 +293,51 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 String ampm = "am";
-                if(selectedHour>12) {
-                    selectedHour -= 12;
+                int tempHr = selectedHour;
+
+                if(tempHr>12) {
+                    tempHr -= 12;
                     ampm = "pm";
                 }
 
-                if(endTime.before(startTime))
+                String selMin = Integer.toString(selectedMinute);
+                if(selectedMinute<10){
+                    selMin = "0"+selectedMinute;
+                }
+                endTime_tv.setText(tempHr + ":" + selMin + ampm);
+
+                endTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                endTime.set(Calendar.MINUTE, selectedMinute);
+//                Log.d("EditEvent", "startTime = " + startTime.toString() + ", startDate = " + startDate.toString());
+
+
+                if(endTime.getTime().before(startTime.getTime()))
                 {
                     Toast.makeText(EditEventActivity.this, "End time must be after the starting time" ,
                             Toast.LENGTH_SHORT).show();
                     selectedHour = startTime.HOUR_OF_DAY + 1;
                     selectedMinute = startTime.MINUTE;
-                }
-                String selMin = Integer.toString(selectedMinute);
-                if(selectedMinute<10){
-                    selMin = "0"+selectedMinute;
-                }
-                endTime_tv.setText(selectedHour + ":" + selMin + ampm);
-                endTime.set(endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH),endTime.get(Calendar.DAY_OF_MONTH), selectedHour, selectedMinute);
 
-                if(startTime.compareTo(startDate) != 0 || endTime.compareTo(endDate) != 0){
-                    editDone(true);
-                }else{
+                    endTime.set(Calendar.HOUR_OF_DAY, startTime.get(Calendar.HOUR_OF_DAY));
+                    endTime.set(Calendar.MINUTE, startTime.get(Calendar.MINUTE));
+
+                    tempHr = endTime.get(Calendar.HOUR_OF_DAY);
+                    if(tempHr>12) {
+                        tempHr -= 12;
+                        ampm = "pm";
+                    }
+                    selectedMinute = endTime.get(Calendar.MINUTE);
+                    if(selectedMinute<10){
+                        selMin = "0"+selectedMinute;
+                    }
+                    endTime_tv.setText(tempHr + ":" + selMin + ampm);
+
+                }
+
+                if(startTime.compareTo(startDate) == 0 && endTime.compareTo(endDate) == 0){
                     editDone(false);
+                }else{
+                    editDone(true);
                 }
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
@@ -355,9 +417,8 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                         Toast.LENGTH_SHORT).show();
             }else
             {
-                Toast.makeText(EditEventActivity.this, "Trip Created!" ,
-                        Toast.LENGTH_SHORT).show();
-                //SOmething here
+                Toast.makeText(EditEventActivity.this, "Trip Created!" , Toast.LENGTH_SHORT).show();
+                addTripItemToDatabase();
             }
 
         }
@@ -367,6 +428,32 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void addTripItemToDatabase () {
+        Log.d("EditTrip", "Inside addtripitem");
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.addHeader("Authorization", preferences.getString("token", ""));
+        RequestParams params = new RequestParams();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Log.d("EditTrip", "tripitem id - " + id);
+        Log.d("EditTrip", "new start time - " + sdf.format(startTime.getTime()));
+        Log.d("EditTrip", "new end time - " + sdf.format(endTime.getTime()));
+        params.put("_id", id);
+        params.put("startTime", sdf.format(startTime.getTime()));
+        params.put("endTime", sdf.format(endTime.getTime()));
+        client.post("http://173.236.255.240/api/updateTripItem", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                Log.d("EditTrip", "Inside success");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                Log.d("EditTrip", "Inside failure");
+            }
+        });
     }
 
 
