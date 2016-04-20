@@ -214,7 +214,7 @@ form {
 
 
 .mdl-color--trapp-red {
-  background-color:#ECECE5; 
+  background-color:#F6F5F2; 
   color:black;
 }
 
@@ -379,8 +379,9 @@ form {
   font-weight: 500;
 }
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
-  background-color: #2185C5;
+  background-color: #78C0F9;
   color: white;
+  text-decoration: none !important; 
 }
 
 .demo-navigation .mdl-navigation__link .material-icons {
