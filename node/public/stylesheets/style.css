@@ -143,7 +143,30 @@ form {
 }
 
 #upcoming_trip {
-  background: url('../images/SF_BG.png') center / cover;
+/*  background: url('../images/SF_BG_long.png') center / cover;*/
+    background: 
+    linear-gradient(
+      rgba(255, 127, 102, 0.30), 
+      rgba(255, 127, 102, 0.30)
+    ),
+    url('../images/SF_BG_long.png');
+  background-size: cover;
+  min-height:14vh;
+  padding:8px;
+}
+
+#upcoming_trip p {
+  color:white;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#upcoming_trip h4 {
+  color:white;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .mdl-switch.is-checked .mdl-switch__thumb  {
@@ -172,7 +195,7 @@ form {
 }
 
 .mdl-color--trapp-blue {
-  background-color: #78C0F9;
+  background-color: #2185C5;
   color:white;
 }
 
@@ -191,8 +214,8 @@ form {
 
 
 .mdl-color--trapp-red {
-  background-color: #FF7F66;
-  color:white;
+  background-color:#F6F5F2; 
+  color:black;
 }
 
 .mdl-color-text--white {
@@ -213,6 +236,8 @@ form {
   margin-left:auto;
   margin-right:0;
 }
+
+
 
 .miami{
   background: url('../images/miami.png') center / cover;
@@ -261,7 +286,7 @@ form {
   }
 
 .mdl-layout__drawer-button {
-  background-color:rgba(120,192,249,0.8);
+  background-color:rgba(33,133,197,0.8);
   color:white;
 }
 
@@ -280,6 +305,11 @@ form {
 .demo-layout .mdl-layout__header .mdl-layout__drawer-button {
   color: rgba(0, 0, 0, 0.54);
 }
+
+.mdl-layout__header{
+  background-color: rgba(61, 64, 69, 0.7) !important;
+}
+
 .mdl-layout__drawer .avatar {
   margin-bottom: 16px;
 }
@@ -349,8 +379,9 @@ form {
   font-weight: 500;
 }
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
-  background-color: #2185C5;
+  background-color: #78C0F9;
   color: white;
+  text-decoration: none !important; 
 }
 
 .demo-navigation .mdl-navigation__link .material-icons {
@@ -627,7 +658,13 @@ calendar > div.week.names > span {
   font-weight: bold;
 }
 
-
+#grad {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, red , yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, red, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, red, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, red , yellow); /* Standard syntax */
+}
 
 day-buttons .monthName {
   display: inline;
@@ -643,6 +680,22 @@ day-buttons .dayBtn {
   padding: 3px;
   background-color: #FF7F66;
   margin: 2px;
+}
+
+.demo-card-image.mdl-card {
+/*  width: 256px;*/
+  height: 256px;
+/*  background: url('../assets/demos/image_card.jpg') center / cover;*/
+}
+.mdl-card__actions {
+  height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+.demo-card-image__filename {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 day-buttons .dayBtn.selected {
