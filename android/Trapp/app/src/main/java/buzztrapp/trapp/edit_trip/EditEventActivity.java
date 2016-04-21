@@ -426,7 +426,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
                         Toast.LENGTH_SHORT).show();
             }else
             {
-                Toast.makeText(EditEventActivity.this, "Trip Created!" , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EditEventActivity.this, "Trip Created!" , Toast.LENGTH_SHORT).show();
                 addTripItemToDatabase();
 
                 finish();
@@ -479,21 +479,21 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if(v == date_ll) {
-            Toast.makeText(EditEventActivity.this, "Date Selected " ,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(EditEventActivity.this, "Date Selected " ,
+//                    Toast.LENGTH_SHORT).show();
             dateDialog.show();
 
         }
         else if(v == startTime_tv){
 
-            Toast.makeText(EditEventActivity.this, "Date Selected " ,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(EditEventActivity.this, "Date Selected " ,
+//                    Toast.LENGTH_SHORT).show();
             startTimeDialog.show();
         }
         else if(v == endTime_tv){
 
-            Toast.makeText(EditEventActivity.this, "Date Selected " ,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(EditEventActivity.this, "Date Selected " ,
+//                    Toast.LENGTH_SHORT).show();
             endTimeDialog.show();
         }
     }

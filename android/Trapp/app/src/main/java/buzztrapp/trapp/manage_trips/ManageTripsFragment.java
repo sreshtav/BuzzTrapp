@@ -148,8 +148,8 @@ public class ManageTripsFragment extends Fragment{
                                     @Override
                                     public void onItemClick(View view, int position) {
                                         // TODO Handle item click
-                                        Toast.makeText(getActivity(), "rv clicked = " + position,
-                                                Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getActivity(), "rv clicked = " + position,
+//                                                Toast.LENGTH_SHORT).show();
                                         showProgress(true);
                                         retrieveTripItems(position);
                                     }

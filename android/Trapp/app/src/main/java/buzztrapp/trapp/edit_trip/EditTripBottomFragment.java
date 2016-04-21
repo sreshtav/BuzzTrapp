@@ -177,8 +177,8 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast toast = Toast.makeText(getContext(), event.getName() + " clicked!", Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(getContext(), event.getName() + " clicked!", Toast.LENGTH_SHORT);
+//        toast.show();
 
         int pos = getEventPosition(event);
 
@@ -211,8 +211,8 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 
     @Override
     public void onEmptyViewClicked(Calendar time) {
-        Toast toast = Toast.makeText(getContext(), "Empty event at time "+time.getTime().toString()+" clicked!", Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(getContext(), "Empty event at time "+time.getTime().toString()+" clicked!", Toast.LENGTH_SHORT);
+//        toast.show();
 
         Intent intent = new Intent(getContext(), EditEventActivity.class);
         Bundle bundle = new Bundle();
