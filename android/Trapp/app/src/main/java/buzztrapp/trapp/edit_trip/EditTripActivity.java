@@ -176,13 +176,13 @@ public class EditTripActivity extends AppCompatActivity{
         };
         drawerLayout.setDrawerListener(drawerListener);
     }
-    @Override
+    /*@Override
     public void onRestart(){
         super.onRestart();
 
         finish();
         startActivity(getIntent());
-    }
+    }*/
 
     public GregorianCalendar getStartDate(){
         return startDate;

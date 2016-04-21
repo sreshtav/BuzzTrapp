@@ -26,6 +26,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -52,7 +53,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
     private String type;
 
-    private String id;
+    private String trip_id;
 
 //    Form variables
     TextView title_tv;
@@ -78,9 +79,13 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
     TimePickerDialog endTimeDialog;
 
 
+    Date tripStartDate;
+    Date tripEndDate;
     GregorianCalendar startTime;
     GregorianCalendar endTime;
     GregorianCalendar date;
+
+    ArrayList<TripItem> tripItems;
 
 
     private Menu menu;
@@ -105,8 +110,12 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         name = inBundle.getString("name");
         location = inBundle.getString("location");
-        id = inBundle.getString("id");
+        trip_id = inBundle.getString("id");
         type = inBundle.getString("type");
+        tripStartDate = (Date) inBundle.getSerializable("tripStartDate");
+        tripEndDate = (Date) inBundle.getSerializable("tripEndDate");
+
+        tripItems = (ArrayList<TripItem>)inBundle.getSerializable("tripItems");
 
 //
 //        type = inBundle.getString("interest").toLowerCase();
@@ -161,7 +170,7 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
         memo_et = (EditText) findViewById(R.id.ee_memo_et);
 
-        memo_et.setText("Name = "+name+", id = "+id);
+        memo_et.setText("Name = "+name+", id = "+trip_id);
 
         sdf = new SimpleDateFormat("MMM dd", Locale.US);
 
@@ -419,7 +428,16 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
             {
                 Toast.makeText(EditEventActivity.this, "Trip Created!" , Toast.LENGTH_SHORT).show();
                 addTripItemToDatabase();
+
                 finish();
+                /*Intent intent = new Intent(this, EditTripActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("startDate", tripStartDate);
+                bundle.putSerializable("endDate", tripEndDate);
+                bundle.putString("id", trip_id);
+                bundle.putSerializable("tripItems", tripItems);
+                intent.putExtras(bundle);
+                startActivity(intent);*/
             }
 
         }
@@ -438,10 +456,10 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
         client.addHeader("Authorization", preferences.getString("token", ""));
         RequestParams params = new RequestParams();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Log.d("EditTrip", "tripitem id - " + id);
+        Log.d("EditTrip", "tripitem id - " + trip_id);
         Log.d("EditTrip", "new start time - " + sdf.format(startTime.getTime()));
         Log.d("EditTrip", "new end time - " + sdf.format(endTime.getTime()));
-        params.put("_id", id);
+        params.put("_id", trip_id);
         params.put("startTime", sdf.format(startTime.getTime()));
         params.put("endTime", sdf.format(endTime.getTime()));
         client.post("http://173.236.255.240/api/updateTripItem", params, new AsyncHttpResponseHandler() {

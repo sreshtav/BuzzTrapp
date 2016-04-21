@@ -41,7 +41,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
     private String tripid;
     private TextView testTV;
 
-    private List<TripItem> tripItems;
+    private ArrayList<TripItem> tripItems;
 
     private List<String> eventTypes;
 
@@ -191,6 +191,10 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         bundle.putSerializable("startTime", event.getStartTime());
         bundle.putSerializable("endTime", event.getEndTime());
         bundle.putSerializable("type", types.get(pos));
+        bundle.putSerializable("tripItems", tripItems);
+        bundle.putSerializable("tripStartDate", ((EditTripActivity)getActivity()).getStartDate().getTime());
+        bundle.putSerializable("tripEndDate", ((EditTripActivity)getActivity()).getEndDate().getTime());
+        bundle.putSerializable("tripId", tripid);
         intent.putExtras(bundle);
         getContext().startActivity(intent);
     }
@@ -221,6 +225,10 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         endTime.add(Calendar.HOUR, 1);
         bundle.putSerializable("endTime", endTime);
         bundle.putSerializable("type", "");
+        bundle.putSerializable("tripId", tripid);
+        bundle.putSerializable("tripItems", tripItems);
+        bundle.putSerializable("tripStartDate", ((EditTripActivity)getActivity()).getStartDate().getTime());
+        bundle.putSerializable("tripEndDate", ((EditTripActivity)getActivity()).getEndDate().getTime());
         intent.putExtras(bundle);
         getContext().startActivity(intent);
 
