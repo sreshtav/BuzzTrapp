@@ -1,5 +1,5 @@
 
-#myModal {
+#myModal{
 top:15%;
 left:5%;
 outline: none;
@@ -42,6 +42,7 @@ outline: none;
 	margin-left:240px;
 	width:calc(100% - 240px); 
 }
+
 
 a:hover{
 	text-decoration:none;
@@ -261,6 +262,9 @@ form {
 }
 .hong-kong {
   background: url('../images/hong-kong.png') center / cover;
+}    
+.singapore {
+  background: url('../images/singapore.png') center / cover;
 }    
 
 .mdl-button--colored {
@@ -557,11 +561,12 @@ calendar {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   background: white;
-  width: 200px;
+/*  width: 200px;*/
   margin-left:auto;
   margin-right:auto;
   /*border: solid 1px #CCC;*/
   margin-bottom: 10px;
+  width:100%;
 }
 calendar > div.header {
   float: left;
@@ -678,7 +683,7 @@ day-buttons .monthName.selected {
 day-buttons .dayBtn {
   color: white;
   padding: 3px;
-  background-color: #FF7F66;
+  background-color: #DEE1E0;
   margin: 2px;
 }
 
@@ -699,7 +704,7 @@ day-buttons .dayBtn {
 }
 
 day-buttons .dayBtn.selected {
-  background-color: #78C0F9;
+  background-color: #FF7F66;
 }
 
 .dayTimeBtns.selected {

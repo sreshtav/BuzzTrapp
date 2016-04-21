@@ -49,11 +49,25 @@
       <div class="modal-content">
         <div class="modal-body">
           <form stlye="width:100%">
-              <fieldset class="form-group">
+<!--               <fieldset class="form-group">
                 <label for="createTripDestination" class="bmd-label-floating">Destination</label>
                 <input ng-model="newTrip.location" type="text" class="form-control" id="createTripDestination">
                 <span class="highlight"></span><span class="bar"></span>
+              </fieldset> -->
+
+              <fieldset class="form-group">
+                <label for="createTripDestination" class="bmd-label-floating">Destination</label>
+                <select ng-model="newTrip.location" class="form-control" id="createTripDestination">
+                    <option>New York</option>
+                    <option>London</option>
+                    <option>San Francisco</option>
+                    <option>Miami</option>
+                    <option>Hawaii</option>
+                    <option>Singapore</option>
+                </select>
+                <span class="highlight"></span><span class="bar"></span>
               </fieldset>
+
               <fieldset class="form-group">
                 <label for="createTripStartDate" class="bmd-label-floating">Start Date</label>
                 <input ng-model="newTrip.startDate" type="date" class="form-control start-date" id="createTripStartDate">

@@ -362,7 +362,8 @@ factories.infoFact = function ($http, $q){
     "London" : "london",
     "Washington DC" : "washington-dc",
     "New York" : "new-york",
-    "Hong Kong" : "hong-kong"
+    "Hong Kong" : "hong-kong",
+    "Singapore":"singapore"
   }
   var services = {};
   services.currentEditingTrip = {};

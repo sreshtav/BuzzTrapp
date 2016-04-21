@@ -11,15 +11,16 @@
 
   <div class="month white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">  
   	<!-- 	<h4 class="mdl-card__title-text">Calendar</h4> -->
-		<calendar selected="day"></calendar>   
+		<calendar selected="day"></calendar> 
+		<hr>  
 		<fieldset class="form-group">
 			<div class="row">
-				<div class="col-md-3">15</div>
-				<div class="col-md-9">alkdjflajsd lasdjfw lkasjdflkasdf lkasdjflaskdj </div>
+				<div class="col-md-2"><b>{{trip.strStartDate}}</b></div>
+				<div class="col-md-10">{{trip.location}}</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3">15</div>
-				<div class="col-md-9">alkdjflajsd lasdjfw lkasjdflkasdf lkasdjflaskdj </div>
+				<div class="col-md-2"><b>{{trip.strStartDate}}</b></div>
+				<div class="col-md-10">{{trip.location}}</div>
 			</div>
 			</fieldset>
 
@@ -87,6 +88,8 @@
   </div>
 
 </div>
+
+
 
 <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 
