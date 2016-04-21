@@ -1,8 +1,7 @@
-<a ng-repeat="month in months" class="monthName" ng-click="$parent.showingMonth = month.name" ng-class="{selected : $parent.showingMonth == month.name}">{{month.name}} </a>
-<div class="month" ng-repeat="month in months" ng-init="$parent.showingMonth = months[0].name">
-	<div ng-show="$parent.showingMonth == month.name">
-		<a class="dayBtn" ng-repeat="day in month.days" ng-click="$parent.$parent.selectedDay = day;" ng-init="$parent.$parent.selectedDay = month.days[0]"  ng-class="{selected : $parent.$parent.selectedDay == day}">{{day}}</a>
+<a ng-repeat="month in months" class="monthName" ng-click="updateMonth(month.name)" ng-class="{selected : numMonth == month.name}">{{month.name}} </a>
+<div class="month" ng-repeat="month in months">
+	<div ng-show="numMonth == month.name">
+		<a class="dayBtn" ng-repeat="day in month.days" ng-click="updateDate(day)" ng-class="{selected : numDate == day}">{{day}}</a>
 	</div>
 </div>
-
 

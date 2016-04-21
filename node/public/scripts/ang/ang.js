@@ -46,14 +46,6 @@ app.config([
 
 controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $compile) {
   if(jQuery.isEmptyObject(infoFact.currentEditingTrip)) $state.go('home');
-  $scope.selectMonth = function (month) {
-    console.log("balls");
-  }
-
-  $scope.select = function (day) {
-    console.log(day);
-  }
-
   var  cities = {
     "Miami" : "plni8h4k",
     "New York" : "pm1iajik"
@@ -130,6 +122,10 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        linkFunction = $compile(angular.element(html)),
+        newScope = $scope.$new();
+        newScope.venue = venue;
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#BE4730',
@@ -137,7 +133,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
               'marker-size': 'large'
             })
           })
-        .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
   });
@@ -152,6 +148,10 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        linkFunction = $compile(angular.element(html)),
+        newScope = $scope.$new();
+        newScope.venue = venue;
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#49BE62',
@@ -159,7 +159,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
               'marker-size': 'large'
             })
           })
-        .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
   });
@@ -178,8 +178,6 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
         linkFunction = $compile(angular.element(html)),
         newScope = $scope.$new();
         newScope.venue = venue;
-        // newScope.set = hotels
-        // var marker = L.marker([51.5, -0.09], {icon: blueIcon}).bindPopup()
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#3070BE',
@@ -192,8 +190,12 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       }
 });
 
-  $scope.addItem = function (id) {
-    console.log(id);
+  $scope.addItem = function (obj) {
+    var name = obj.name;
+    var date = $scope.selectedMonth + " " + $scope.selectedDay;
+    var convertarr = ['morning', 'afternoon', 'evening'];
+    var timeOfDay = convertarr[$scope.timeOfDay];
+    console.log(name + " on " + date + " " + timeOfDay);
   }
 
   $scope.deleteTrip = function () {
@@ -512,16 +514,24 @@ app.directive("dayButtons", function (infoFact) {
         restrict: "E",
         templateUrl: "partials/dayButtons.html",
         scope: {
-            selected: "="
+           numDate: "=",
+           numMonth: "="
+
         },
         link: function(scope) {
             _buildWeek(scope);
+            var startDate = moment(infoFact.currentEditingTrip.startDate);
+            var endDate = moment(infoFact.currentEditingTrip.endDate);
+            scope.numMonth = moment(infoFact.currentEditingTrip.startDate).month();
+            scope.updateMonth = function (month) {
+              scope.numMonth = month;
+            }
+            scope.updateDate = function (date) {
+              scope.numDate = date;
+            }
+
         }
     };
-
-    function _createTime(hour, minute) {
-        return moment().year(0).month(0).day(0).second(0).millisecond(0).hour(hour).minute(minute);
-    }
 
     function daysInMonth(month) {
       if (month == "Feburary") return 29;
