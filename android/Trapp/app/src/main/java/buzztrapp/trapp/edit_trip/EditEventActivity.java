@@ -413,12 +413,13 @@ public class EditEventActivity extends AppCompatActivity implements View.OnClick
 
             if(new_event)
             {
-                Toast.makeText(EditEventActivity.this, "No Adding Trips at this moment. Sorry!" ,
+                Toast.makeText(EditEventActivity.this, "No Creating Trips at this moment. Sorry!" ,
                         Toast.LENGTH_SHORT).show();
             }else
             {
                 Toast.makeText(EditEventActivity.this, "Trip Created!" , Toast.LENGTH_SHORT).show();
                 addTripItemToDatabase();
+                finish();
             }
 
         }

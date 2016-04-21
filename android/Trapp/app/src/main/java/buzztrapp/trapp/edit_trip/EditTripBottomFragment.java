@@ -167,6 +167,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
 
     }
 
+
     public void changeDate(GregorianCalendar date){
         this.date = date;
 //        testTV.setText("id = "+ tripid + ", SelectedDate = "+ this.date.getTime().toString());
