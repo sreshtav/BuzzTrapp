@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import buzztrapp.trapp.helper.NextLocationAlertReceiver;
+import buzztrapp.trapp.helper.DayBeforeAlertReceiver;
 import buzztrapp.trapp.Communicator;
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.create_trip.CreateTripActivity;
@@ -138,7 +138,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         Long alertTime = new GregorianCalendar().getTimeInMillis()+5*1000;
 
         // Define our intention of executing AlertReceiver
-        Intent alertIntent = new Intent(this, NextLocationAlertReceiver.class);
+        Intent alertIntent = new Intent(this, DayBeforeAlertReceiver.class);
 
         // Allows you to schedule for your application to do something at a later date
         // even if it is in he background or isn't active
