@@ -35,6 +35,7 @@ import buzztrapp.trapp.R;
 import buzztrapp.trapp.edit_trip.EditTripActivity;
 import buzztrapp.trapp.edit_trip.TripItem;
 import buzztrapp.trapp.helper.DayBeforeAlertReceiver;
+import buzztrapp.trapp.helper.NextLocationAlertReceiver;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -227,6 +228,34 @@ public class ManageTripsFragment extends Fragment{
                                 jsonObject.getInt("averageTime"), jsonObject.getString("description"), jsonObject.getString("address"),
                                 jsonObject.getString("name"));
                         tripItems.add(tripItem);
+
+                        //------------------SET ALARM HERE----------------------
+                        String next_item = jsonObject.getString("name");
+                        String item_address = jsonObject.getString("address");
+                        if (i == 0) {
+                            // Testing: Send a notification 5 seconds from now reminding of the next trip----------------------s
+                            // Define a time value of 5 seconds
+                            Long alertTime = new GregorianCalendar().getTimeInMillis() + 5 * 1000;
+
+                            // Define our intention of executing AlertReceiver
+                            Intent alertIntent = new Intent(getActivity(), NextLocationAlertReceiver.class);
+                            alertIntent.putExtra("next_item", next_item);
+                            alertIntent.putExtra("item_address", item_address);
+
+                            // Allows you to schedule for your application to do something at a later date
+                            // even if it is in he background or isn't active
+                            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                            // set() schedules an alarm to trigger
+                            // Trigger for alertIntent to fire in 5 seconds
+                            // FLAG_UPDATE_CURRENT : Update the Intent if active
+                            alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime,
+                                    PendingIntent.getBroadcast(getActivity(), 1, alertIntent,
+                                            PendingIntent.FLAG_UPDATE_CURRENT));
+                        }
+                        //--------------------------------
+
+
                     }
                     showProgress(false);
                     Intent intent = new Intent(getActivity(), EditTripActivity.class);
