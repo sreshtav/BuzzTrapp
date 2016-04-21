@@ -7,6 +7,7 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,14 +94,14 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
             types.add(i,tripItems.get(i).interest);
             event = new WeekViewEvent(i, tripItems.get(i).name, tripItems.get(i).startTime, tripItems.get(i).endTime);
             switch(tripItems.get(i).interest.toLowerCase()){
-                case "food": event.setColor(getContext().getColor(R.color.foodType));
+                case "food": event.setColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.foodType));
                     break;
-                case "shopping": event.setColor(getContext().getColor(R.color.shopType));
+                case "shopping": event.setColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.shopType));
                     break;
-                case "sightseeing": event.setColor(getContext().getColor(R.color.sightseeingType));
+                case "sightseeing": event.setColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.sightseeingType));
                     break;
                 default:
-                    event.setColor(getContext().getColor(R.color.defaultType));
+                    event.setColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.defaultType));
                     break;
             }
             events.add(event);
