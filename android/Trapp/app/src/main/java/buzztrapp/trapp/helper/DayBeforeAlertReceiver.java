@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.io.Console;
 
 import buzztrapp.trapp.R;
+import buzztrapp.trapp.edit_trip.EditTripActivity;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
 
 public class DayBeforeAlertReceiver extends BroadcastReceiver{
@@ -47,11 +48,12 @@ public class DayBeforeAlertReceiver extends BroadcastReceiver{
 
     public void createNotification(Context context, String msg, String msgText, String msgAlert){
 
-        Uri location = Uri.parse("geo:0,0?q=Touch, 420 14th Street Northwest #100a, Atlanta, GA 30318");
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+        //Uri location = Uri.parse("geo:0,0?q=Touch, 420 14th Street Northwest #100a, Atlanta, GA 30318");
+        //Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+        Intent edittripIntent = new Intent(context, EditTripActivity.class);
 
         // Define an Intent and an action to perform with it by another application
-        PendingIntent notificIntent = PendingIntent.getActivity(context, 0, mapIntent, 0);
+        PendingIntent notificIntent = PendingIntent.getActivity(context, 1, edittripIntent, 0 );
 
         // Builds a notification
          Bitmap largeico = BitmapFactory.decodeResource(context.getResources(), R.drawable.trapp_icon_1);
@@ -63,8 +65,8 @@ public class DayBeforeAlertReceiver extends BroadcastReceiver{
                         .setTicker(msgAlert)
                         .setContentText(msgText);
 
-        mBuilder.addAction(R.drawable.ic_create_black_24dp, "Edit", notificIntent);
-        mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "Snooze", notificIntent);
+        //mBuilder.addAction(R.drawable.ic_create_black_24dp, "Edit", notificIntent);
+        //mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "Snooze", notificIntent);
 
         // Defines the Intent to fire when the notification is clicked
         mBuilder.setContentIntent(notificIntent);
