@@ -104,6 +104,10 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Food\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        linkFunction = $compile(angular.element(html)),
+        newScope = $scope.$new();
+        newScope.venue = venue;
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#BE9A6B',
@@ -111,7 +115,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
               'marker-size': 'large'
             })
           })
-        .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
   });
@@ -126,6 +130,10 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Food\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        linkFunction = $compile(angular.element(html)),
+        newScope = $scope.$new();
+        newScope.venue = venue;
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#BE4730',
@@ -133,7 +141,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
               'marker-size': 'large'
             })
           })
-        .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
   });
@@ -148,6 +156,10 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Sightseeing\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        linkFunction = $compile(angular.element(html)),
+        newScope = $scope.$new();
+        newScope.venue = venue;
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#49BE62',
@@ -155,7 +167,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
               'marker-size': 'large'
             })
           })
-        .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
   });
@@ -170,12 +182,10 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
-        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Food\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
         linkFunction = $compile(angular.element(html)),
         newScope = $scope.$new();
         newScope.venue = venue;
-        // newScope.set = hotels
-        // var marker = L.marker([51.5, -0.09], {icon: blueIcon}).bindPopup()
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#3070BE',
@@ -188,8 +198,30 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       }
   });
 
-  $scope.addItem = function (id) {
-    console.log(id);
+  $scope.addItem = function (fsqObj, interest) {
+    console.log(interest);
+    var rtnObj = {};
+    var interstPObj = {};
+    interstPObj.name = fsqObj.name || "undefined";
+    interstPObj.address = fsqObj.location.address || "undefined";
+    interstPObj.city = $scope.tripInfo.location;
+    interstPObj.description = fsqObj.name;
+    interstPObj.foursqID = fsqObj.id;
+    interstPObj.interest = interest || "undefined";
+    rtnObj.tripId = $scope.tripInfo._id;
+    rtnObj.startTime = $scope.newStartTime || new Date();
+    rtnObj.endTime = $scope.newEndTime || new Date();
+    rtnObj.obj = interstPObj;
+
+    $http
+      .post('/api/addFourSQPoint', rtnObj)
+      .success (function (data, status, headers, config) {
+        console.log(data);
+      })
+      .error (function (data, status, headers, config) {
+        console.log(data);
+      })
+
   }
 
   $scope.deleteTrip = function () {
