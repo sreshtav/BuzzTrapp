@@ -1,4 +1,4 @@
-{{tripInfo}}
+
 
 <div class="mdl-grid" style="margin-left:auto;margin-right:18px;">
   <a href="#/newTrip"> 
@@ -10,8 +10,11 @@
 
 
 <div>
-	<day-buttons></day-buttons>
+	<day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
 </div>
+
+{{selectedDay}}
+{{selectedMonth}}
 
 <div class="mdl-grid demo-content">
 	<div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map2"></div>

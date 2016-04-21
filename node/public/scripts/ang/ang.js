@@ -207,6 +207,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
     interstPObj.city = $scope.tripInfo.location;
     interstPObj.description = fsqObj.name;
     interstPObj.foursqID = fsqObj.id;
+    interstPObj.averageTime = 45;
     interstPObj.interest = interest || "undefined";
     rtnObj.tripId = $scope.tripInfo._id;
     rtnObj.startTime = $scope.newStartTime || new Date();
@@ -535,21 +536,29 @@ app.directive("agenda", function() {
 
 
 
+
 app.directive("dayButtons", function (infoFact) {
     return {
         restrict: "E",
         templateUrl: "partials/dayButtons.html",
         scope: {
-            selected: "="
+           numDate: "=",
+           numMonth: "="
         },
         link: function(scope) {
             _buildWeek(scope);
+            var startDate = moment(infoFact.currentEditingTrip.startDate);
+            var endDate = moment(infoFact.currentEditingTrip.endDate);
+            scope.numMonth = moment(infoFact.currentEditingTrip.startDate).month();
+            scope.updateMonth = function (month) {
+              scope.numMonth = month;
+            }
+            scope.updateDate = function (date) {
+              scope.numDate = date;
+            }
+
         }
     };
-
-    function _createTime(hour, minute) {
-        return moment().year(0).month(0).day(0).second(0).millisecond(0).hour(hour).minute(minute);
-    }
 
     function daysInMonth(month) {
       if (month == "Feburary") return 29;
