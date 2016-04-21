@@ -224,6 +224,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
           .post('/api/addFourSQPoint', rtnObj)
           .success (function (data, status, headers, config) {
             console.log(data);
+            alert("This place is added to your calendar!");
           })
           .error (function (data, status, headers, config) {
             console.log(data);
