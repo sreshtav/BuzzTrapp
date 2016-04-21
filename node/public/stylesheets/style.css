@@ -703,6 +703,10 @@ day-buttons .dayBtn {
   font-weight: 500;
 }
 
+.mdl-grid {
+  padding:0 !important;
+}
+
 day-buttons .dayBtn.selected {
   background-color: #FF7F66;
 }
