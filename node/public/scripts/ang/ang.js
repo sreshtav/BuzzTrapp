@@ -42,18 +42,6 @@ app.config([
 
 controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $compile) {
   if(jQuery.isEmptyObject(infoFact.currentEditingTrip)) $state.go('home');
-  $scope.selectMonth = function (month) {
-    console.log("balls");
-  }
-
-  $scope.select = function (day) {
-    console.log(day);
-  }
-
-  var  cities = {
-    "Miami" : "plni8h4k",
-    "New York" : "pm1iajik"
-  }
   
   var cityCoordinates = {
     "Miami" :  [25.774387672608608, -80.19444465637207],
@@ -199,29 +187,51 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
   });
 
   $scope.addItem = function (fsqObj, interest) {
-    console.log(interest);
-    var rtnObj = {};
-    var interstPObj = {};
-    interstPObj.name = fsqObj.name || "undefined";
-    interstPObj.address = fsqObj.location.address || "undefined";
-    interstPObj.city = $scope.tripInfo.location;
-    interstPObj.description = fsqObj.name;
-    interstPObj.foursqID = fsqObj.id;
-    interstPObj.averageTime = 45;
-    interstPObj.interest = interest || "undefined";
-    rtnObj.tripId = $scope.tripInfo._id;
-    rtnObj.startTime = $scope.newStartTime || new Date();
-    rtnObj.endTime = $scope.newEndTime || new Date();
-    rtnObj.obj = interstPObj;
 
-    $http
-      .post('/api/addFourSQPoint', rtnObj)
-      .success (function (data, status, headers, config) {
-        console.log(data);
-      })
-      .error (function (data, status, headers, config) {
-        console.log(data);
-      })
+    // {{selectedMonth}}{{selectedDay}}{{startTime}}
+    // {{selectedMonth}}{{selectedDay}}{{endTime}}
+    // monthNum
+    // console.log(moment());
+    var dateMonth = monthNum.indexOf($scope.selectedMonth);
+    if (dateMonth == -1 || !$scope.selectedDay){
+      alert("Please selected a date!");
+    } else {
+      if (!$scope.startTime || !$scope.endTime) {
+        alert("Please selected the time of the event!");
+      } else {
+        var momentStart = moment($scope.startTime).date($scope.selectedDay).month(dateMonth).year(2016);      
+        var momentEnd = moment($scope.endTime).date($scope.selectedDay).month(dateMonth).year(2016);  
+
+        momentStart.subtract('hours', 4);
+        momentEnd.subtract('hours', 4);
+
+        console.log(momentStart);
+        var rtnObj = {};
+        var interstPObj = {};
+        interstPObj.name = fsqObj.name || "undefined";
+        interstPObj.address = fsqObj.location.address || "undefined";
+        interstPObj.city = $scope.tripInfo.location;
+        interstPObj.description = fsqObj.name;
+        interstPObj.foursqID = fsqObj.id;
+        interstPObj.averageTime = 45;
+        interstPObj.interest = interest || "undefined";
+        rtnObj.tripId = $scope.tripInfo._id;
+        rtnObj.startTime = momentStart || new Date();
+        rtnObj.endTime = momentEnd || new Date();
+        rtnObj.obj = interstPObj;
+
+        $http
+          .post('/api/addFourSQPoint', rtnObj)
+          .success (function (data, status, headers, config) {
+            console.log(data);
+          })
+          .error (function (data, status, headers, config) {
+            console.log(data);
+          })    
+      }
+    }
+
+
 
   }
 
@@ -483,13 +493,6 @@ app.directive("calendar", function() {
     }
 });
 
-
-
-
-
-
-
-
 app.directive('myModal', function() {
    return {
      restrict: 'A',
@@ -500,9 +503,6 @@ app.directive('myModal', function() {
      }
    } 
 });
-
-
-
 
 app.directive("agenda", function() {
     return {
