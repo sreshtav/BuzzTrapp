@@ -220,6 +220,7 @@ public class EditTripBottomFragment extends Fragment implements WeekView.EventCl
         Calendar endTime = (Calendar)time.clone();
         endTime.add(Calendar.HOUR, 1);
         bundle.putSerializable("endTime", endTime);
+        bundle.putSerializable("type", "");
         intent.putExtras(bundle);
         getContext().startActivity(intent);
 
