@@ -2,10 +2,7 @@ package buzztrapp.trapp.manage_trips;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.AlarmManager;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,10 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.TaskStackBuilder;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -39,7 +32,6 @@ import java.util.List;
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.edit_trip.EditTripActivity;
 import buzztrapp.trapp.edit_trip.TripItem;
-import buzztrapp.trapp.helper.NextLocationAlertReceiver;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -74,7 +66,6 @@ public class ManageTripsFragment extends Fragment{
         Log.d("ManageTrip", "Fragment: onActivityCreated()");
         Log.d("ManageTrip", "full trip list size() = " + fullTripsList.size());
 
-
     }
 
     private void getTrips() {
@@ -90,9 +81,7 @@ public class ManageTripsFragment extends Fragment{
                 try {
                     JSONArray jsonArray = new JSONArray(json);
                     Log.d("ManageTrip", "Got back " + jsonArray.length() + " trips");
-
                     for (int i = 0; i < jsonArray.length(); i++) {
-
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         GregorianCalendar startDate = new GregorianCalendar();
@@ -101,31 +90,8 @@ public class ManageTripsFragment extends Fragment{
                         endDate.setTime(sdf.parse(jsonObject.getString("endDate")));
 
                         String image_name = jsonObject.getString("location");
-                        String locn = image_name;
                         image_name = image_name.replaceAll("[^A-Za-z]+", "").toLowerCase();
                         image_name = "@drawable/" + image_name;
-
-                        if (i == 0) {
-                            // Testing: Send a notification 5 seconds from now reminding of the next trip----------------------s
-                            // Define a time value of 5 seconds
-                            Long alertTime = new GregorianCalendar().getTimeInMillis() + 5 * 1000;
-
-                            // Define our intention of executing AlertReceiver
-                            Intent alertIntent = new Intent(getActivity(), NextLocationAlertReceiver.class);
-                            alertIntent.putExtra("location", locn);
-
-                            // Allows you to schedule for your application to do something at a later date
-                            // even if it is in he background or isn't active
-                            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-
-                            // set() schedules an alarm to trigger
-                            // Trigger for alertIntent to fire in 5 seconds
-                            // FLAG_UPDATE_CURRENT : Update the Intent if active
-                            alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime,
-                                    PendingIntent.getBroadcast(getActivity(), 1, alertIntent,
-                                            PendingIntent.FLAG_UPDATE_CURRENT));
-                        }
-                        //-------------------------------------------------------
 
                         int image_resrc = getResources().getIdentifier(image_name, null, getActivity().getPackageName());
                         Log.d("ManageTrip", "image_resource = " + image_resrc + ", image_name = " + image_name);
@@ -160,7 +126,6 @@ public class ManageTripsFragment extends Fragment{
                                     }
                                 })
                         );
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -233,15 +198,11 @@ public class ManageTripsFragment extends Fragment{
                                 startDate, endDate, jsonObject.getString("city"), jsonObject.getString("interest"),
                                 jsonObject.getInt("averageTime"), jsonObject.getString("description"), jsonObject.getString("address"),
                                 jsonObject.getString("name"));
-
                         tripItems.add(tripItem);
-
                     }
                     showProgress(false);
                     Intent intent = new Intent(getActivity(), EditTripActivity.class);
                     Bundle bundle = new Bundle();
-
-                    Log.d("NISHEETH", fullTripsList.get(position).startDate.getTime().toString());
                     bundle.putSerializable("startDate", fullTripsList.get(position).startDate.getTime());
                     bundle.putSerializable("endDate", fullTripsList.get(position).endDate.getTime());
                     bundle.putString("id", fullTripsList.get(position).id);

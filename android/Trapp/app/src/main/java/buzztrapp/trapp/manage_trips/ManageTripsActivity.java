@@ -69,6 +69,9 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
         getSupportActionBar().setTitle("Manage Trips");
         Log.d("Aaron", "Main: onCreate and about to add contentFragment");
 
+
+
+
         contentFragment = new ManageTripsFragment();
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
@@ -101,7 +104,7 @@ public class ManageTripsActivity extends AppCompatActivity implements Communicat
             public void onDrawerOpened(View drawerView) {
                 Toast.makeText(ManageTripsActivity.this, "Drawer Closed",
                         Toast.LENGTH_SHORT).show();
-                //setAlarm();
+                setAlarm();
 
             }
 
