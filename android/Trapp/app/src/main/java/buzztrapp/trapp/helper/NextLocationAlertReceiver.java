@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.io.Console;
 
 import buzztrapp.trapp.R;
+import buzztrapp.trapp.edit_trip.EditTripActivity;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
 
 public class NextLocationAlertReceiver  extends BroadcastReceiver {
@@ -54,8 +55,13 @@ public class NextLocationAlertReceiver  extends BroadcastReceiver {
         Uri mapaddress = Uri.parse("geo:0,0?q="+address);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapaddress);
 
+        Intent edittripIntent = new Intent(context, EditTripActivity.class);
+
+
         // Define an Intent and an action to perform with it by another application
         PendingIntent notificIntent = PendingIntent.getActivity(context, 0, mapIntent, 0);
+        PendingIntent editIntent = PendingIntent.getActivity(context, 0, edittripIntent, 0);
+
 
         // Builds a notification
         Bitmap largeico = BitmapFactory.decodeResource(context.getResources(), R.drawable.trapp_icon_1);
@@ -67,8 +73,8 @@ public class NextLocationAlertReceiver  extends BroadcastReceiver {
                         .setTicker(msgAlert)
                         .setContentText(msgText);
 
-        mBuilder.addAction(R.drawable.ic_create_black_24dp, "Edit", notificIntent);
-        mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "Snooze", notificIntent);
+        mBuilder.addAction(R.drawable.ic_create_black_24dp, "Edit", editIntent);
+        mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "Snooze", editIntent);
 
         // Defines the Intent to fire when the notification is clicked
         mBuilder.setContentIntent(notificIntent);
