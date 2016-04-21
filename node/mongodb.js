@@ -29,7 +29,8 @@ var interestPointSchema = new Schema ({
   description: {type: String, required: true},
   photos: [{data: Buffer, contentType: String, required: false}],
   averageTime: {type: Number, required: false}, //minutes
-  interest: {type: String, required: true},
+  foursqID: {type: String, required: false},
+  interest: {type: String, required: true}
 });
 
 userSchema.pre('save', function (next) {

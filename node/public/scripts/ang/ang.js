@@ -42,10 +42,13 @@ app.config([
 
 controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $compile) {
   if(jQuery.isEmptyObject(infoFact.currentEditingTrip)) $state.go('home');
+<<<<<<< HEAD
   var  cities = {
     "Miami" : "plni8h4k",
     "New York" : "pm1iajik"
   }
+=======
+>>>>>>> frontend
   
   var cityCoordinates = {
     "Miami" :  [25.774387672608608, -80.19444465637207],
@@ -96,6 +99,10 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Food\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        linkFunction = $compile(angular.element(html)),
+        newScope = $scope.$new();
+        newScope.venue = venue;
         var marker = L.marker(latlng, {
             icon: L.mapbox.marker.icon({
               'marker-color': '#BE9A6B',
@@ -103,7 +110,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
               'marker-size': 'large'
             })
           })
-        .bindPopup("<b>"+venue.name+"</b><p>"+venue.location.formattedAddress[0]+"</p>")
+        .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
   });
@@ -118,7 +125,11 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+<<<<<<< HEAD
         var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+=======
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Food\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+>>>>>>> frontend
         linkFunction = $compile(angular.element(html)),
         newScope = $scope.$new();
         newScope.venue = venue;
@@ -144,7 +155,11 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
+<<<<<<< HEAD
         var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+=======
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Sightseeing\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+>>>>>>> frontend
         linkFunction = $compile(angular.element(html)),
         newScope = $scope.$new();
         newScope.venue = venue;
@@ -170,7 +185,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
-        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
+        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Food\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
         linkFunction = $compile(angular.element(html)),
         newScope = $scope.$new();
         newScope.venue = venue;
@@ -184,14 +199,64 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
         .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
-});
+  });
 
+  $scope.addItem = function (fsqObj, interest) {
+
+    // {{selectedMonth}}{{selectedDay}}{{startTime}}
+    // {{selectedMonth}}{{selectedDay}}{{endTime}}
+    // monthNum
+    // console.log(moment());
+    var dateMonth = monthNum.indexOf($scope.selectedMonth);
+    if (dateMonth == -1 || !$scope.selectedDay){
+      alert("Please selected a date!");
+    } else {
+      if (!$scope.startTime || !$scope.endTime) {
+        alert("Please selected the time of the event!");
+      } else {
+        var momentStart = moment($scope.startTime).date($scope.selectedDay).month(dateMonth).year(2016);      
+        var momentEnd = moment($scope.endTime).date($scope.selectedDay).month(dateMonth).year(2016);  
+
+        momentStart.subtract('hours', 4);
+        momentEnd.subtract('hours', 4);
+
+        console.log(momentStart);
+        var rtnObj = {};
+        var interstPObj = {};
+        interstPObj.name = fsqObj.name || "undefined";
+        interstPObj.address = fsqObj.location.address || "undefined";
+        interstPObj.city = $scope.tripInfo.location;
+        interstPObj.description = fsqObj.name;
+        interstPObj.foursqID = fsqObj.id;
+        interstPObj.averageTime = 45;
+        interstPObj.interest = interest || "undefined";
+        rtnObj.tripId = $scope.tripInfo._id;
+        rtnObj.startTime = momentStart || new Date();
+        rtnObj.endTime = momentEnd || new Date();
+        rtnObj.obj = interstPObj;
+
+        $http
+          .post('/api/addFourSQPoint', rtnObj)
+          .success (function (data, status, headers, config) {
+            console.log(data);
+          })
+          .error (function (data, status, headers, config) {
+            console.log(data);
+          })    
+      }
+    }
+
+
+
+<<<<<<< HEAD
   $scope.addItem = function (obj) {
     var name = obj.name;
     var date = $scope.selectedMonth + " " + $scope.selectedDay;
     var convertarr = ['morning', 'afternoon', 'evening'];
     var timeOfDay = convertarr[$scope.timeOfDay];
     console.log(name + " on " + date + " " + timeOfDay);
+=======
+>>>>>>> frontend
   }
 
   $scope.deleteTrip = function () {
@@ -331,7 +396,8 @@ factories.infoFact = function ($http, $q){
     "London" : "london",
     "Washington DC" : "washington-dc",
     "New York" : "new-york",
-    "Hong Kong" : "hong-kong"
+    "Hong Kong" : "hong-kong",
+    "Singapore":"singapore"
   }
   var services = {};
   services.currentEditingTrip = {};
@@ -451,13 +517,6 @@ app.directive("calendar", function() {
     }
 });
 
-
-
-
-
-
-
-
 app.directive('myModal', function() {
    return {
      restrict: 'A',
@@ -468,9 +527,6 @@ app.directive('myModal', function() {
      }
    } 
 });
-
-
-
 
 app.directive("agenda", function() {
     return {
@@ -505,6 +561,7 @@ app.directive("agenda", function() {
 
 
 
+
 app.directive("dayButtons", function (infoFact) {
     return {
         restrict: "E",
@@ -512,7 +569,10 @@ app.directive("dayButtons", function (infoFact) {
         scope: {
            numDate: "=",
            numMonth: "="
+<<<<<<< HEAD
 
+=======
+>>>>>>> frontend
         },
         link: function(scope) {
             _buildWeek(scope);

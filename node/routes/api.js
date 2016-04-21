@@ -20,6 +20,39 @@ router.get('/allInterestPoints', basicAuth, function (req, res, next) {
   });
 });
 
+router.post('/addFourSQPoint', basicAuth, function (req, res, next){ 
+	var interstPObj = req.body.obj;
+	console.log(req.body)
+	var callback = function (err, data) {
+		if (err) {
+			res.send(err);
+		} else {
+			var newTripItem = new TripItem({
+					'tripId' : mongoose.Types.ObjectId(req.body.tripId),
+					'startTime' : req.body.startTime,
+					'endTime' : req.body.endTime,
+					'interestPointId' : data._id
+			});
+
+			newTripItem.save(function(err) {
+			  if (err) {
+			    res.json({succes: false, msg: err});
+			  } else {
+			    res.json({succes: true, msg: 'Successfully added trip item!'});
+			  }
+			});
+		}
+	}
+
+	InterestPoint.findOneAndUpdate(
+  	{foursqID: interstPObj.foursqID},
+	  {$setOnInsert: interstPObj},
+	  {new: true, upsert: true},
+	  callback
+	);
+
+})
+
 
 router.post('/updateTripItem', basicAuth, function (req, res, next) {
 	var update = {};

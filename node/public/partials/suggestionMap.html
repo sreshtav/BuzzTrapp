@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div>
 	<day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
 	<div ng-init="timeOfDay = 0">
@@ -42,51 +43,45 @@ map.attributionControl
 // Otherwise they can be cycled or deactivated with zero notice.
 var CLIENT_ID = 'FMGHLGGZ3HD2FKVVDXP33S3O10PVCKTTT2BKNNFVZQMKTHVY';
 var CLIENT_SECRET = '52MTZTPAREMPERT12UY3N24HTD1XFBHKBQ2V1I1X1OO05CIX';
-
-// https://developer.foursquare.com/start/search
-var API_ENDPOINT = 'https://api.foursquare.com/v2/venues/search' +
-  '?client_id=CLIENT_ID' +
-  '&client_secret=CLIENT_SECRET' +
-  '&v=20130815' +
-  '&ll=LATLON' +
-  '&query=coffee' +
-  '&callback=?';
-
-// Keep our place markers organized in a nice group.
-var foursquarePlaces = L.layerGroup().addTo(map);
-
-// Use jQuery to make an AJAX request to Foursquare to load markers data.
-$.getJSON(API_ENDPOINT
-    .replace('CLIENT_ID', CLIENT_ID)
-    .replace('CLIENT_SECRET', CLIENT_SECRET)
-    .replace('LATLON', map.getCenter().lat +
-        ',' + map.getCenter().lng), function(result, status) {
-
-    if (status !== 'success') return alert('Request to Foursquare failed');
-
-    // Transform each venue result into a marker on the map.
-    for (var i = 0; i < result.response.venues.length; i++) {
-      var venue = result.response.venues[i];
-      var latlng = L.latLng(venue.location.lat, venue.location.lng);
-      var marker = L.marker(latlng, {
-          icon: L.mapbox.marker.icon({
-            'marker-color': '#BE9A6B',
-            'marker-symbol': 'cafe',
-            'marker-size': 'large'
-          })
-        })
-      .bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' +
-        venue.name + '</a></strong>')
-        .addTo(foursquarePlaces);
-    }
-
-});
-</script>
+=======
+>>>>>>> frontend
 
 
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
+    <a href="#/newTrip"> 
+        <button type="button" class="btn btn-raised btn-link" style="margin-left:auto;padding:0;"><i class="material-icons mdl-list__item-icon" style="color:#2185C5;">events</i>&nbsp; Switch to Calendar View
+        </button>
+    </a>
+  </div>
+</div>
+
+<div>
+	<day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
+  <div>  
+    <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
+    <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
+    <label for="eventEndTime" class="bmd-label-floating">End Time</label>
+    <input type="time" class="form-control" id="eventEndTime" ng-model="endTime">
+  </div>
+</div>
+
+<button type="button" ng-click="deleteTrip()" style="float:right;" class="btn btn-raised btn-danger">Delete Trip</button>
+<div class="mdl-grid demo-content">
+	<div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map2"></div>
+</div>
 
 
+<!-- <div id="timeModal">
+   <div class="event white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet" class="timeModal" style="margin:8;">  
+      <form>  
 
+        <fieldset class="form-group">
+          <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
+          <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
+        </fieldset> 
+
+<<<<<<< HEAD
 <button type="button" ng-click="deleteTrip()" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Trip</button>
 
 <<<<<<< HEAD
@@ -96,3 +91,21 @@ $.getJSON(API_ENDPOINT
 
 {{mapURL}}
 >>>>>>> 05a58545a92172f1f6a00aca371f7e023532a365
+=======
+        <fieldset class="form-group">
+          <label for="eventEndTime" class="bmd-label-floating">End Time</label>
+          <input type="time" class="form-control" id="eventEndTime" ng-model="endTime">
+        </fieldset>    
+
+        <br>
+        <fieldset class="form-group">
+          <button type="button" style="float:left;" class="btn btn-default">Cancel</button>
+          <button type="button" style="float:right;" class="btn btn-raised btn-primary margin-top-auto">Save</button>
+        </fieldset>  
+      </form>
+  </div>
+</div> -->
+
+
+
+>>>>>>> frontend

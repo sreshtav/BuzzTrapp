@@ -25,11 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-
 <!-- mapbox api -->
-	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.16.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.16.0/mapbox-gl.css' rel='stylesheet'/>
-
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
@@ -65,9 +61,9 @@
 		    <br>
 		    <div ng-show="!creatingAccount">
 					<form class="noshadow" ng-submit="login()">
-						<input class="noshadow" type="text" ng-model="user.email" name="email" placeholder="Email"><br>
-						<input class="noshadow" type="password" ng-model="user.password" name="password" placeholder="Password"><br>
-						<input class="noshadow" type="submit" value="Log In">
+						<input class="noshadow form-control" type="text" ng-model="user.email" name="email" placeholder="Email"><br>
+						<input class="noshadow form-control" type="password" ng-model="user.password" name="password" placeholder="Password"><br>
+						<input class="noshadow form-control" type="submit" value="Log In">
 					</form>
 					<br>
 					<a href="">Forgot password?</a><br>
@@ -76,10 +72,10 @@
 		    </div>
 				<div ng-show="creatingAccount">
 					<form class="noshadow" ng-submit="submitNewUser()">
-						<input class="noshadow" type="text" ng-model="newUser.name" name="name" placeholder="Name"><br>
-						<input class="noshadow" type="text" ng-model="newUser.email" name="email" placeholder="Email"><br>
-						<input class="noshadow" type="password" ng-model="newUser.password1" name="password" placeholder="Password"><br>
-						<input class="noshadow" type="password" ng-model="newUser.password2" name="password" placeholder="Repeat Password"><br>
+						<input class="noshadow form-control" type="text" ng-model="newUser.name" name="name" placeholder="Name"><br>
+						<input class="noshadow form-control" type="text" ng-model="newUser.email" name="email" placeholder="Email"><br>
+						<input class="noshadow form-control" type="password" ng-model="newUser.password1" name="password" placeholder="Password"><br>
+						<input class="noshadow form-control" type="password" ng-model="newUser.password2" name="password" placeholder="Repeat Password"><br>
 						<input class="noshadow" type="submit" value="Create account">
 					</form>
 					<br>
