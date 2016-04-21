@@ -10,6 +10,10 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,25 +29,38 @@ public class NextLocationAlertReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        createNotification(context, "Stop by for Lunch?",
-                "A highly rated Indian restaurant Touch is 1.1 miles away. Tap here to go there",
-                "Stop by for Lunch?");
+        String location;
+        Bundle extras = intent.getExtras();
+        if (extras == null)
+            location = null;
+        else
+            location = extras.getString("location");
+        createNotification(context, "Trip starts tomorrow",
+                "Your trip to " + location + " starts tomorrow!",
+                "Trip tomorrow");
 
     }
 
     public void createNotification(Context context, String msg, String msgText, String msgAlert){
 
+        Uri location = Uri.parse("geo:0,0?q=Touch, 420 14th Street Northwest #100a, Atlanta, GA 30318");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+
         // Define an Intent and an action to perform with it by another application
-        PendingIntent notificIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, ManageTripsActivity.class), 0);
+        PendingIntent notificIntent = PendingIntent.getActivity(context, 0, mapIntent, 0);
 
         // Builds a notification
+         Bitmap largeico = BitmapFactory.decodeResource(context.getResources(), R.drawable.trapp_icon_1);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.trapp_icon_1)
+                        .setLargeIcon(largeico)
                         .setContentTitle(msg)
                         .setTicker(msgAlert)
                         .setContentText(msgText);
+
+        mBuilder.addAction(R.drawable.ic_create_black_24dp, "Edit", notificIntent);
+        mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "Snooze", notificIntent);
 
         // Defines the Intent to fire when the notification is clicked
         mBuilder.setContentIntent(notificIntent);

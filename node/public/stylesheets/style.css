@@ -5,14 +5,18 @@ left:5%;
 outline: none;
 }
 
+.modal-content .group {
+  margin: 10px 0;
+}
+
 
 .modal-backdrop.in { z-index: auto; display:none;}
 
 
 
-form {
+/*form {
     padding:1em;
-}
+}*/
 
 .mdl-layout__drawer-button > i.material-icons {
   padding-top:10px;
@@ -41,6 +45,10 @@ form {
 
 a:hover{
 	text-decoration:none;
+}
+
+a:visited a:active {
+  text-decoration:none !important;
 }
 
 a {
@@ -116,26 +124,68 @@ a {
   padding:5px 0 0 0 !important;
 }
 
+.form-control, .is-focused .form-control {
+  background-image:linear-gradient(0deg,#2185C5 2px,rgba(0,50,36,0) 0),linear-gradient(0deg,rgba(0,0,0,.26) 1px,transparent 0) !important;
+}
+
 form {
   margin:0 !important;
+  width:100%;
 }
 
 .mdl-list__item {
-  padding:0 16px !important;
+  padding:0 16 0 0 !important;
 }
 
 .mdl-textfield__input {
-  padding:10px 0!important;
+  padding:20px 0!important;
+  border-bottom:none !important;
 }
 
 #upcoming_trip {
-  background: url('../images/SF_BG.png') center / cover;
+/*  background: url('../images/SF_BG_long.png') center / cover;*/
+    background: 
+    linear-gradient(
+      rgba(255, 127, 102, 0.30), 
+      rgba(255, 127, 102, 0.30)
+    ),
+    url('../images/SF_BG_long.png');
+  background-size: cover;
+  min-height:14vh;
+  padding:8px;
 }
+
+#upcoming_trip p {
+  color:white;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#upcoming_trip h4 {
+  color:white;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.mdl-switch.is-checked .mdl-switch__thumb  {
+  background:#FF7F66 !important;
+}
+
+.mdl-switch.is-checked .mdl-switch__track {
+  background:#FF7F66 !important;
+  opacity:.7;
+}
+
+
 
 
 
 .white-card {
   padding:16px;
+  max-height:85vh;
+  overflow: scroll;
 }
 
 .white-card-item {
@@ -145,7 +195,7 @@ form {
 }
 
 .mdl-color--trapp-blue {
-  background-color: #78C0F9;
+  background-color: #2185C5;
   color:white;
 }
 
@@ -154,10 +204,18 @@ form {
 	margin-bottom:0;
 }
 
+.btn-primary {
+  background-color: #2185C5 !important;
+}
+
+.btn-secondary {
+  color: #2185C5 !important;
+}
+
 
 .mdl-color--trapp-red {
-  background-color: #FF7F66;
-  color:white;
+  background-color:#F6F5F2; 
+  color:black;
 }
 
 .mdl-color-text--white {
@@ -178,6 +236,8 @@ form {
   margin-left:auto;
   margin-right:0;
 }
+
+
 
 .miami{
   background: url('../images/miami.png') center / cover;
@@ -226,7 +286,7 @@ form {
   }
 
 .mdl-layout__drawer-button {
-  background-color:rgba(120,192,249,0.8);
+  background-color:rgba(33,133,197,0.8);
   color:white;
 }
 
@@ -245,6 +305,11 @@ form {
 .demo-layout .mdl-layout__header .mdl-layout__drawer-button {
   color: rgba(0, 0, 0, 0.54);
 }
+
+.mdl-layout__header{
+  background-color: rgba(61, 64, 69, 0.7) !important;
+}
+
 .mdl-layout__drawer .avatar {
   margin-bottom: 16px;
 }
@@ -314,9 +379,11 @@ form {
   font-weight: 500;
 }
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
-  background-color: #2185C5;
+  background-color: #78C0F9;
   color: white;
+  text-decoration: none !important; 
 }
+
 .demo-navigation .mdl-navigation__link .material-icons {
   font-size: 24px;
   color: rgba(255, 255, 255, 0.56);
@@ -360,6 +427,11 @@ form {
   -webkit-align-items: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
+          background-color: white; 
+}
+
+.margin-top-auto {
+  margin-top: auto; 
 }
 /* TODO: Find a proper solution to have the graphs
  * not float around outside their container in IE10/11.
@@ -479,13 +551,15 @@ input[type="submit"] {
 }
 
 calendar {
-  float: left;
+
   font-family: 'Roboto', sans-serif;
   display: block;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   background: white;
   width: 200px;
+  margin-left:auto;
+  margin-right:auto;
   /*border: solid 1px #CCC;*/
   margin-bottom: 10px;
 }
@@ -584,7 +658,13 @@ calendar > div.week.names > span {
   font-weight: bold;
 }
 
-
+#grad {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, red , yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, red, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, red, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, red , yellow); /* Standard syntax */
+}
 
 day-buttons .monthName {
   display: inline;
@@ -600,6 +680,22 @@ day-buttons .dayBtn {
   padding: 3px;
   background-color: #FF7F66;
   margin: 2px;
+}
+
+.demo-card-image.mdl-card {
+/*  width: 256px;*/
+  height: 256px;
+/*  background: url('../assets/demos/image_card.jpg') center / cover;*/
+}
+.mdl-card__actions {
+  height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+.demo-card-image__filename {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 day-buttons .dayBtn.selected {
