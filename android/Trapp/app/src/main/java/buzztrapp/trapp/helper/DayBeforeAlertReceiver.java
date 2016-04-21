@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,15 +23,25 @@ import java.io.Console;
 import buzztrapp.trapp.R;
 import buzztrapp.trapp.manage_trips.ManageTripsActivity;
 
-public class NextLocationAlertReceiver extends BroadcastReceiver{
+public class DayBeforeAlertReceiver extends BroadcastReceiver{
 
+    String location;
     // Called when a broadcast is made targeting this class
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        createNotification(context, "Stop by for Lunch?",
-                "A highly rated Indian restaurant Touch is 1.1 miles away. Tap here to go there",
-                "Stop by for Lunch?");
+        Bundle extras = intent.getExtras();
+        if (extras == null)
+            location = null;
+        else
+            location = extras.getString("location");
+
+        // get weather for the location
+
+
+        createNotification(context, "Trip starts tomorrow",
+                "Your trip to " + location + " starts tomorrow!",
+                "Trip tomorrow");
 
     }
 
