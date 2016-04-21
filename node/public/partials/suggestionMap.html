@@ -1,63 +1,73 @@
-
-
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
-    <a href="#/newTrip"> 
-        <button type="button" class="btn btn-raised btn-link" style="margin-left:auto;padding:0;"><i class="material-icons mdl-list__item-icon" style="color:#2185C5;">events</i>&nbsp; Switch to Calendar View
-        </button>
-    </a>
-  </div>
-</div>
-
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
-    <label>Select day in: </label>
-    <day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
-  </div>
-</div>
-
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--2-col mdl-cell--8-col-tablet">
-      <ul class="mdl-list">
-        <li class="mdl-list__item">
-          <span class="mdl-list__item-primary-content">
-            <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
-          </span>
-          <span class="mdl-list__item-secondary-content">
-            <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
-          </span>
-        </li>
-      </ul>
-  </div>
-  <div class="mdl-cell mdl-cell--2-col mdl-cell--8-col-tablet">
-      <ul class="mdl-list">
-        <li class="mdl-list__item">
-          <span class="mdl-list__item-primary-content">
-              <label for="eventEndTime" class="bmd-label-floating">End Time</label>
-          </span>
-          <span class="mdl-list__item-secondary-content">
-              <input type="time" class="form-control" id="eventEndTime" ng-model="endTime">
-          </span>
-        </li>
-      </ul>
-  </div>
-  <div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet">
-    <button type="button" ng-click="deleteTrip()" style="float:right;" class="btn btn-raised btn-danger">Delete Trip</button>
-  </div>
-</div>
-
-
-<!--   <div>  
-    <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
-    <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
-    <label for="eventEndTime" class="bmd-label-floating">End Time</label>
-    <input type="time" class="form-control" id="eventEndTime" ng-model="endTime">
+<!-- <div class="btn-toolbar">
+  <div class="btn-group">
+    <a href="#/newTrip" class="btn">Calendar View</a>
+    <a href="#/suggestionMap" class="btn">Map View</a>
   </div>
 </div> -->
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
-<!-- <div class="mdl-grid demo-content"> -->
-  <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map2"></div>
-</div>
+<!-- Switch between map and calendar views -->
+<div class="main-content">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
+      <a href="#/newTrip"> 
+          <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" style="margin-left:auto;padding:0;"><i class="material-icons mdl-list__item-icon" style="color:#2185C5;">events</i>&nbsp; Calendar View
+          </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Select Day -->
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
+      <label>Select day in: </label>
+      <day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
+    </div>
+  </div>
+
+  <!-- Select time or delete -->
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--8-col-tablet">
+        <ul class="mdl-list">
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
+            </span>
+            <span class="mdl-list__item-secondary-content">
+              <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
+            </span>
+          </li>
+        </ul>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--8-col-tablet">
+        <ul class="mdl-list">
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                <label for="eventEndTime" class="bmd-label-floating">End Time</label>
+            </span>
+            <span class="mdl-list__item-secondary-content">
+                <input type="time" class="form-control" id="eventEndTime" ng-model="endTime">
+            </span>
+          </li>
+        </ul>
+    </div>
+    <div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet">
+      <button type="button" ng-click="deleteTrip()" style="float:right;" class="btn btn-raised btn-danger">Delete Trip</button>
+    </div>
+  </div>
+
+  <!--   <div>  
+      <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
+      <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
+      <label for="eventEndTime" class="bmd-label-floating">End Time</label>
+      <input type="time" class="form-control" id="eventEndTime" ng-model="endTime">
+    </div>
+  </div> -->
+
+  <!-- Map -->
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
+  <!-- <div class="mdl-grid demo-content"> -->
+    <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map2"></div>
+    </div>
+  </div>
 </div>
