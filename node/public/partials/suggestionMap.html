@@ -1,50 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<div>
-	<day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
-	<div ng-init="timeOfDay = 0">
-		<button class = "dayTimeBtns" ng-click="timeOfDay = 0" ng-class="{selected : timeOfDay == 0}">Morning</button>
-		<button class = "dayTimeBtns" ng-click="timeOfDay = 1" ng-class="{selected : timeOfDay == 1}">Afternood</button>
-		<button class = "dayTimeBtns" ng-click="timeOfDay = 2" ng-class="{selected : timeOfDay == 2}">Evening</button>
-	</div>
-=======
-<!-- <div>
-	<day-buttons></day-buttons>
->>>>>>> 05a58545a92172f1f6a00aca371f7e023532a365
-</div>
-{{tripInfo}} -->
-<!-- 
-<div class="mdl-grid demo-content">
-  <div id='map2'></div>
-	<div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map"></div>
-</div>
- -->
-<!-- <iframe width='100%' height='500px' frameBorder='0' ng-src="https://a.tiles.mapbox.com/v4/sliu0915.plni8h4k/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw"></iframe> -->
-<div class="mdl-grid" style="margin-left:auto;margin-right:18px;">
-	<a href="#/newTrip"> 
-			<button type="button" class="btn btn-raised btn-link" style="margin-left:auto;"><i class="material-icons mdl-list__item-icon" style="color:#2185C5;">events</i>&nbsp; Switch to Calendar View
-			</button>
-	</a>
-</div>
-
-<div id='map'></div>
-
-<script>
-L.mapbox.accessToken = 'pk.eyJ1Ijoic2xpdTA5MTUiLCJhIjoiY2lteG1iYXIwMDNrandrbHVnNzZzZ3AwcyJ9.xcIZKJMB666kG_m82fcTTw';
-var map = L.mapbox.map('map', 'sliu0915.plni8h4k')
-    .setView([40, -74.50], 10);
-
-// Credit Foursquare for their wonderful data
-map.attributionControl
-    .addAttribution('<a href="https://foursquare.com/">Places data from Foursquare</a>');
-
-// Create a Foursquare developer account: https://developer.foursquare.com/
-// NOTE: CHANGE THESE VALUES TO YOUR OWN:
-// Otherwise they can be cycled or deactivated with zero notice.
-var CLIENT_ID = 'FMGHLGGZ3HD2FKVVDXP33S3O10PVCKTTT2BKNNFVZQMKTHVY';
-var CLIENT_SECRET = '52MTZTPAREMPERT12UY3N24HTD1XFBHKBQ2V1I1X1OO05CIX';
-=======
->>>>>>> frontend
 
 
 <div class="mdl-grid">
@@ -57,7 +10,7 @@ var CLIENT_SECRET = '52MTZTPAREMPERT12UY3N24HTD1XFBHKBQ2V1I1X1OO05CIX';
 </div>
 
 <div>
-	<day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
+  <day-buttons num-date="selectedDay" num-month="selectedMonth"></day-buttons>
   <div>  
     <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
     <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
@@ -68,44 +21,5 @@ var CLIENT_SECRET = '52MTZTPAREMPERT12UY3N24HTD1XFBHKBQ2V1I1X1OO05CIX';
 
 <button type="button" ng-click="deleteTrip()" style="float:right;" class="btn btn-raised btn-danger">Delete Trip</button>
 <div class="mdl-grid demo-content">
-	<div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map2"></div>
+  <div class="demo-options mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop" style="height:100%" id="map2"></div>
 </div>
-
-
-<!-- <div id="timeModal">
-   <div class="event white-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet" class="timeModal" style="margin:8;">  
-      <form>  
-
-        <fieldset class="form-group">
-          <label for="eventStartTime" class="bmd-label-floating">Start Time</label>
-          <input type="time" class="form-control" id="eventStartTime" ng-model="startTime">
-        </fieldset> 
-
-<<<<<<< HEAD
-<button type="button" ng-click="deleteTrip()" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Trip</button>
-
-<<<<<<< HEAD
-=======
-
-
-
-{{mapURL}}
->>>>>>> 05a58545a92172f1f6a00aca371f7e023532a365
-=======
-        <fieldset class="form-group">
-          <label for="eventEndTime" class="bmd-label-floating">End Time</label>
-          <input type="time" class="form-control" id="eventEndTime" ng-model="endTime">
-        </fieldset>    
-
-        <br>
-        <fieldset class="form-group">
-          <button type="button" style="float:left;" class="btn btn-default">Cancel</button>
-          <button type="button" style="float:right;" class="btn btn-raised btn-primary margin-top-auto">Save</button>
-        </fieldset>  
-      </form>
-  </div>
-</div> -->
-
-
-
->>>>>>> frontend

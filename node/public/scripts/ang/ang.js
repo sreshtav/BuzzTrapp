@@ -42,13 +42,6 @@ app.config([
 
 controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $compile) {
   if(jQuery.isEmptyObject(infoFact.currentEditingTrip)) $state.go('home');
-<<<<<<< HEAD
-  var  cities = {
-    "Miami" : "plni8h4k",
-    "New York" : "pm1iajik"
-  }
-=======
->>>>>>> frontend
   
   var cityCoordinates = {
     "Miami" :  [25.774387672608608, -80.19444465637207],
@@ -125,11 +118,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
-<<<<<<< HEAD
-        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
-=======
         var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Food\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
->>>>>>> frontend
         linkFunction = $compile(angular.element(html)),
         newScope = $scope.$new();
         newScope.venue = venue;
@@ -155,11 +144,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
       for (var i = 0; i < result.response.venues.length; i++) {
         var venue = result.response.venues[i];
         var latlng = L.latLng(venue.location.lat, venue.location.lng);
-<<<<<<< HEAD
-        var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue)" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
-=======
         var html = '<span><b>'+venue.name+'</b><p>'+venue.location.formattedAddress[0]+'</p><button type="button" ng-click="addItem(venue, \'Sightseeing\')" style="background-color:#2185C5;color:#ffffff;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to List</button></span>',
->>>>>>> frontend
         linkFunction = $compile(angular.element(html)),
         newScope = $scope.$new();
         newScope.venue = venue;
@@ -245,18 +230,6 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
           })    
       }
     }
-
-
-
-<<<<<<< HEAD
-  $scope.addItem = function (obj) {
-    var name = obj.name;
-    var date = $scope.selectedMonth + " " + $scope.selectedDay;
-    var convertarr = ['morning', 'afternoon', 'evening'];
-    var timeOfDay = convertarr[$scope.timeOfDay];
-    console.log(name + " on " + date + " " + timeOfDay);
-=======
->>>>>>> frontend
   }
 
   $scope.deleteTrip = function () {
@@ -569,10 +542,6 @@ app.directive("dayButtons", function (infoFact) {
         scope: {
            numDate: "=",
            numMonth: "="
-<<<<<<< HEAD
-
-=======
->>>>>>> frontend
         },
         link: function(scope) {
             _buildWeek(scope);
