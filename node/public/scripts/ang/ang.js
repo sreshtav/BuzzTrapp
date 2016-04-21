@@ -186,7 +186,7 @@ controllers.suggestionMapCtrl = function ($scope, $http, infoFact, $state, $comp
         .bindPopup(linkFunction(newScope)[0])
           .addTo(foursquarePlaces);
       }
-});
+  });
 
   $scope.addItem = function (id) {
     console.log(id);
