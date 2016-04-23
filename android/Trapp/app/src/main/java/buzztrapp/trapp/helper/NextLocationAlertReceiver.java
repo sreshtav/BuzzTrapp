@@ -57,10 +57,10 @@ public class NextLocationAlertReceiver  extends BroadcastReceiver {
 
         Intent edittripIntent = new Intent(context, EditTripActivity.class);
 
-
         // Define an Intent and an action to perform with it by another application
         PendingIntent notificIntent = PendingIntent.getActivity(context, 0, mapIntent, 0);
         PendingIntent editIntent = PendingIntent.getActivity(context, 0, edittripIntent, 0);
+        PendingIntent manageIntent = PendingIntent.getActivity(context, 0, new Intent(context, ManageTripsActivity.class), 0);
 
 
         // Builds a notification
@@ -74,7 +74,7 @@ public class NextLocationAlertReceiver  extends BroadcastReceiver {
                         .setContentText(msgText);
 
         mBuilder.addAction(R.drawable.ic_create_black_24dp, "Edit", editIntent);
-        mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "Snooze", editIntent);
+        mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "Snooze", manageIntent);
 
         // Defines the Intent to fire when the notification is clicked
         mBuilder.setContentIntent(notificIntent);

@@ -50,7 +50,7 @@ public class DayBeforeAlertReceiver extends BroadcastReceiver{
 
         //Uri location = Uri.parse("geo:0,0?q=Touch, 420 14th Street Northwest #100a, Atlanta, GA 30318");
         //Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-        Intent edittripIntent = new Intent(context, EditTripActivity.class);
+        Intent edittripIntent = new Intent(context, ManageTripsActivity.class);
 
         // Define an Intent and an action to perform with it by another application
         PendingIntent notificIntent = PendingIntent.getActivity(context, 1, edittripIntent, 0 );
